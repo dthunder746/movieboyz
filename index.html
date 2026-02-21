@@ -93,18 +93,10 @@
     [data-bs-theme="dark"] .tabulator-cell { border-color: rgba(255,255,255,0.06); }
     [data-bs-theme="dark"] .tabulator-frozen-rows-holder { background-color: #212529; }
 
-    /* Separators between column groups */
+    /* Separator between Daily Gross and Weekly Gross columns */
     .tabulator .tabulator-col.week-sep,
-    .tabulator .tabulator-col.daily-sep,
-    .tabulator-row .tabulator-cell.week-sep,
-    .tabulator-row .tabulator-cell.daily-sep {
+    .tabulator-row .tabulator-cell.week-sep {
       border-left: 2px solid var(--bs-border-color) !important;
-    }
-
-    /* Latest (in-progress) weekly column — italic to signal partial figures */
-    .tabulator .tabulator-col.week-latest .tabulator-col-title,
-    .tabulator-row .tabulator-cell.week-latest {
-      font-style: italic;
     }
   </style>
 
@@ -223,23 +215,6 @@ function formatWeekLabel(dates) {
     return formatShortDate(first) + '–' + ld;
   }
   return formatShortDate(first) + '–' + formatShortDate(last);
-}
-
-function isoWeekBounds(weekKey) {
-  // Returns { start, end } as YYYY-MM-DD for the Mon–Sun of the given ISO week key
-  var parts = weekKey.split('-W');
-  var year = parseInt(parts[0]), week = parseInt(parts[1]);
-  var jan4 = new Date(Date.UTC(year, 0, 4));
-  var day = jan4.getUTCDay() || 7;
-  var w1Mon = new Date(jan4.getTime() - (day - 1) * 86400000);
-  var wMon  = new Date(w1Mon.getTime() + (week - 1) * 7 * 86400000);
-  var wSun  = new Date(wMon.getTime() + 6 * 86400000);
-  function iso(dt) {
-    return dt.getUTCFullYear() + '-'
-      + String(dt.getUTCMonth() + 1).padStart(2, '0') + '-'
-      + String(dt.getUTCDate()).padStart(2, '0');
-  }
-  return { start: iso(wMon), end: iso(wSun) };
 }
 
 function daysRunning(releaseDate, latestDate) {
@@ -467,18 +442,6 @@ function buildTable(data, owners, colorMap, LATEST_DATE) {
     return fmt(v);
   }
 
-  function fmtCalcProfit(cell) {
-    var v = cell.getValue();
-    if (!v) return '';
-    return '<span class="' + colorClass(v) + ' fw-semibold">' + fmt(v) + '</span>';
-  }
-
-  function fmtCalcGross(cell) {
-    var v = cell.getValue();
-    if (!v) return '';
-    return '<span class="fw-semibold">' + fmt(v) + '</span>';
-  }
-
   // Column definitions
   var titleCol = {
     title: 'Movie',
@@ -501,37 +464,22 @@ function buildTable(data, owners, colorMap, LATEST_DATE) {
       field: 'daily_' + d,
       hozAlign: 'right',
       minWidth: 68,
-      cssClass: i === 0 ? 'daily-sep' : '',
       formatter: fmtCell,
       formatterParams: { html: true },
       sorter: 'number',
-      bottomCalc: 'sum',
-      bottomCalcFormatter: fmtCalcProfit,
     };
   });
 
   var weeklyCols = last4Weeks.map(function(wk, i) {
-    var isLatest = (i === last4Weeks.length - 1);
-    var title;
-    if (isLatest) {
-      var b = isoWeekBounds(wk), sm = b.start.split('-'), em = b.end.split('-');
-      title = sm[1] === em[1]
-        ? formatShortDate(b.start) + '–' + parseInt(em[2])
-        : formatShortDate(b.start) + '–' + formatShortDate(b.end);
-    } else {
-      title = formatWeekLabel(weekBuckets[wk]);
-    }
     return {
-      title: title,
+      title: formatWeekLabel(weekBuckets[wk]),
       field: 'week_' + wk,
       hozAlign: 'right',
       minWidth: 90,
-      cssClass: (i === 0 ? 'week-sep ' : '') + (isLatest ? 'week-latest' : ''),
+      cssClass: i === 0 ? 'week-sep' : '',
       formatter: fmtCell,
       formatterParams: { html: true },
       sorter: 'number',
-      bottomCalc: 'sum',
-      bottomCalcFormatter: fmtCalcProfit,
     };
   });
 
@@ -576,8 +524,6 @@ function buildTable(data, owners, colorMap, LATEST_DATE) {
       formatter: fmtGross,
       formatterParams: { html: true },
       sorter: 'number',
-      bottomCalc: 'sum',
-      bottomCalcFormatter: fmtCalcGross,
     },
     {
       title: 'To Date Profit',
@@ -587,15 +533,13 @@ function buildTable(data, owners, colorMap, LATEST_DATE) {
       formatter: fmtCell,
       formatterParams: { html: true },
       sorter: 'number',
-      bottomCalc: 'sum',
-      bottomCalcFormatter: fmtCalcProfit,
     },
   ];
 
   if (anyReleased) {
     if (dailyCols.length > 0) {
       columns.push({
-        title: 'Daily Gross (last 7 days)',
+        title: 'Daily Gross',
         columns: dailyCols,
       });
     }
