@@ -59,8 +59,45 @@
 
     /* Tabulator tweaks */
     .tabulator { font-size: 0.85rem; }
-    .tabulator-col-title { white-space: nowrap; }
+    .tabulator-col-title { white-space: normal; word-break: keep-all; overflow-wrap: normal; }
     #table-wrapper { overflow-x: auto; }
+
+    /* Tabulator dark mode */
+    [data-bs-theme="dark"] .tabulator {
+      background-color: #212529;
+      border-color: #495057;
+      color: #dee2e6;
+    }
+    [data-bs-theme="dark"] .tabulator-header,
+    [data-bs-theme="dark"] .tabulator-header .tabulator-col,
+    [data-bs-theme="dark"] .tabulator-header .tabulator-col .tabulator-col-content,
+    [data-bs-theme="dark"] .tabulator-header .tabulator-col-group {
+      background-color: #2b3035;
+      color: #dee2e6;
+      border-color: #495057;
+    }
+    [data-bs-theme="dark"] .tabulator-header .tabulator-col.tabulator-sortable:hover {
+      background-color: #343a40;
+    }
+    [data-bs-theme="dark"] .tabulator-col-sorter { color: #adb5bd; }
+    [data-bs-theme="dark"] .tabulator-row,
+    [data-bs-theme="dark"] .tabulator-row.tabulator-row-even {
+      background-color: #212529;
+      color: #dee2e6;
+      border-color: rgba(255,255,255,0.08);
+    }
+    [data-bs-theme="dark"] .tabulator-row:hover,
+    [data-bs-theme="dark"] .tabulator-row.tabulator-row-even:hover {
+      background-color: #343a40 !important;
+    }
+    [data-bs-theme="dark"] .tabulator-cell { border-color: rgba(255,255,255,0.06); }
+    [data-bs-theme="dark"] .tabulator-frozen-rows-holder { background-color: #212529; }
+
+    /* Separator between Daily Gross and Weekly Gross columns */
+    .tabulator .tabulator-col.week-sep,
+    .tabulator-row .tabulator-cell.week-sep {
+      border-left: 2px solid var(--bs-border-color) !important;
+    }
   </style>
 
   <!-- Restore theme before first paint to avoid flash -->
@@ -162,6 +199,11 @@ function formatShortDate(d) {
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var parts = d.split('-');
   return months[parseInt(parts[1]) - 1] + ' ' + parseInt(parts[2]);
+}
+
+function formatDayMonth(d) {
+  var parts = d.split('-');
+  return parts[2] + '/' + parts[1];
 }
 
 function formatWeekLabel(dates) {
@@ -360,9 +402,17 @@ function buildTable(data, owners, colorMap, LATEST_DATE) {
       to_date_profit: released ? toDateProfit : null,
     };
 
+    var last7Start = sortedDaily.length - last7.length;
     last7.forEach(function(d, i) {
-      var prev = last7[i - 1];
-      row['daily_' + d] = prev ? dailyDelta(dg, d, prev) : null;
+      var prevIdx = last7Start + i - 1;
+      var prevDate = prevIdx >= 0 ? sortedDaily[prevIdx] : null;
+      if (prevDate) {
+        var delta = dailyDelta(dg, d, prevDate);
+        row['daily_' + d] = delta !== null ? Math.max(0, delta) : null;
+      } else {
+        // First date in data — cumulative value IS the opening day gross
+        row['daily_' + d] = dg[d] !== undefined ? Math.max(0, dg[d]) : null;
+      }
     });
 
     last4Weeks.forEach(function(wk) {
@@ -371,7 +421,7 @@ function buildTable(data, owners, colorMap, LATEST_DATE) {
       dates.forEach(function(d, i) {
         if (i === 0) return;
         var delta = dailyDelta(dg, d, dates[i - 1]);
-        if (delta !== null) { total += delta; hasData = true; }
+        if (delta !== null) { total += Math.max(0, delta); hasData = true; }
       });
       row['week_' + wk] = hasData ? total : null;
     });
@@ -410,22 +460,23 @@ function buildTable(data, owners, colorMap, LATEST_DATE) {
 
   var dailyCols = last7.map(function(d, i) {
     return {
-      title: formatShortDate(d),
+      title: formatDayMonth(d),
       field: 'daily_' + d,
       hozAlign: 'right',
-      width: 80,
+      minWidth: 68,
       formatter: fmtCell,
       formatterParams: { html: true },
       sorter: 'number',
     };
   });
 
-  var weeklyCols = last4Weeks.map(function(wk) {
+  var weeklyCols = last4Weeks.map(function(wk, i) {
     return {
       title: formatWeekLabel(weekBuckets[wk]),
       field: 'week_' + wk,
       hozAlign: 'right',
-      width: 100,
+      minWidth: 90,
+      cssClass: i === 0 ? 'week-sep' : '',
       formatter: fmtCell,
       formatterParams: { html: true },
       sorter: 'number',
