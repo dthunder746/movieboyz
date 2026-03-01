@@ -18,6 +18,10 @@ import { buildMoviePalette } from './palettes.js';
 
 export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
   activeMovies = activeMovies || [];
+
+  var existingTip = document.getElementById('chart-release-tip');
+  if (existingTip) existingTip.remove();
+
   var theme   = document.documentElement.getAttribute('data-bs-theme') || 'dark';
   var gridCol = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   var tickCol = theme === 'dark' ? '#aaa' : '#555';
@@ -36,6 +40,15 @@ export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
     Object.keys(m.profit || {}).forEach(function(d) { dateSet.add(d); });
   });
   var allDates = Array.from(dateSet).sort();
+
+  // Returns the index in allDates at or after the given ISO date, or -1
+  function releaseDateIdx(releaseDate) {
+    if (!releaseDate || releaseDate === 'TBA') return -1;
+    for (var i = 0; i < allDates.length; i++) {
+      if (allDates[i] >= releaseDate) return i;
+    }
+    return -1;
+  }
 
   var datasets;
 
@@ -108,17 +121,35 @@ export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
       var points = allDates.map(function(d) {
         return { x: d, y: totals[d] !== undefined ? totals[d] / 1e6 : null };
       });
+
+      // Build per-point radius arrays and release metadata for dots
+      var ptRadii = allDates.map(function() { return 0; });
+      var ptHover = allDates.map(function() { return 4; });
+      var releaseMeta = {};
+
+      Object.values(data.movies)
+        .filter(function(m) { return m.owner === owner; })
+        .forEach(function(m) {
+          var rIdx = releaseDateIdx(m.release_date);
+          if (rIdx >= 0 && points[rIdx] && points[rIdx].y !== null) {
+            ptRadii[rIdx] = 5;
+            ptHover[rIdx] = 7;
+            releaseMeta[rIdx] = m.movie_title;
+          }
+        });
+
       return {
         label:            owner,
         data:             points,
         borderColor:      colorMap[owner],
         backgroundColor:  colorMap[owner] + '22',
         borderWidth:      2,
-        pointRadius:      0,
-        pointHoverRadius: 4,
+        pointRadius:      ptRadii,
+        pointHoverRadius: ptHover,
         tension:          0.3,
         fill:             false,
         spanGaps:         false,
+        _releaseMeta:     releaseMeta,
       };
     });
   }
@@ -150,6 +181,28 @@ export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
     options: {
       maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
+      onClick: function(evt, _activeEls, chart) {
+        var pointEls = chart.getElementsAtEventForMode(evt.native, 'point', { intersect: true }, false);
+        if (!pointEls.length) return;
+        var el = pointEls[0];
+        var meta = chart.data.datasets[el.datasetIndex]._releaseMeta;
+        var title = meta && meta[el.index];
+        if (!title) return;
+        var tip = document.getElementById('chart-release-tip');
+        if (!tip) {
+          tip = document.createElement('div');
+          tip.id = 'chart-release-tip';
+          tip.className = 'chart-release-tip';
+          document.getElementById('chart-wrapper').appendChild(tip);
+        }
+        var wRect = document.getElementById('chart-wrapper').getBoundingClientRect();
+        tip.textContent = title;
+        tip.style.left = (evt.native.clientX - wRect.left) + 'px';
+        tip.style.top  = (evt.native.clientY - wRect.top - 38) + 'px';
+        tip.style.display = 'block';
+        clearTimeout(tip._t);
+        tip._t = setTimeout(function() { tip.style.display = 'none'; }, 3000);
+      },
       plugins: {
         legend: {
           labels: { color: tickCol, boxWidth: 12, padding: 16 }

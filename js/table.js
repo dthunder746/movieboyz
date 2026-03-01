@@ -1,6 +1,6 @@
 import {
   fmt, colorClass,
-  formatShortDate, formatDayMonth, isoWeekBounds,
+  formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr,
 } from './utils.js';
 
 // ── Tabulator table ───────────────────────────────────────────────────────
@@ -91,16 +91,24 @@ export function buildTable(data, colorMap) {
   };
 
   var dailyCols = last7.slice().reverse().map(function(d, i) {
-    return {
+    var abbr = getWeekdayAbbr(d);
+    var isWeekend = (abbr === 'SAT' || abbr === 'SUN');
+    var classes = [i === 0 ? 'daily-sep' : null, isWeekend ? 'col-weekend' : null].filter(Boolean).join(' ');
+    var col = {
       title: formatDayMonth(d),
       field: 'daily_' + d,
       hozAlign: 'right',
       minWidth: 68,
-      cssClass: i === 0 ? 'daily-sep' : '',
+      cssClass: classes,
       formatter: fmtCell,
       formatterParams: { html: true },
       sorter: 'number',
     };
+    col.titleFormatter = function() {
+      var cls = 'col-day-label' + (isWeekend ? ' col-weekend-label' : '');
+      return '<span class="' + cls + '">' + abbr + '</span><br>' + formatDayMonth(d);
+    };
+    return col;
   });
 
   // All weeks reversed (most recent first); last 4 visible, older hidden
