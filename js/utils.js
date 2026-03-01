@@ -25,6 +25,11 @@ export function formatDayMonth(d) {
   return parts[2] + '/' + parts[1];
 }
 
+export function getWeekdayAbbr(d) {
+  var day = new Date(d + 'T00:00:00Z').getUTCDay();
+  return ['SUN','MON','TUE','WED','THU','FRI','SAT'][day];
+}
+
 
 export function isoWeekBounds(weekKey) {
   // Returns { start, end } as YYYY-MM-DD for the Mon–Sun of the given ISO week key
