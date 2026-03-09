@@ -9,6 +9,11 @@ export function fmt(v) {
   return sign + '$' + Math.round(abs);
 }
 
+export function fmtPct(v) {
+  var sign = v >= 0 ? '+' : '';
+  return sign + v.toFixed(1) + '%';
+}
+
 export function colorClass(v) {
   if (v === null || v === undefined) return 'text-neu';
   return v > 0 ? 'text-pos' : v < 0 ? 'text-neg' : 'text-neu';

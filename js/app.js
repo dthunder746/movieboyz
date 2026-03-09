@@ -189,7 +189,9 @@ function init(data) {
   }
 
   document.getElementById('reset-zoom').addEventListener('click', function() {
-    if (_chart) _chart.resetZoom();
+    if (!_chart) return;
+    if (_chart._zoomReset) _chart.zoomScale('x', _chart._zoomReset);
+    else _chart.resetZoom();
   });
 }
 
