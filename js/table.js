@@ -1,5 +1,5 @@
 import {
-  fmt, colorClass,
+  fmt, fmtPct, colorClass,
   formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr,
 } from './utils.js';
 
@@ -40,6 +40,7 @@ export function buildTable(data, colorMap) {
       breakeven:      movie.breakeven   != null ? movie.breakeven   : null,
       to_date_gross:  movie.gross_td    != null ? movie.gross_td    : null,
       to_date_profit: movie.profit_td   != null ? movie.profit_td   : null,
+      roi: (movie.profit_td != null && movie.breakeven) ? movie.profit_td / movie.breakeven * 100 : null,
     };
 
     last7.forEach(function(d) {
@@ -58,6 +59,12 @@ export function buildTable(data, colorMap) {
     var v = cell.getValue();
     if (v === null || v === undefined) return '<span class="text-neu">—</span>';
     return '<span class="' + colorClass(v) + '">' + fmt(v) + '</span>';
+  }
+
+  function fmtRoi(cell) {
+    var v = cell.getValue();
+    if (v === null || v === undefined) return '<span class="text-neu">—</span>';
+    return '<span class="' + colorClass(v) + '">' + fmtPct(v) + '</span>';
   }
 
   function fmtGross(cell) {
@@ -133,10 +140,10 @@ export function buildTable(data, colorMap) {
   var hiddenWeekCols = reversedWeeks.slice(4).map(function(wk) { return 'week_' + wk; });
 
   var columns = [
+    titleCol,
     {
       title: 'Movie Details',
       columns: [
-        titleCol,
         {
           title: 'Opening',
           field: 'release_date',
@@ -189,6 +196,16 @@ export function buildTable(data, colorMap) {
           hozAlign: 'right',
           minWidth: 95,
           formatter: fmtCell,
+          formatterParams: { html: true },
+          sorter: 'number',
+        },
+        {
+          title: 'ROI',
+          field: 'roi',
+          hozAlign: 'right',
+          minWidth: 80,
+          headerTooltip: 'Return on Investment: (gross − breakeven) / breakeven',
+          formatter: fmtRoi,
           formatterParams: { html: true },
           sorter: 'number',
         },

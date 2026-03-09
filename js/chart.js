@@ -154,11 +154,19 @@ export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
     });
   }
 
-  // Auto-trim: find the first date any dataset has a non-null, non-zero value.
-  // Set the initial visible range to 7 days before that point so the chart
-  // opens on meaningful data rather than a long stretch of zeros.
+  // Auto-trim: find the earliest dates across all datasets.
+  // firstNonNullDate  → first date any line has a rendered point (y !== null); used for zoom limit.
+  // firstNonZeroDate  → first date any line has a meaningful value (y !== 0); used for initial view trim.
+  var firstNonNullDate = null;
   var firstNonZeroDate = null;
   datasets.forEach(function(ds) {
+    for (var i = 0; i < ds.data.length; i++) {
+      var pt = ds.data[i];
+      if (pt.y !== null) {
+        if (!firstNonNullDate || pt.x < firstNonNullDate) firstNonNullDate = pt.x;
+        break;
+      }
+    }
     for (var i = 0; i < ds.data.length; i++) {
       var pt = ds.data[i];
       if (pt.y !== null && pt.y !== 0) {
@@ -174,8 +182,12 @@ export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
     xMin = trimD.toISOString().split('T')[0];
   }
 
+  var limitAnchor = firstNonNullDate || firstNonZeroDate;
+  var xLimitMin = limitAnchor ? new Date(limitAnchor + 'T00:00:00Z').getTime() - 24 * 60 * 60 * 1000 : undefined;
+  var xLimitMax = allDates.length ? new Date(allDates[allDates.length - 1] + 'T00:00:00Z').getTime() : undefined;
+
   var ctx = document.getElementById('profitChart');
-  return new Chart(ctx, {
+  var chart = new Chart(ctx, {
     type: 'line',
     data: { datasets: datasets },
     options: {
@@ -219,18 +231,16 @@ export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
         },
         zoom: {
           zoom: {
-            drag:  { enabled: true },   // drag to zoom (horizontal only via mode:'x')
             wheel: { enabled: true },
             pinch: { enabled: true },
             mode:  'x',
           },
           pan: {
-            enabled:     true,
-            mode:        'x',
-            modifierKey: 'shift',        // shift+drag to pan
+            enabled: true,
+            mode:    'x',
           },
           limits: {
-            x: { min: 'original', max: 'original', minRange: 7 * 24 * 60 * 60 * 1000 },
+            x: { min: xLimitMin, max: xLimitMax, minRange: 7 * 24 * 60 * 60 * 1000 },
           },
         },
       },
@@ -267,4 +277,6 @@ export function buildChart(data, owners, colorMap, activeOwners, activeMovies) {
       }
     }
   });
+  chart._zoomReset = { min: xLimitMin, max: xLimitMax };
+  return chart;
 }
