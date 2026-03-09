@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-03-10 01:00:02",
+  "fetched_at": "2026-03-10 02:00:03",
   "latest_date": "2026-03-08",
   "latest_profit_date": "2026-03-08",
   "movies": {
@@ -1921,8 +1921,8 @@
       "pick_type": null,
       "profit": {},
       "profit_td": null,
-      "release_date": "2026-04-10",
-      "season": "WINTER",
+      "release_date": "2026-05-15",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -4855,8 +4855,8 @@
       "year": 2026
     },
     "tt34471850": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 20000000,
+      "budget": 10000000,
       "daily_change": {
         "2026-03-06": 0,
         "2026-03-07": 251319
@@ -4873,9 +4873,9 @@
       "pick_type": null,
       "profit": {
         "2026-03-06": 0,
-        "2026-03-07": 251319
+        "2026-03-07": -19748681
       },
-      "profit_td": 251319,
+      "profit_td": -19748681,
       "release_date": "2026-03-06",
       "season": "WINTER",
       "weekly_gross": {
