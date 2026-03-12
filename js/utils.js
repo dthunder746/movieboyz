@@ -19,6 +19,13 @@ export function colorClass(v) {
   return v > 0 ? 'text-pos' : v < 0 ? 'text-neg' : 'text-neu';
 }
 
+export function ratingColorClass(v) {
+  if (v === null || v === undefined) return 'text-neu';
+  if (v >= 70) return 'text-pos';
+  if (v < 50)  return 'text-neg';
+  return 'text-neu';
+}
+
 export function formatShortDate(d) {
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var parts = d.split('-');

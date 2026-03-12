@@ -1,5 +1,5 @@
 import {
-  fmt, fmtPct, colorClass,
+  fmt, fmtPct, colorClass, ratingColorClass,
   formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr,
 } from './utils.js';
 
@@ -43,6 +43,15 @@ export function buildTable(data, colorMap) {
       roi: (movie.profit_td != null && movie.breakeven) ? movie.profit_td / movie.breakeven * 100 : null,
     };
 
+    var r = movie.ratings || null;
+    row.rating_letterboxd  = r && r.letterboxd  && r.letterboxd.score  != null ? r.letterboxd.score  : null;
+    row.rating_imdb        = r && r.imdb        && r.imdb.score        != null ? r.imdb.score        : null;
+    row.rating_rt_audience = r && r.rt_audience && r.rt_audience.score != null ? r.rt_audience.score : null;
+    row.rating_rt_critic   = r && r.rt_critic   && r.rt_critic.score   != null ? r.rt_critic.score   : null;
+    row.rating_tmdb        = r && r.tmdb        && r.tmdb.score        != null ? r.tmdb.score        : null;
+    row.rating_metacritic  = r && r.metacritic  && r.metacritic.score  != null ? r.metacritic.score  : null;
+    row.ratings_raw        = r;
+
     last7.forEach(function(d) {
       row['daily_' + d] = dc[d] !== undefined ? dc[d] : null;
     });
@@ -81,6 +90,49 @@ export function buildTable(data, colorMap) {
       ? formatShortDate(b.start) + '–' + parseInt(em[2])
       : formatShortDate(b.start) + '–' + formatShortDate(b.end);
   }
+
+  // Rating sources
+  var FAVICON_BASE = 'https://www.google.com/s2/favicons?domain=';
+  var RATING_SOURCES = [
+    { field: 'rating_letterboxd',  key: 'letterboxd',  label: 'Letterboxd',        icon: FAVICON_BASE + 'letterboxd.com&sz=32',       emoji: false, display: function(v){ return (v/20).toFixed(1); }, visible: true  },
+    { field: 'rating_imdb',        key: 'imdb',         label: 'IMDb',              icon: FAVICON_BASE + 'imdb.com&sz=32',             emoji: false, display: function(v){ return (v/10).toFixed(1); }, visible: false },
+    { field: 'rating_rt_audience', key: 'rt_audience',  label: 'RT Audience Score', icon: '🍿',                                        emoji: true,  display: function(v){ return v + '%'; },           visible: false },
+    { field: 'rating_rt_critic',   key: 'rt_critic',    label: 'RT Tomatometer',    icon: FAVICON_BASE + 'rottentomatoes.com&sz=32',   emoji: false, display: function(v){ return v + '%'; },           visible: false },
+    { field: 'rating_tmdb',        key: 'tmdb',         label: 'TMDB',              icon: FAVICON_BASE + 'themoviedb.org&sz=32',       emoji: false, display: function(v){ return (v/10).toFixed(1); }, visible: false },
+    { field: 'rating_metacritic',  key: 'metacritic',   label: 'Metacritic',        icon: FAVICON_BASE + 'metacritic.com&sz=32',       emoji: false, display: function(v){ return String(v); },         visible: false },
+  ];
+
+  var ratingCols = RATING_SOURCES.map(function(src, i) {
+    return {
+      title:         src.label,
+      field:         src.field,
+      titleFormatter: function() {
+        if (src.emoji) return '<span style="font-size:14px;line-height:1">' + src.icon + '</span>';
+        return '<img src="' + src.icon + '" width="16" height="16" style="vertical-align:middle" alt="' + src.label + '">';
+      },
+      headerTooltip: src.label,
+      hozAlign:      'center',
+      minWidth:      50,
+      visible:       src.visible,
+      cssClass:      i === 0 ? 'ratings-sep' : i === RATING_SOURCES.length - 1 ? 'ratings-end' : '',
+      sorter:        'number',
+      formatter: function(cell) {
+        var v = cell.getValue();
+        if (v === null || v === undefined) return '<span class="text-neu">—</span>';
+        return '<span class="' + ratingColorClass(v) + '">' + src.display(v) + '</span>';
+      },
+      formatterParams: { html: true },
+      tooltip: function(e, cell) {
+        var raw = cell.getRow().getData().ratings_raw;
+        if (!raw || !raw[src.key]) return false;
+        var votes = raw[src.key].votes;
+        if (votes == null) return false;
+        return votes.toLocaleString() + ' votes';
+      },
+    };
+  });
+
+  var hiddenRatingCols = RATING_SOURCES.filter(function(s){ return !s.visible; }).map(function(s){ return s.field; });
 
   // Column definitions
   var titleCol = {
@@ -139,77 +191,82 @@ export function buildTable(data, colorMap) {
   // Field names for columns that start hidden (all weeks beyond last 4)
   var hiddenWeekCols = reversedWeeks.slice(4).map(function(wk) { return 'week_' + wk; });
 
+  var movieDetailCols = [
+    {
+      title: 'Opening',
+      field: 'release_date',
+      minWidth: 120,
+      sorter: 'string',
+      formatter: function(cell) {
+        var row = cell.getRow().getData();
+        var rel = row.release_date;
+        if (rel === 'TBA') return '<span class="text-neu">TBA</span>';
+        var label = formatShortDate(rel);
+        if (row.days_running !== null && row.days_running !== undefined) {
+          label += ' · ' + row.days_running + 'd';
+        }
+        return label;
+      },
+      formatterParams: { html: true },
+    },
+    {
+      title: 'Owner',
+      field: 'owner',
+      minWidth: 100,
+      formatter: function(cell) {
+        var o = cell.getValue();
+        return '<span class="owner-dot" style="background:' + (colorMap[o] || '#888') + '"></span>' + o;
+      },
+      formatterParams: { html: true },
+    },
+  ];
+  Array.prototype.push.apply(movieDetailCols, ratingCols);
+  movieDetailCols.push(
+    {
+      title: 'B/E',
+      field: 'breakeven',
+      hozAlign: 'right',
+      minWidth: 80,
+      headerTooltip: 'Breakeven (2 × production budget)',
+      formatter: fmtGross,
+      formatterParams: { html: true },
+      sorter: 'number',
+    },
+    {
+      title: 'Gross TD',
+      field: 'to_date_gross',
+      hozAlign: 'right',
+      minWidth: 95,
+      formatter: fmtGross,
+      formatterParams: { html: true },
+      sorter: 'number',
+    },
+    {
+      title: 'Profit TD',
+      field: 'to_date_profit',
+      hozAlign: 'right',
+      minWidth: 95,
+      formatter: fmtCell,
+      formatterParams: { html: true },
+      sorter: 'number',
+    },
+    {
+      title: 'ROI',
+      field: 'roi',
+      hozAlign: 'right',
+      minWidth: 80,
+      headerTooltip: 'Return on Investment: (gross − breakeven) / breakeven',
+      formatter: fmtRoi,
+      formatterParams: { html: true },
+      sorter: 'number',
+    }
+  );
+
   var columns = [
     titleCol,
     {
       title: 'Movie Details',
-      columns: [
-        {
-          title: 'Opening',
-          field: 'release_date',
-          minWidth: 120,
-          sorter: 'string',
-          formatter: function(cell) {
-            var row = cell.getRow().getData();
-            var rel = row.release_date;
-            if (rel === 'TBA') return '<span class="text-neu">TBA</span>';
-            var label = formatShortDate(rel);
-            if (row.days_running !== null && row.days_running !== undefined) {
-              label += ' · ' + row.days_running + 'd';
-            }
-            return label;
-          },
-          formatterParams: { html: true },
-        },
-        {
-          title: 'Owner',
-          field: 'owner',
-          minWidth: 100,
-          formatter: function(cell) {
-            var o = cell.getValue();
-            return '<span class="owner-dot" style="background:' + (colorMap[o] || '#888') + '"></span>' + o;
-          },
-          formatterParams: { html: true },
-        },
-        {
-          title: 'B/E',
-          field: 'breakeven',
-          hozAlign: 'right',
-          minWidth: 80,
-          headerTooltip: 'Breakeven (2 × production budget)',
-          formatter: fmtGross,
-          formatterParams: { html: true },
-          sorter: 'number',
-        },
-        {
-          title: 'Gross TD',
-          field: 'to_date_gross',
-          hozAlign: 'right',
-          minWidth: 95,
-          formatter: fmtGross,
-          formatterParams: { html: true },
-          sorter: 'number',
-        },
-        {
-          title: 'Profit TD',
-          field: 'to_date_profit',
-          hozAlign: 'right',
-          minWidth: 95,
-          formatter: fmtCell,
-          formatterParams: { html: true },
-          sorter: 'number',
-        },
-        {
-          title: 'ROI',
-          field: 'roi',
-          hozAlign: 'right',
-          minWidth: 80,
-          headerTooltip: 'Return on Investment: (gross − breakeven) / breakeven',
-          formatter: fmtRoi,
-          formatterParams: { html: true },
-          sorter: 'number',
-        },
-      ],
+      columns: movieDetailCols,
     },
   ];
 
@@ -242,7 +299,7 @@ export function buildTable(data, colorMap) {
     paginationSizeSelector: [10, 25, 50, 100, true],
   });
 
-  return { table: table, hiddenWeekCols: hiddenWeekCols };
+  return { table: table, hiddenWeekCols: hiddenWeekCols, hiddenRatingCols: hiddenRatingCols };
 }
 
 // ── Owner filter ──────────────────────────────────────────────────────────
@@ -250,7 +307,7 @@ export function buildTable(data, colorMap) {
 // Clicks are handled via event delegation in app.js.
 // showWeekHistory / hasWeekHistory control the week-history toggle button.
 
-export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, showWeekHistory, hasWeekHistory) {
+export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, showWeekHistory, hasWeekHistory, showRatings, hasRatingCols) {
   var container = document.getElementById('owner-filter');
   if (!container) return;
   var activeSet = new Set(activeOwners);
@@ -280,6 +337,14 @@ export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, sh
     weekToggle.textContent = showWeekHistory ? 'Hide week history' : 'Show week history';
     weekToggle.dataset.toggleWeekHistory = '1';
     container.appendChild(weekToggle);
+  }
+
+  if (hasRatingCols) {
+    var ratingsToggle = document.createElement('button');
+    ratingsToggle.className = 'btn btn-sm btn-outline-secondary';
+    ratingsToggle.textContent = showRatings ? 'Hide all ratings' : 'Show all ratings';
+    ratingsToggle.dataset.toggleRatings = '1';
+    container.appendChild(ratingsToggle);
   }
 
   var clear = document.createElement('button');
