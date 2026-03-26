@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-03-27 03:00:02",
+  "fetched_at": "2026-03-27 04:00:03",
   "latest_date": "2026-03-25",
   "latest_profit_date": "2026-03-25",
   "movies": {
@@ -3466,7 +3466,7 @@
       "days_running": null,
       "estimated_budget": null,
       "gross_td": null,
-      "movie_title": "Flowervale Street",
+      "movie_title": "The End of Oak Street",
       "owner": "none",
       "pick_type": null,
       "profit": {},
@@ -7483,6 +7483,25 @@
       },
       "year": 2026
     },
+    "tt35298123": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {},
+      "daily_gross": {},
+      "days_running": null,
+      "estimated_budget": null,
+      "gross_td": null,
+      "movie_title": "Teenage Sex and Death at Camp Miasma",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-08-07",
+      "season": "SUMMER",
+      "weekly_gross": {},
+      "year": 2026
+    },
     "tt35514120": {
       "breakeven": null,
       "budget": 0,
@@ -8123,6 +8142,25 @@
       "ratings": null,
       "release_date": "2026-11-13",
       "season": "FALL",
+      "weekly_gross": {},
+      "year": 2026
+    },
+    "tt39018643": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {},
+      "daily_gross": {},
+      "days_running": null,
+      "estimated_budget": null,
+      "gross_td": null,
+      "movie_title": "Billie Eilish - Hit Me Hard and Soft: The Tour (Live in 3D)",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-05-06",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
