@@ -22,6 +22,7 @@ function makeExpandableGroup(title, childColumns, hiddenFields, tableRef) {
         btn.textContent = '[+]';
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
+          if (!tableRef.current) return;
           expanded = !expanded;
           btn.textContent = expanded ? '[\u2212]' : '[+]';
           hiddenFields.forEach(function(f) {
