@@ -3,6 +3,40 @@ import {
   formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr,
 } from './utils.js';
 
+// ── Expandable column group factory ──────────────────────────────────────
+// Returns a Tabulator column group definition whose header contains a [+]/[−]
+// toggle button that shows/hides the fields listed in hiddenFields.
+//
+// tableRef: a plain object { current: null } — assign tableRef.current = table
+// after the Tabulator instance is constructed.
+
+function makeExpandableGroup(title, childColumns, hiddenFields, tableRef) {
+  var expanded = false;
+  return {
+    title: title,
+    titleFormatter: function(cell, params, onRendered) {
+      onRendered(function() {
+        var el = cell.getElement();
+        var btn = document.createElement('span');
+        btn.className = 'group-expand-btn';
+        btn.textContent = '[+]';
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          expanded = !expanded;
+          btn.textContent = expanded ? '[\u2212]' : '[+]';
+          hiddenFields.forEach(function(f) {
+            if (expanded) tableRef.current.showColumn(f);
+            else tableRef.current.hideColumn(f);
+          });
+        });
+        el.appendChild(btn);
+      });
+      return title;
+    },
+    columns: childColumns,
+  };
+}
+
 // ── Tabulator table ───────────────────────────────────────────────────────
 // Reads pre-computed fields from each movie record (added by the fetcher).
 // Returns { table, hiddenWeekCols } where hiddenWeekCols is an array of
