@@ -153,26 +153,20 @@ body { font-size: 0.9rem; }
   border-left: 2px solid var(--bs-border-color) !important;
 }
 
-.tabulator .tabulator-col.ratings-sep,
-.tabulator-row .tabulator-cell.ratings-sep {
-  border-left: 0.5px solid var(--bs-border-color) !important;
+/* ── Expandable group toggle button ────────────────────────────────────── */
+.group-expand-btn {
+  cursor: pointer;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-left: 6px;
+  user-select: none;
+  font-family: monospace;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  padding: 0 3px;
+  vertical-align: middle;
 }
-
-/* Right border sits on Letterboxd by default (other cols hidden) */
-.tabulator .tabulator-col.ratings-sep,
-.tabulator-row .tabulator-cell.ratings-sep {
-  border-right: 0.5px solid var(--bs-border-color) !important;
-}
-
-/* When expanded: remove Letterboxd's right border, add it to Metacritic */
-#table-wrapper.ratings-expanded .tabulator .tabulator-col.ratings-sep,
-#table-wrapper.ratings-expanded .tabulator-row .tabulator-cell.ratings-sep {
-  border-right: none !important;
-}
-#table-wrapper.ratings-expanded .tabulator .tabulator-col.ratings-end,
-#table-wrapper.ratings-expanded .tabulator-row .tabulator-cell.ratings-end {
-  border-right: 0.5px solid var(--bs-border-color) !important;
-}
+.group-expand-btn:hover { opacity: 1; }
 
 /* ── Latest (in-progress) weekly column — italic to signal partial figures  */
 .tabulator .tabulator-col.week-latest .tabulator-col-title,
