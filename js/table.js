@@ -149,7 +149,7 @@ export function buildTable(data, colorMap) {
       hozAlign:      'center',
       minWidth:      50,
       visible:       src.visible,
-      cssClass:      i === 0 ? 'ratings-sep' : i === RATING_SOURCES.length - 1 ? 'ratings-end' : '',
+      cssClass:      '',
       sorter:        'number',
       formatter: function(cell) {
         var v = cell.getValue();
@@ -166,8 +166,6 @@ export function buildTable(data, colorMap) {
       },
     };
   });
-
-  var hiddenRatingCols = RATING_SOURCES.filter(function(s){ return !s.visible; }).map(function(s){ return s.field; });
 
   // Column definitions
   var titleCol = {
@@ -226,6 +224,9 @@ export function buildTable(data, colorMap) {
   // Field names for columns that start hidden (all weeks beyond last 4)
   var hiddenWeekCols = reversedWeeks.slice(4).map(function(wk) { return 'week_' + wk; });
 
+  var tableRef = { current: null };
+  var hiddenRatingFields = RATING_SOURCES.filter(function(s) { return !s.visible; }).map(function(s) { return s.field; });
+
   var movieDetailCols = [
     {
       title: 'Opening',
@@ -255,8 +256,8 @@ export function buildTable(data, colorMap) {
       formatterParams: { html: true },
     },
   ];
-  Array.prototype.push.apply(movieDetailCols, ratingCols);
-  movieDetailCols.push(
+
+  var financialCols = [
     {
       title: 'B/E',
       field: 'breakeven',
@@ -294,15 +295,16 @@ export function buildTable(data, colorMap) {
       formatter: fmtRoi,
       formatterParams: { html: true },
       sorter: 'number',
-    }
-  );
+    },
+  ];
+
+  var ratingsGroup = makeExpandableGroup('Ratings', ratingCols, hiddenRatingFields, tableRef);
 
   var columns = [
     titleCol,
-    {
-      title: 'Movie Details',
-      columns: movieDetailCols,
-    },
+    { title: 'Movie Details', columns: movieDetailCols },
+    ratingsGroup,
+    { title: 'Financials', columns: financialCols },
   ];
 
   if (anyReleased) {
@@ -334,7 +336,8 @@ export function buildTable(data, colorMap) {
     paginationSizeSelector: [10, 25, 50, 100, true],
   });
 
-  return { table: table, hiddenWeekCols: hiddenWeekCols, hiddenRatingCols: hiddenRatingCols };
+  tableRef.current = table;
+  return { table: table, hiddenWeekCols: hiddenWeekCols };
 }
 
 // ── Owner filter ──────────────────────────────────────────────────────────

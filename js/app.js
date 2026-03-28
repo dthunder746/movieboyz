@@ -132,7 +132,7 @@ function init(data) {
   var tableResult   = buildTable(data, colorMap);
   _table            = tableResult.table;
   _hiddenWeekCols   = tableResult.hiddenWeekCols;
-  _hiddenRatingCols = tableResult.hiddenRatingCols;
+  _hiddenRatingCols = tableResult.hiddenRatingCols || [];
   buildOwnerFilter(owners, colorMap, [], _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
   applyTableFilter([]);
 
