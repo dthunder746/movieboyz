@@ -27,9 +27,17 @@ Movie | Opening | Owner | Ratings [+] | Financials | Weekly Gross
 | Row 1 | "Weekly Gross" (top-level group title) |
 | Row 2 | "Mar 23-29 [+/-]" (per-week expandable group, with toggle button) |
 | Row 3 | "week #13" (ISO week number, title of a nested sub-group) |
-| Row 4 | "week total" column + day columns (leaf columns) |
 
 The ISO week number is derived from the week key already in the data (e.g. `2026-W13` → `week #13`).
+
+### Leaf column headers inside each week group
+
+The "week #N" sub-group contains leaf columns whose headers occupy the fourth header row:
+
+- **Week total column** — title is "total". Always visible. Field: `week_<weekKey>` (e.g. `week_2026-W13`). Renders the pre-computed weekly gross for that week.
+- **Day columns** — one per date in the week. Each uses a `titleFormatter` that renders two lines: the weekday abbreviation on top (SUN, SAT, FRI, etc.) and the short date below (29/03, 28/03, etc.). This matches the pattern already used by the existing daily columns. Field: `daily_<YYYY-MM-DD>`.
+
+In collapsed state, only the week total column is visible. The "week #N" sub-group header spans only that one column. When expanded, the day columns appear and the sub-group header spans all columns in the week.
 
 ---
 
