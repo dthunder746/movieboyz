@@ -14,25 +14,24 @@ function makeExpandableGroup(title, childColumns, hiddenFields, tableRef) {
   var expanded = false;
   return {
     title: title,
-    titleFormatter: function(cell, params, onRendered) {
-      onRendered(function() {
-        var el = cell.getElement();
-        var btn = document.createElement('span');
-        btn.className = 'group-expand-btn';
-        btn.textContent = '[+]';
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if (!tableRef.current) return;
-          expanded = !expanded;
-          btn.textContent = expanded ? '[\u2212]' : '[+]';
-          hiddenFields.forEach(function(f) {
-            if (expanded) tableRef.current.showColumn(f);
-            else tableRef.current.hideColumn(f);
-          });
+    titleFormatter: function() {
+      var container = document.createElement('span');
+      container.textContent = title;
+      var btn = document.createElement('span');
+      btn.className = 'group-expand-btn';
+      btn.textContent = '+';
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (!tableRef.current) return;
+        expanded = !expanded;
+        btn.textContent = expanded ? '\u2212' : '+';
+        hiddenFields.forEach(function(f) {
+          if (expanded) tableRef.current.showColumn(f);
+          else tableRef.current.hideColumn(f);
         });
-        el.appendChild(btn);
       });
-      return title;
+      container.appendChild(btn);
+      return container;
     },
     columns: childColumns,
   };
@@ -147,7 +146,7 @@ export function buildTable(data, colorMap) {
       },
       headerTooltip: src.label,
       hozAlign:      'center',
-      minWidth:      50,
+      minWidth:      src.visible ? 120 : 50,
       visible:       src.visible,
       sorter:        'number',
       formatter: function(cell) {

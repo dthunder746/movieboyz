@@ -156,17 +156,26 @@ body { font-size: 0.9rem; }
 /* ── Expandable group toggle button ────────────────────────────────────── */
 .group-expand-btn {
   cursor: pointer;
-  font-size: 0.7rem;
-  opacity: 0.6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
   margin-left: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
   user-select: none;
-  font-family: monospace;
-  border: 1px solid currentColor;
-  border-radius: 2px;
-  padding: 0 3px;
   vertical-align: middle;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.45);
+  transition: background 0.15s ease, color 0.15s ease;
 }
-.group-expand-btn:hover { opacity: 1; }
+.group-expand-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.9);
+}
 
 /* ── Latest (in-progress) weekly column — italic to signal partial figures  */
 .tabulator .tabulator-col.week-latest .tabulator-col-title,
