@@ -9,9 +9,10 @@ import {
 //
 // tableRef: a plain object { current: null } — assign tableRef.current = table
 // after the Tabulator instance is constructed.
+// initialExpanded: optional boolean; when true the group starts expanded.
 
-function makeExpandableGroup(title, childColumns, hiddenFields, tableRef) {
-  var expanded = false;
+function makeExpandableGroup(title, childColumns, hiddenFields, tableRef, initialExpanded) {
+  var expanded = !!initialExpanded;
   return {
     title: title,
     titleFormatter: function() {
@@ -19,7 +20,7 @@ function makeExpandableGroup(title, childColumns, hiddenFields, tableRef) {
       container.textContent = title;
       var btn = document.createElement('span');
       btn.className = 'group-expand-btn';
-      btn.textContent = '+';
+      btn.textContent = expanded ? '\u2212' : '+';
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
         if (!tableRef.current) return;
