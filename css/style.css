@@ -147,10 +147,8 @@ body { font-size: 0.9rem; }
 
 /* ── Column group separators ────────────────────────────────────────────── */
 .tabulator .tabulator-col.week-sep,
-.tabulator .tabulator-col.daily-sep,
-.tabulator-row .tabulator-cell.week-sep,
-.tabulator-row .tabulator-cell.daily-sep {
-  border-left: 2px solid var(--bs-border-color) !important;
+.tabulator-row .tabulator-cell.week-sep {
+  border-left: 1px solid var(--bs-border-color) !important;
 }
 
 /* ── Expandable group toggle button ────────────────────────────────────── */
@@ -177,9 +175,8 @@ body { font-size: 0.9rem; }
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* ── Latest (in-progress) weekly column — italic to signal partial figures  */
-.tabulator .tabulator-col.week-latest .tabulator-col-title,
-.tabulator-row .tabulator-cell.week-latest {
+/* ── Current (in-progress) week — italic total cells  */
+.tabulator-row .tabulator-cell.week-current-total {
   font-style: italic;
 }
 
@@ -214,4 +211,41 @@ body { font-size: 0.9rem; }
   white-space: nowrap;
   display: none;
   transform: translateX(-50%);
+}
+
+/* ── Day-column background (subtly distinct from week total column) ────────────── */
+.tabulator-row .tabulator-cell.col-day-column {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+[data-bs-theme="dark"] .tabulator .tabulator-header .tabulator-col.col-day-column,
+[data-bs-theme="dark"] .tabulator-row .tabulator-cell.col-day-column {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ── Negative daily gross — grey text + asterisk superscript ─────────────── */
+.daily-neg-revised {
+  color: var(--bs-secondary-color) !important;
+}
+.daily-neg-revised::after {
+  content: "*";
+  font-size: 0.65em;
+  vertical-align: super;
+  margin-left: 1px;
+}
+
+/* ── Group expand button — light mode colours ────────────────────────────── */
+[data-bs-theme="light"] .group-expand-btn {
+  background: rgba(0, 0, 0, 0.07);
+  color: rgba(0, 0, 0, 0.45);
+}
+[data-bs-theme="light"] .group-expand-btn:hover {
+  background: rgba(0, 0, 0, 0.14);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* ── Negative daily gross footnote ──────────────────────────────────────── */
+#daily-neg-footnote {
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+  margin-top: 0.25rem;
 }
