@@ -104,6 +104,16 @@ export function buildTable(data, colorMap) {
     return row;
   });
 
+  var hasNegDailyGross = rows.some(function(row) {
+    return Object.keys(row).some(function(k) {
+      return k.startsWith('daily_') && typeof row[k] === 'number' && row[k] < 0;
+    });
+  });
+  if (hasNegDailyGross) {
+    var footnote = document.getElementById('daily-neg-footnote');
+    if (footnote) footnote.classList.remove('d-none');
+  }
+
   // Formatters
   function fmtCell(cell) {
     var v = cell.getValue();
