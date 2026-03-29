@@ -393,9 +393,8 @@ export function buildTable(data, colorMap) {
 // ── Owner filter ──────────────────────────────────────────────────────────
 // Pure render — no internal state. Reads activeOwners array, paints buttons.
 // Clicks are handled via event delegation in app.js.
-// showWeekHistory / hasWeekHistory control the week-history toggle button.
 
-export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, showWeekHistory, hasWeekHistory) {
+export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned) {
   var container = document.getElementById('owner-filter');
   if (!container) return;
   var activeSet = new Set(activeOwners);
@@ -418,14 +417,6 @@ export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, sh
   unownedToggle.textContent = showUnowned ? 'Hide unowned movies' : 'Show unowned movies';
   unownedToggle.dataset.toggleUnowned = '1';
   container.appendChild(unownedToggle);
-
-  if (hasWeekHistory) {
-    var weekToggle = document.createElement('button');
-    weekToggle.className = 'btn btn-sm btn-outline-secondary';
-    weekToggle.textContent = showWeekHistory ? 'Hide week history' : 'Show week history';
-    weekToggle.dataset.toggleWeekHistory = '1';
-    container.appendChild(weekToggle);
-  }
 
   var clear = document.createElement('button');
   clear.className = 'btn btn-sm btn-outline-secondary';
