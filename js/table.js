@@ -149,7 +149,6 @@ export function buildTable(data, colorMap) {
       hozAlign:      'center',
       minWidth:      50,
       visible:       src.visible,
-      cssClass:      '',
       sorter:        'number',
       formatter: function(cell) {
         var v = cell.getValue();
@@ -345,7 +344,7 @@ export function buildTable(data, colorMap) {
 // Clicks are handled via event delegation in app.js.
 // showWeekHistory / hasWeekHistory control the week-history toggle button.
 
-export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, showWeekHistory, hasWeekHistory, showRatings, hasRatingCols) {
+export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, showWeekHistory, hasWeekHistory) {
   var container = document.getElementById('owner-filter');
   if (!container) return;
   var activeSet = new Set(activeOwners);
@@ -375,14 +374,6 @@ export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, sh
     weekToggle.textContent = showWeekHistory ? 'Hide week history' : 'Show week history';
     weekToggle.dataset.toggleWeekHistory = '1';
     container.appendChild(weekToggle);
-  }
-
-  if (hasRatingCols) {
-    var ratingsToggle = document.createElement('button');
-    ratingsToggle.className = 'btn btn-sm btn-outline-secondary';
-    ratingsToggle.textContent = showRatings ? 'Hide all ratings' : 'Show all ratings';
-    ratingsToggle.dataset.toggleRatings = '1';
-    container.appendChild(ratingsToggle);
   }
 
   var clear = document.createElement('button');
