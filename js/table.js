@@ -344,10 +344,8 @@ export function buildTable(data, colorMap) {
       columns: [weekTotalCol].concat(dayCols),
     };
 
-    // Hidden day fields for collapsed weeks (current week starts expanded → no hidden fields)
-    var hiddenDayFields = isCurrentWeek
-      ? []
-      : datesForWeek.map(function(d) { return 'daily_' + d; });
+    // Hidden day fields — all weeks use the same toggle logic
+    var hiddenDayFields = datesForWeek.map(function(d) { return 'daily_' + d; });
 
     var group = makeExpandableGroup(
       weekTitle(wk),
