@@ -87,7 +87,7 @@ export function buildTable(data, colorMap) {
     row.rating_metacritic  = r && r.metacritic  && r.metacritic.score  != null ? r.metacritic.score  : null;
     row.ratings_raw        = r;
 
-    last7.forEach(function(d) {
+    allDailyDates.forEach(function(d) {
       row['daily_' + d] = dc[d] !== undefined ? dc[d] : null;
     });
 
