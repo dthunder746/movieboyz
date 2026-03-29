@@ -64,11 +64,9 @@ function init(data) {
     .catch(function() {});
 
   // ── Unowned-movie visibility / week history toggle state ─────────────
-  var _showUnowned      = false;
-  var _showWeekHistory  = false;
-  var _hiddenWeekCols   = [];
-  var _showRatings      = false;
-  var _hiddenRatingCols = [];
+  var _showUnowned     = false;
+  var _showWeekHistory = false;
+  var _hiddenWeekCols  = [];
 
   function applyTableFilter(activeOwners) {
     if (!_table) return;
@@ -110,7 +108,7 @@ function init(data) {
   var ownerFilter = createOwnerFilter(function onChange(activeOwners) {
     // Re-render all linked components whenever the selection changes
     buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, activeOwners);
-    buildOwnerFilter(owners, colorMap, activeOwners, _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
+    buildOwnerFilter(owners, colorMap, activeOwners, _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0);
 
     // Clear movie selection so chart stays consistent with table view
     _suppressMovieSelection = true;
@@ -129,11 +127,10 @@ function init(data) {
   // Initial render (unowned hidden by default)
   buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
   _chart = buildChart(data, owners, colorMap, [], []);
-  var tableResult   = buildTable(data, colorMap);
-  _table            = tableResult.table;
-  _hiddenWeekCols   = tableResult.hiddenWeekCols;
-  _hiddenRatingCols = tableResult.hiddenRatingCols || [];
-  buildOwnerFilter(owners, colorMap, [], _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
+  var tableResult  = buildTable(data, colorMap);
+  _table           = tableResult.table;
+  _hiddenWeekCols  = tableResult.hiddenWeekCols;
+  buildOwnerFilter(owners, colorMap, [], _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0);
   applyTableFilter([]);
 
   // ── Movie selection (Tabulator as source of truth) ────────────────────
@@ -174,7 +171,7 @@ function init(data) {
       if (btn) { ownerFilter.toggle(btn.dataset.owner); return; }
       if (e.target.closest('[data-toggle-unowned]')) {
         _showUnowned = !_showUnowned;
-        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
+        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0);
         applyTableFilter(ownerFilter.getActive());
         return;
       }
@@ -184,18 +181,7 @@ function init(data) {
           if (_showWeekHistory) _table.showColumn(f);
           else                  _table.hideColumn(f);
         });
-        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
-        return;
-      }
-      if (e.target.closest('[data-toggle-ratings]')) {
-        _showRatings = !_showRatings;
-        _hiddenRatingCols.forEach(function(f) {
-          if (_showRatings) _table.showColumn(f);
-          else              _table.hideColumn(f);
-        });
-        var tw = document.getElementById('table-wrapper');
-        if (tw) tw.classList.toggle('ratings-expanded', _showRatings);
-        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
+        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0);
         return;
       }
       if (e.target.closest('[data-clear]')) ownerFilter.clear();
