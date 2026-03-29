@@ -60,6 +60,23 @@ export function isoWeekBounds(weekKey) {
   return { start: iso(wMon), end: iso(wSun) };
 }
 
+export function dateToIsoWeekKey(dateStr) {
+  var parts = dateStr.split('-');
+  var d = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));
+  var day = d.getUTCDay() || 7; // Mon=1 … Sun=7
+  // Thursday of this week determines the ISO year
+  var thursday = new Date(d.getTime() + (4 - day) * 86400000);
+  var year = thursday.getUTCFullYear();
+  // Monday of ISO week 1 for that year
+  var jan4 = new Date(Date.UTC(year, 0, 4));
+  var jan4day = jan4.getUTCDay() || 7;
+  var w1Mon = new Date(jan4.getTime() - (jan4day - 1) * 86400000);
+  // Monday of the input date's week
+  var monday = new Date(d.getTime() - (day - 1) * 86400000);
+  var weekNum = 1 + Math.round((monday.getTime() - w1Mon.getTime()) / (7 * 86400000));
+  return year + '-W' + String(weekNum).padStart(2, '0');
+}
+
 export function fmtTimestamp(d) {
   if (typeof d === 'string') {
     // "2026-02-22 18:30:00" → "26-02-22 18:30:00" (already in local TZ)
