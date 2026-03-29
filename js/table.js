@@ -1,6 +1,6 @@
 import {
   fmt, fmtPct, colorClass, ratingColorClass,
-  formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr,
+  formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr, dateToIsoWeekKey,
 } from './utils.js';
 
 // ── Expandable column group factory ──────────────────────────────────────
@@ -40,8 +40,7 @@ function makeExpandableGroup(title, childColumns, hiddenFields, tableRef, initia
 
 // ── Tabulator table ───────────────────────────────────────────────────────
 // Reads pre-computed fields from each movie record (added by the fetcher).
-// Returns { table, hiddenWeekCols } where hiddenWeekCols is an array of
-// field names for week columns that start hidden (all weeks beyond last 4).
+// Returns the Tabulator instance.
 
 export function buildTable(data, colorMap) {
 
@@ -53,10 +52,17 @@ export function buildTable(data, colorMap) {
     Object.keys(m.weekly_gross || {}).forEach(function(w) { allWeekKeys.add(w); });
   });
   var sortedDaily = Array.from(allDailyDates).sort();
-  var last7       = sortedDaily.slice(-7);
   var allWeeks    = Array.from(allWeekKeys).sort();
 
   var anyReleased = sortedDaily.length > 0;
+
+  // Group all daily dates by ISO week key (used to build per-week day columns)
+  var datesByWeek = {};
+  allDailyDates.forEach(function(d) {
+    var wk = dateToIsoWeekKey(d);
+    if (!datesByWeek[wk]) datesByWeek[wk] = [];
+    datesByWeek[wk].push(d);
+  });
 
   // Build row data from pre-computed fields
   var rows = Object.entries(data.movies).map(function(entry) {
@@ -115,6 +121,13 @@ export function buildTable(data, colorMap) {
     var v = cell.getValue();
     if (v === null || v === undefined) return '<span class="text-neu">—</span>';
     return fmt(v);
+  }
+
+  function fmtDailyCell(cell) {
+    var v = cell.getValue();
+    if (v === null || v === undefined) return '<span class="text-neu">—</span>';
+    if (v < 0) return '<span class="daily-neg-revised">' + fmt(v) + '</span>';
+    return '<span class="' + colorClass(v) + '">' + fmt(v) + '</span>';
   }
 
   // Week column title from ISO week key (Mon–Sun date range)
@@ -181,80 +194,34 @@ export function buildTable(data, colorMap) {
     formatterParams: { html: true },
   };
 
-  var dailyCols = last7.slice().reverse().map(function(d, i) {
-    var abbr = getWeekdayAbbr(d);
-    var isWeekend = (abbr === 'SAT' || abbr === 'SUN');
-    var classes = [i === 0 ? 'daily-sep' : null, isWeekend ? 'col-weekend' : null].filter(Boolean).join(' ');
-    var col = {
-      title: formatDayMonth(d),
-      field: 'daily_' + d,
-      hozAlign: 'right',
-      minWidth: 68,
-      cssClass: classes,
-      formatter: fmtCell,
-      formatterParams: { html: true },
-      sorter: 'number',
-    };
-    col.titleFormatter = function() {
-      var cls = 'col-day-label' + (isWeekend ? ' col-weekend-label' : '');
-      return '<span class="' + cls + '">' + abbr + '</span><br>' + formatDayMonth(d);
-    };
-    return col;
-  });
-
-  // All weeks reversed (most recent first); last 4 visible, older hidden
-  var reversedWeeks = allWeeks.slice().reverse();
-  var weeklyCols = reversedWeeks.map(function(wk, i) {
-    var isLatest = (i === 0);
-    var visible  = (i < 4);
-    return {
-      title:    weekTitle(wk),
-      field:    'week_' + wk,
-      hozAlign: 'right',
-      minWidth: 90,
-      visible:  visible,
-      cssClass: [i === 0 ? 'week-sep' : null, isLatest ? 'week-latest' : null].filter(Boolean).join(' '),
-      formatter: fmtCell,
-      formatterParams: { html: true },
-      sorter: 'number',
-    };
-  });
-
-  // Field names for columns that start hidden (all weeks beyond last 4)
-  var hiddenWeekCols = reversedWeeks.slice(4).map(function(wk) { return 'week_' + wk; });
-
-  var tableRef = { current: null };
-  var hiddenRatingFields = RATING_SOURCES.filter(function(s) { return !s.visible; }).map(function(s) { return s.field; });
-
-  var movieDetailCols = [
-    {
-      title: 'Opening',
-      field: 'release_date',
-      minWidth: 120,
-      sorter: 'string',
-      formatter: function(cell) {
-        var row = cell.getRow().getData();
-        var rel = row.release_date;
-        if (rel === 'TBA') return '<span class="text-neu">TBA</span>';
-        var label = formatShortDate(rel);
-        if (row.days_running !== null && row.days_running !== undefined) {
-          label += ' · ' + row.days_running + 'd';
-        }
-        return label;
-      },
-      formatterParams: { html: true },
+  var openingCol = {
+    title: 'Opening',
+    field: 'release_date',
+    minWidth: 120,
+    sorter: 'string',
+    formatter: function(cell) {
+      var row = cell.getRow().getData();
+      var rel = row.release_date;
+      if (rel === 'TBA') return '<span class="text-neu">TBA</span>';
+      var label = formatShortDate(rel);
+      if (row.days_running !== null && row.days_running !== undefined) {
+        label += ' · ' + row.days_running + 'd';
+      }
+      return label;
     },
-    {
-      title: 'Owner',
-      field: 'owner',
-      minWidth: 100,
-      formatter: function(cell) {
-        var o = cell.getValue();
-        return '<span class="owner-dot" style="background:' + (colorMap[o] || '#888') + '"></span>' + o;
-      },
-      formatterParams: { html: true },
+    formatterParams: { html: true },
+  };
+
+  var ownerCol = {
+    title: 'Owner',
+    field: 'owner',
+    minWidth: 100,
+    formatter: function(cell) {
+      var o = cell.getValue();
+      return '<span class="owner-dot" style="background:' + (colorMap[o] || '#888') + '"></span>' + o;
     },
-  ];
+    formatterParams: { html: true },
+  };
 
   var financialCols = [
     {
@@ -297,28 +264,111 @@ export function buildTable(data, colorMap) {
     },
   ];
 
+  // ── Per-week expandable column groups ──────────────────────────────────
+  var tableRef = { current: null };
+  var hiddenRatingFields = RATING_SOURCES.filter(function(s) { return !s.visible; }).map(function(s) { return s.field; });
   var ratingsGroup = makeExpandableGroup('Ratings', ratingCols, hiddenRatingFields, tableRef);
+
+  var reversedWeeks = allWeeks.slice().reverse();
+
+  var perWeekGroups = reversedWeeks.map(function(wk, i) {
+    var isCurrentWeek = (i === 0);
+    var weekNum = parseInt(wk.split('-W')[1]);
+
+    // Dates to use as day columns for this week, ordered most-recent-first
+    var datesForWeek;
+    if (isCurrentWeek) {
+      // Only dates that have actual data (no future days)
+      datesForWeek = (datesByWeek[wk] || []).slice().sort().reverse();
+    } else {
+      // All 7 days Mon–Sun, ordered Sun→Mon (most-recent-first within the week)
+      var bounds = isoWeekBounds(wk);
+      var startMs = new Date(bounds.start + 'T00:00:00Z').getTime();
+      datesForWeek = [];
+      for (var di = 6; di >= 0; di--) {
+        var dt = new Date(startMs + di * 86400000);
+        datesForWeek.push(
+          dt.getUTCFullYear() + '-' +
+          String(dt.getUTCMonth() + 1).padStart(2, '0') + '-' +
+          String(dt.getUTCDate()).padStart(2, '0')
+        );
+      }
+    }
+
+    // Day columns
+    var dayCols = datesForWeek.map(function(d) {
+      var abbr = getWeekdayAbbr(d);
+      var isWeekend = (abbr === 'SAT' || abbr === 'SUN');
+      return {
+        title:    formatDayMonth(d),
+        field:    'daily_' + d,
+        hozAlign: 'right',
+        minWidth: 68,
+        cssClass: ['col-day-column', isWeekend ? 'col-weekend' : null].filter(Boolean).join(' '),
+        visible:  isCurrentWeek,
+        titleFormatter: function() {
+          var cls = 'col-day-label' + (isWeekend ? ' col-weekend-label' : '');
+          return '<span class="' + cls + '">' + abbr + '</span><br>' + formatDayMonth(d);
+        },
+        formatter:       fmtDailyCell,
+        formatterParams: { html: true },
+        sorter:          'number',
+      };
+    });
+
+    // Week total column — always visible, italic for current week
+    var weekTotalCol = {
+      title:    'total',
+      field:    'week_' + wk,
+      hozAlign: 'right',
+      minWidth: 90,
+      cssClass: isCurrentWeek ? 'week-sep week-current-total' : 'week-sep',
+      formatter: fmtGross,
+      formatterParams: { html: true },
+      sorter:   'number',
+    };
+
+    // "week #N" inner sub-group
+    var weekSubGroup = {
+      title:   'week #' + weekNum,
+      columns: [weekTotalCol].concat(dayCols),
+    };
+
+    // Hidden day fields for collapsed weeks (current week starts expanded → no hidden fields)
+    var hiddenDayFields = isCurrentWeek
+      ? []
+      : datesForWeek.map(function(d) { return 'daily_' + d; });
+
+    var group = makeExpandableGroup(
+      weekTitle(wk),
+      [weekSubGroup],
+      hiddenDayFields,
+      tableRef,
+      isCurrentWeek
+    );
+
+    if (isCurrentWeek) {
+      var _baseTF = group.titleFormatter;
+      group.titleFormatter = function() {
+        var el = _baseTF();
+        el.style.fontStyle = 'italic';
+        return el;
+      };
+    }
+
+    return group;
+  });
 
   var columns = [
     titleCol,
-    { title: 'Movie Details', columns: movieDetailCols },
+    openingCol,
+    ownerCol,
     ratingsGroup,
     { title: 'Financials', columns: financialCols },
   ];
 
-  if (anyReleased) {
-    if (dailyCols.length > 0) {
-      columns.push({
-        title: 'Daily Gross (last 7 days)',
-        columns: dailyCols,
-      });
-    }
-    if (weeklyCols.length > 0) {
-      columns.push({
-        title: 'Weekly Gross',
-        columns: weeklyCols,
-      });
-    }
+  if (anyReleased && perWeekGroups.length > 0) {
+    columns.push({ title: 'Weekly Gross', columns: perWeekGroups });
   }
 
   var table = new Tabulator('#movie-table', {
@@ -336,7 +386,8 @@ export function buildTable(data, colorMap) {
   });
 
   tableRef.current = table;
-  return { table: table, hiddenWeekCols: hiddenWeekCols };
+
+  return table;
 }
 
 // ── Owner filter ──────────────────────────────────────────────────────────
