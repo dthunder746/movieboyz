@@ -125,7 +125,7 @@ function init(data) {
 
   // Initial render (unowned hidden by default)
   buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
-  buildWeekendStrip(data, owners, colorMap, LATEST_PROFIT_DATE);
+  buildWeekendStrip(data, owners, colorMap);
   _chart = buildChart(data, owners, colorMap, [], []);
   _table = buildTable(data, colorMap);
   buildOwnerFilter(owners, colorMap, [], _showUnowned);

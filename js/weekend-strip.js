@@ -1,6 +1,6 @@
 import { fmt, colorClass, isoWeekBounds, formatShortDate } from './utils.js';
 
-export function buildWeekendStrip(data, owners, colorMap, LATEST_DATE) {
+export function buildWeekendStrip(data, owners, colorMap) {
   var el = document.getElementById('weekend-strip');
   if (!el) return;
 
