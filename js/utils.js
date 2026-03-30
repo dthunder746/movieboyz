@@ -9,9 +9,21 @@ export function fmt(v) {
   return sign + '$' + Math.round(abs);
 }
 
+export function fmtPct(v) {
+  var sign = v >= 0 ? '+' : '';
+  return sign + v.toFixed(1) + '%';
+}
+
 export function colorClass(v) {
   if (v === null || v === undefined) return 'text-neu';
   return v > 0 ? 'text-pos' : v < 0 ? 'text-neg' : 'text-neu';
+}
+
+export function ratingColorClass(v) {
+  if (v === null || v === undefined) return 'text-neu';
+  if (v >= 70) return 'text-pos';
+  if (v < 50)  return 'text-neg';
+  return 'text-neu';
 }
 
 export function formatShortDate(d) {
@@ -46,6 +58,23 @@ export function isoWeekBounds(weekKey) {
       + String(dt.getUTCDate()).padStart(2, '0');
   }
   return { start: iso(wMon), end: iso(wSun) };
+}
+
+export function dateToIsoWeekKey(dateStr) {
+  var parts = dateStr.split('-');
+  var d = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));
+  var day = d.getUTCDay() || 7; // Mon=1 … Sun=7
+  // Thursday of this week determines the ISO year
+  var thursday = new Date(d.getTime() + (4 - day) * 86400000);
+  var year = thursday.getUTCFullYear();
+  // Monday of ISO week 1 for that year
+  var jan4 = new Date(Date.UTC(year, 0, 4));
+  var jan4day = jan4.getUTCDay() || 7;
+  var w1Mon = new Date(jan4.getTime() - (jan4day - 1) * 86400000);
+  // Monday of the input date's week
+  var monday = new Date(d.getTime() - (day - 1) * 86400000);
+  var weekNum = 1 + Math.round((monday.getTime() - w1Mon.getTime()) / (7 * 86400000));
+  return year + '-W' + String(weekNum).padStart(2, '0');
 }
 
 export function fmtTimestamp(d) {

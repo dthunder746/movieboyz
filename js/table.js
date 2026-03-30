@@ -1,12 +1,47 @@
 import {
-  fmt, colorClass,
-  formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr,
+  fmt, fmtPct, colorClass, ratingColorClass,
+  formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr, dateToIsoWeekKey,
 } from './utils.js';
+
+// ── Expandable column group factory ──────────────────────────────────────
+// Returns a Tabulator column group definition whose header contains a [+]/[−]
+// toggle button that shows/hides the fields listed in hiddenFields.
+//
+// tableRef: a plain object { current: null } — assign tableRef.current = table
+// after the Tabulator instance is constructed.
+// initialExpanded: optional boolean; when true the group starts expanded.
+
+function makeExpandableGroup(title, childColumns, hiddenFields, tableRef, initialExpanded) {
+  var expanded = !!initialExpanded;
+  return {
+    title: title,
+    titleFormatter: function() {
+      var container = document.createElement('span');
+      container.textContent = title;
+      var btn = document.createElement('span');
+      btn.className = 'group-expand-btn';
+      btn.textContent = expanded ? '\u2212' : '+';
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (!tableRef.current) return;
+        expanded = !expanded;
+        btn.textContent = expanded ? '\u2212' : '+';
+        hiddenFields.forEach(function(f) {
+          if (expanded) tableRef.current.showColumn(f);
+          else tableRef.current.hideColumn(f);
+        });
+        if (expanded) tableRef.current.redraw();
+      });
+      container.appendChild(btn);
+      return container;
+    },
+    columns: childColumns,
+  };
+}
 
 // ── Tabulator table ───────────────────────────────────────────────────────
 // Reads pre-computed fields from each movie record (added by the fetcher).
-// Returns { table, hiddenWeekCols } where hiddenWeekCols is an array of
-// field names for week columns that start hidden (all weeks beyond last 4).
+// Returns the Tabulator instance.
 
 export function buildTable(data, colorMap) {
 
@@ -18,10 +53,17 @@ export function buildTable(data, colorMap) {
     Object.keys(m.weekly_gross || {}).forEach(function(w) { allWeekKeys.add(w); });
   });
   var sortedDaily = Array.from(allDailyDates).sort();
-  var last7       = sortedDaily.slice(-7);
   var allWeeks    = Array.from(allWeekKeys).sort();
 
   var anyReleased = sortedDaily.length > 0;
+
+  // Group all daily dates by ISO week key (used to build per-week day columns)
+  var datesByWeek = {};
+  allDailyDates.forEach(function(d) {
+    var wk = dateToIsoWeekKey(d);
+    if (!datesByWeek[wk]) datesByWeek[wk] = [];
+    datesByWeek[wk].push(d);
+  });
 
   // Build row data from pre-computed fields
   var rows = Object.entries(data.movies).map(function(entry) {
@@ -40,9 +82,19 @@ export function buildTable(data, colorMap) {
       breakeven:      movie.breakeven   != null ? movie.breakeven   : null,
       to_date_gross:  movie.gross_td    != null ? movie.gross_td    : null,
       to_date_profit: movie.profit_td   != null ? movie.profit_td   : null,
+      roi: (movie.profit_td != null && movie.breakeven) ? movie.profit_td / movie.breakeven * 100 : null,
     };
 
-    last7.forEach(function(d) {
+    var r = movie.ratings || null;
+    row.rating_letterboxd  = r && r.letterboxd  && r.letterboxd.score  != null ? r.letterboxd.score  : null;
+    row.rating_imdb        = r && r.imdb        && r.imdb.score        != null ? r.imdb.score        : null;
+    row.rating_rt_audience = r && r.rt_audience && r.rt_audience.score != null ? r.rt_audience.score : null;
+    row.rating_rt_critic   = r && r.rt_critic   && r.rt_critic.score   != null ? r.rt_critic.score   : null;
+    row.rating_tmdb        = r && r.tmdb        && r.tmdb.score        != null ? r.tmdb.score        : null;
+    row.rating_metacritic  = r && r.metacritic  && r.metacritic.score  != null ? r.metacritic.score  : null;
+    row.ratings_raw        = r;
+
+    allDailyDates.forEach(function(d) {
       row['daily_' + d] = dc[d] !== undefined ? dc[d] : null;
     });
 
@@ -53,6 +105,16 @@ export function buildTable(data, colorMap) {
     return row;
   });
 
+  var hasNegDailyGross = rows.some(function(row) {
+    return Object.keys(row).some(function(k) {
+      return k.startsWith('daily_') && typeof row[k] === 'number' && row[k] < 0;
+    });
+  });
+  if (hasNegDailyGross) {
+    var footnote = document.getElementById('daily-neg-footnote');
+    if (footnote) footnote.classList.remove('d-none');
+  }
+
   // Formatters
   function fmtCell(cell) {
     var v = cell.getValue();
@@ -60,10 +122,23 @@ export function buildTable(data, colorMap) {
     return '<span class="' + colorClass(v) + '">' + fmt(v) + '</span>';
   }
 
+  function fmtRoi(cell) {
+    var v = cell.getValue();
+    if (v === null || v === undefined) return '<span class="text-neu">—</span>';
+    return '<span class="' + colorClass(v) + '">' + fmtPct(v) + '</span>';
+  }
+
   function fmtGross(cell) {
     var v = cell.getValue();
     if (v === null || v === undefined) return '<span class="text-neu">—</span>';
     return fmt(v);
+  }
+
+  function fmtDailyCell(cell) {
+    var v = cell.getValue();
+    if (v === null || v === undefined) return '<span class="text-neu">—</span>';
+    if (v < 0) return '<span class="daily-neg-revised">' + fmt(v) + '</span>';
+    return '<span class="' + colorClass(v) + '">' + fmt(v) + '</span>';
   }
 
   // Week column title from ISO week key (Mon–Sun date range)
@@ -74,6 +149,47 @@ export function buildTable(data, colorMap) {
       ? formatShortDate(b.start) + '–' + parseInt(em[2])
       : formatShortDate(b.start) + '–' + formatShortDate(b.end);
   }
+
+  // Rating sources
+  var FAVICON_BASE = 'https://www.google.com/s2/favicons?domain=';
+  var RATING_SOURCES = [
+    { field: 'rating_letterboxd',  key: 'letterboxd',  label: 'Letterboxd',        icon: FAVICON_BASE + 'letterboxd.com&sz=32',       emoji: false, display: function(v){ return (v/20).toFixed(1); }, visible: true  },
+    { field: 'rating_imdb',        key: 'imdb',         label: 'IMDb',              icon: FAVICON_BASE + 'imdb.com&sz=32',             emoji: false, display: function(v){ return (v/10).toFixed(1); }, visible: false },
+    { field: 'rating_rt_audience', key: 'rt_audience',  label: 'RT Audience Score', icon: '🍿',                                        emoji: true,  display: function(v){ return v + '%'; },           visible: false },
+    { field: 'rating_rt_critic',   key: 'rt_critic',    label: 'RT Tomatometer',    icon: FAVICON_BASE + 'rottentomatoes.com&sz=32',   emoji: false, display: function(v){ return v + '%'; },           visible: false },
+    { field: 'rating_tmdb',        key: 'tmdb',         label: 'TMDB',              icon: FAVICON_BASE + 'themoviedb.org&sz=32',       emoji: false, display: function(v){ return (v/10).toFixed(1); }, visible: false },
+    { field: 'rating_metacritic',  key: 'metacritic',   label: 'Metacritic',        icon: FAVICON_BASE + 'metacritic.com&sz=32',       emoji: false, display: function(v){ return String(v); },         visible: false },
+  ];
+
+  var ratingCols = RATING_SOURCES.map(function(src, i) {
+    return {
+      title:         src.label,
+      field:         src.field,
+      cssClass:      i === 0 ? 'week-sep' : undefined,
+      titleFormatter: function() {
+        if (src.emoji) return '<span style="font-size:14px;line-height:1">' + src.icon + '</span>';
+        return '<img src="' + src.icon + '" width="16" height="16" style="vertical-align:middle" alt="' + src.label + '">';
+      },
+      headerTooltip: src.label,
+      hozAlign:      'center',
+      minWidth:      src.visible ? 120 : 50,
+      visible:       src.visible,
+      sorter:        'number',
+      formatter: function(cell) {
+        var v = cell.getValue();
+        if (v === null || v === undefined) return '<span class="text-neu">—</span>';
+        return '<span class="' + ratingColorClass(v) + '">' + src.display(v) + '</span>';
+      },
+      formatterParams: { html: true },
+      tooltip: function(e, cell) {
+        var raw = cell.getRow().getData().ratings_raw;
+        if (!raw || !raw[src.key]) return false;
+        var votes = raw[src.key].votes;
+        if (votes == null) return false;
+        return votes.toLocaleString() + ' votes';
+      },
+    };
+  });
 
   // Column definitions
   var titleCol = {
@@ -90,125 +206,209 @@ export function buildTable(data, colorMap) {
     formatterParams: { html: true },
   };
 
-  var dailyCols = last7.slice().reverse().map(function(d, i) {
-    var abbr = getWeekdayAbbr(d);
-    var isWeekend = (abbr === 'SAT' || abbr === 'SUN');
-    var classes = [i === 0 ? 'daily-sep' : null, isWeekend ? 'col-weekend' : null].filter(Boolean).join(' ');
-    var col = {
-      title: formatDayMonth(d),
-      field: 'daily_' + d,
-      hozAlign: 'right',
-      minWidth: 68,
-      cssClass: classes,
-      formatter: fmtCell,
-      formatterParams: { html: true },
-      sorter: 'number',
-    };
-    col.titleFormatter = function() {
-      var cls = 'col-day-label' + (isWeekend ? ' col-weekend-label' : '');
-      return '<span class="' + cls + '">' + abbr + '</span><br>' + formatDayMonth(d);
-    };
-    return col;
-  });
+  var openingCol = {
+    title: 'Opening',
+    field: 'release_date',
+    minWidth: 120,
+    sorter: 'string',
+    formatter: function(cell) {
+      var row = cell.getRow().getData();
+      var rel = row.release_date;
+      if (rel === 'TBA') return '<span class="text-neu">TBA</span>';
+      var label = formatShortDate(rel);
+      if (row.days_running !== null && row.days_running !== undefined) {
+        label += ' · ' + row.days_running + 'd';
+      }
+      return label;
+    },
+    formatterParams: { html: true },
+  };
 
-  // All weeks reversed (most recent first); last 4 visible, older hidden
-  var reversedWeeks = allWeeks.slice().reverse();
-  var weeklyCols = reversedWeeks.map(function(wk, i) {
-    var isLatest = (i === 0);
-    var visible  = (i < 4);
-    return {
-      title:    weekTitle(wk),
-      field:    'week_' + wk,
-      hozAlign: 'right',
-      minWidth: 90,
-      visible:  visible,
-      cssClass: [i === 0 ? 'week-sep' : null, isLatest ? 'week-latest' : null].filter(Boolean).join(' '),
-      formatter: fmtCell,
-      formatterParams: { html: true },
-      sorter: 'number',
-    };
-  });
+  var ownerCol = {
+    title: 'Owner',
+    field: 'owner',
+    minWidth: 100,
+    formatter: function(cell) {
+      var o = cell.getValue();
+      return '<span class="owner-dot" style="background:' + (colorMap[o] || '#888') + '"></span>' + o;
+    },
+    formatterParams: { html: true },
+  };
 
-  // Field names for columns that start hidden (all weeks beyond last 4)
-  var hiddenWeekCols = reversedWeeks.slice(4).map(function(wk) { return 'week_' + wk; });
-
-  var columns = [
+  var financialCols = [
     {
-      title: 'Movie Details',
-      columns: [
-        titleCol,
-        {
-          title: 'Opening',
-          field: 'release_date',
-          minWidth: 120,
-          sorter: 'string',
-          formatter: function(cell) {
-            var row = cell.getRow().getData();
-            var rel = row.release_date;
-            if (rel === 'TBA') return '<span class="text-neu">TBA</span>';
-            var label = formatShortDate(rel);
-            if (row.days_running !== null && row.days_running !== undefined) {
-              label += ' · ' + row.days_running + 'd';
-            }
-            return label;
-          },
-          formatterParams: { html: true },
-        },
-        {
-          title: 'Owner',
-          field: 'owner',
-          minWidth: 100,
-          formatter: function(cell) {
-            var o = cell.getValue();
-            return '<span class="owner-dot" style="background:' + (colorMap[o] || '#888') + '"></span>' + o;
-          },
-          formatterParams: { html: true },
-        },
-        {
-          title: 'B/E',
-          field: 'breakeven',
-          hozAlign: 'right',
-          minWidth: 80,
-          headerTooltip: 'Breakeven (2 × production budget)',
-          formatter: fmtGross,
-          formatterParams: { html: true },
-          sorter: 'number',
-        },
-        {
-          title: 'Gross TD',
-          field: 'to_date_gross',
-          hozAlign: 'right',
-          minWidth: 95,
-          formatter: fmtGross,
-          formatterParams: { html: true },
-          sorter: 'number',
-        },
-        {
-          title: 'Profit TD',
-          field: 'to_date_profit',
-          hozAlign: 'right',
-          minWidth: 95,
-          formatter: fmtCell,
-          formatterParams: { html: true },
-          sorter: 'number',
-        },
-      ],
+      title: 'B/E',
+      field: 'breakeven',
+      cssClass: 'week-sep',
+      hozAlign: 'right',
+      minWidth: 80,
+      headerTooltip: 'Breakeven (2 × production budget)',
+      formatter: fmtGross,
+      formatterParams: { html: true },
+      sorter: 'number',
+    },
+    {
+      title: 'Gross TD',
+      field: 'to_date_gross',
+      hozAlign: 'right',
+      minWidth: 95,
+      formatter: fmtGross,
+      formatterParams: { html: true },
+      sorter: 'number',
+    },
+    {
+      title: 'Profit TD',
+      field: 'to_date_profit',
+      hozAlign: 'right',
+      minWidth: 95,
+      formatter: fmtCell,
+      formatterParams: { html: true },
+      sorter: 'number',
+    },
+    {
+      title: 'ROI',
+      field: 'roi',
+      hozAlign: 'right',
+      minWidth: 80,
+      headerTooltip: 'Return on Investment: (gross − breakeven) / breakeven',
+      formatter: fmtRoi,
+      formatterParams: { html: true },
+      sorter: 'number',
     },
   ];
 
-  if (anyReleased) {
-    if (dailyCols.length > 0) {
-      columns.push({
-        title: 'Daily Gross (last 7 days)',
-        columns: dailyCols,
-      });
+  // Measure text width using a canvas context to size week group headers dynamically.
+  // Returns the minimum column width needed to show the given title + expand button.
+  var _measureCanvas = document.createElement('canvas');
+  function weekGroupMinWidth(title) {
+    var ctx = _measureCanvas.getContext('2d');
+    ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    var textPx = ctx.measureText(title).width;
+    // title text + button (14px) + button margin (6px) + cell padding (8px * 2) + buffer (10px)
+    return Math.ceil(textPx) + 46;
+  }
+
+  // Minimum width for a day column: measure the "DD/MM" date label + sort arrow
+  // (Tabulator adds padding-right:25px to sortable titles) + content padding (5px*2).
+  function dayColMinWidth(dateStr) {
+    var ctx = _measureCanvas.getContext('2d');
+    ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    var dateLabelPx = ctx.measureText(formatDayMonth(dateStr)).width;
+    return Math.ceil(dateLabelPx) + 25 + 10 + 8; // sort-arrow + padding + buffer
+  }
+
+  // ── Per-week expandable column groups ──────────────────────────────────
+  var tableRef = { current: null };
+  var hiddenRatingFields = RATING_SOURCES.filter(function(s) { return !s.visible; }).map(function(s) { return s.field; });
+  var ratingsGroup = makeExpandableGroup('Ratings', ratingCols, hiddenRatingFields, tableRef);
+
+  var reversedWeeks = allWeeks.slice().reverse();
+
+  var perWeekGroups = reversedWeeks.map(function(wk, i) {
+    var isCurrentWeek = (i === 0);
+    var weekNum = parseInt(wk.split('-W')[1]);
+
+    // Dates to use as day columns for this week, ordered most-recent-first
+    var datesForWeek;
+    if (isCurrentWeek) {
+      // Only dates that have actual data (no future days)
+      datesForWeek = (datesByWeek[wk] || []).slice().sort().reverse();
+    } else {
+      // All 7 days Mon–Sun, ordered Sun→Mon (most-recent-first within the week)
+      var bounds = isoWeekBounds(wk);
+      var startMs = new Date(bounds.start + 'T00:00:00Z').getTime();
+      datesForWeek = [];
+      for (var di = 6; di >= 0; di--) {
+        var dt = new Date(startMs + di * 86400000);
+        datesForWeek.push(
+          dt.getUTCFullYear() + '-' +
+          String(dt.getUTCMonth() + 1).padStart(2, '0') + '-' +
+          String(dt.getUTCDate()).padStart(2, '0')
+        );
+      }
     }
-    if (weeklyCols.length > 0) {
-      columns.push({
-        title: 'Weekly Gross',
-        columns: weeklyCols,
-      });
+
+    // Day columns
+    var dayCols = datesForWeek.map(function(d) {
+      var abbr = getWeekdayAbbr(d);
+      var isWeekend = (abbr === 'SAT' || abbr === 'SUN');
+      return {
+        title:    formatDayMonth(d),
+        field:    'daily_' + d,
+        hozAlign: 'right',
+        minWidth: dayColMinWidth(d),
+        cssClass: ['col-day-column', isWeekend ? 'col-weekend' : null].filter(Boolean).join(' '),
+        visible:  isCurrentWeek,
+        titleFormatter: function() {
+          var cls = 'col-day-label' + (isWeekend ? ' col-weekend-label' : '');
+          return '<span class="' + cls + '">' + abbr + '</span><br>' + formatDayMonth(d);
+        },
+        formatter:       fmtDailyCell,
+        formatterParams: { html: true },
+        sorter:          'number',
+      };
+    });
+
+    // Week total column — always visible, italic for current week
+    // minWidth is driven by the group header title width so it never clips.
+    var weekTotalCol = {
+      title:    'Total',
+      field:    'week_' + wk,
+      hozAlign: 'right',
+      minWidth: weekGroupMinWidth(weekTitle(wk)),
+      cssClass: isCurrentWeek ? 'week-sep week-current-total' : 'week-sep',
+      formatter: fmtGross,
+      formatterParams: { html: true },
+      sorter:   'number',
+    };
+
+    // "week #N" inner sub-group
+    var weekSubGroup = {
+      title:   'week #' + weekNum,
+      titleFormatter: function() {
+        var el = document.createElement('span');
+        el.style.fontSize = '0.7rem';
+        el.style.color = 'var(--bs-secondary-color)';
+        el.style.fontWeight = 'normal';
+        el.textContent = 'week #' + weekNum;
+        return el;
+      },
+      columns: [weekTotalCol].concat(dayCols),
+    };
+
+    // Hidden day fields — all weeks use the same toggle logic
+    var hiddenDayFields = datesForWeek.map(function(d) { return 'daily_' + d; });
+
+    var group = makeExpandableGroup(
+      weekTitle(wk),
+      [weekSubGroup],
+      hiddenDayFields,
+      tableRef,
+      isCurrentWeek
+    );
+
+    if (isCurrentWeek) {
+      var _baseTF = group.titleFormatter;
+      group.titleFormatter = function() {
+        var el = _baseTF();
+        el.style.fontStyle = 'italic';
+        return el;
+      };
     }
+
+    return group;
+  });
+
+  var columns = [
+    titleCol,
+    openingCol,
+    ownerCol,
+    ratingsGroup,
+    { title: 'Financials', columns: financialCols },
+  ];
+
+  if (anyReleased && perWeekGroups.length > 0) {
+    columns.push({ title: 'Weekly Gross', columns: perWeekGroups });
   }
 
   var table = new Tabulator('#movie-table', {
@@ -225,15 +425,16 @@ export function buildTable(data, colorMap) {
     paginationSizeSelector: [10, 25, 50, 100, true],
   });
 
-  return { table: table, hiddenWeekCols: hiddenWeekCols };
+  tableRef.current = table;
+
+  return table;
 }
 
 // ── Owner filter ──────────────────────────────────────────────────────────
 // Pure render — no internal state. Reads activeOwners array, paints buttons.
 // Clicks are handled via event delegation in app.js.
-// showWeekHistory / hasWeekHistory control the week-history toggle button.
 
-export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, showWeekHistory, hasWeekHistory) {
+export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned) {
   var container = document.getElementById('owner-filter');
   if (!container) return;
   var activeSet = new Set(activeOwners);
@@ -256,14 +457,6 @@ export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned, sh
   unownedToggle.textContent = showUnowned ? 'Hide unowned movies' : 'Show unowned movies';
   unownedToggle.dataset.toggleUnowned = '1';
   container.appendChild(unownedToggle);
-
-  if (hasWeekHistory) {
-    var weekToggle = document.createElement('button');
-    weekToggle.className = 'btn btn-sm btn-outline-secondary';
-    weekToggle.textContent = showWeekHistory ? 'Hide week history' : 'Show week history';
-    weekToggle.dataset.toggleWeekHistory = '1';
-    container.appendChild(weekToggle);
-  }
 
   var clear = document.createElement('button');
   clear.className = 'btn btn-sm btn-outline-secondary';

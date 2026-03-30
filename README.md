@@ -4,6 +4,16 @@ Static GitHub Pages dashboard for the MovieBoyz Fantasy Box Office league.
 
 `data.json` is stored on the `data` branch and auto-updated daily by [movieboyz-fetcher](https://github.com/dthunder746/movieboyz-fetcher). `index.html` fetches it at runtime from `raw.githubusercontent.com`.
 
+## Features
+
+### Ratings column group
+
+The table includes a **Ratings** column group with scores from six sources: Letterboxd, IMDb, RT Audience, RT Critic, TMDB, and Metacritic.
+
+- Only the **Letterboxd** column is visible by default
+- Click **Show all ratings** (in the owner filter bar) to expand all six columns
+- Scores are colour-coded on a normalised 0–100 scale: **green** ≥ 70, **red** < 50, grey in between
+
 ## Branches
 
 | Branch | Purpose |
