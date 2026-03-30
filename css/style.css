@@ -255,58 +255,178 @@ body { font-size: 0.9rem; }
   margin-top: 0.25rem;
 }
 
-/* ── Weekend strip ───────────────────────────────────────────────────────── */
-.weekend-strip-header {
-  margin-bottom: 0.5rem;
-}
-
-.weekend-strip-cards {
+/* ── Owner scorecard strip ───────────────────────────────────────────────── */
+.scorecard-strip {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 }
 
-.weekend-card {
-  background: var(--bs-tertiary-bg);
+.scorecard-card {
+  background: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color);
-  border-radius: 6px;
-  padding: 10px 14px;
-  min-width: 150px;
-  flex: 1 1 150px;
-  max-width: 240px;
-}
-
-.weekend-card-owner {
+  border-radius: 8px;
+  min-width: 200px;
+  flex: 1 1 200px;
+  max-width: 280px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 4px;
-  font-size: 0.85rem;
+  flex-direction: column;
 }
 
-.weekend-card-title {
-  font-size: 0.8rem;
+/* Header */
+.scorecard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.scorecard-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.scorecard-owner-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.scorecard-owner-rank {
+  font-size: 0.6875rem;
+  color: var(--bs-secondary-color);
+}
+
+.scorecard-header-right {
+  text-align: right;
+}
+
+.scorecard-weekend-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.scorecard-weekend-label {
+  font-size: 0.59375rem;
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+  letter-spacing: 0.06em;
+}
+
+/* Stat grid */
+.scorecard-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--bs-border-color);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.scorecard-stat {
+  background: var(--bs-tertiary-bg);
+  padding: 6px 10px;
+  text-align: center;
+}
+
+.scorecard-stat-value {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.scorecard-stat-label {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+  letter-spacing: 0.05em;
+}
+
+/* Movie list */
+.scorecard-movies {
+  padding: 6px 12px;
+  flex: 1;
+}
+
+.scorecard-movie-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 3px 0;
+}
+
+.scorecard-movie-title {
+  font-size: 0.71875rem;
   color: var(--bs-secondary-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 6px;
+  flex: 1;
+  min-width: 0;
+  margin-right: 8px;
 }
 
-.weekend-card-gross {
+.scorecard-movie-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.scorecard-movie-gross {
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.scorecard-movie-delta {
+  font-size: 0.65625rem;
+}
+
+.scorecard-no-movies {
+  font-size: 0.71875rem;
+  color: var(--bs-secondary-color);
+  text-align: center;
+  padding: 6px 0;
+}
+
+/* Footer */
+.scorecard-footer {
+  background: rgba(0, 0, 0, 0.15);
+  padding: 6px 12px;
   display: flex;
-  align-items: baseline;
-  gap: 6px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
 
-.weekend-gross {
-  font-size: 1rem;
-  font-weight: 600;
+.scorecard-footer-left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
 }
 
-.weekend-delta {
-  font-size: 0.72rem;
-  opacity: 0.85;
+.scorecard-next-label {
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.scorecard-next-title {
+  font-size: 0.6875rem;
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scorecard-next-days {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--bs-info);
+  flex-shrink: 0;
 }
