@@ -30,6 +30,7 @@ function makeExpandableGroup(title, childColumns, hiddenFields, tableRef, initia
           if (expanded) tableRef.current.showColumn(f);
           else tableRef.current.hideColumn(f);
         });
+        if (expanded) tableRef.current.redraw();
       });
       container.appendChild(btn);
       return container;
@@ -164,6 +165,7 @@ export function buildTable(data, colorMap) {
     return {
       title:         src.label,
       field:         src.field,
+      cssClass:      i === 0 ? 'week-sep' : undefined,
       titleFormatter: function() {
         if (src.emoji) return '<span style="font-size:14px;line-height:1">' + src.icon + '</span>';
         return '<img src="' + src.icon + '" width="16" height="16" style="vertical-align:middle" alt="' + src.label + '">';
@@ -237,6 +239,7 @@ export function buildTable(data, colorMap) {
     {
       title: 'B/E',
       field: 'breakeven',
+      cssClass: 'week-sep',
       hozAlign: 'right',
       minWidth: 80,
       headerTooltip: 'Breakeven (2 × production budget)',
@@ -273,6 +276,26 @@ export function buildTable(data, colorMap) {
       sorter: 'number',
     },
   ];
+
+  // Measure text width using a canvas context to size week group headers dynamically.
+  // Returns the minimum column width needed to show the given title + expand button.
+  var _measureCanvas = document.createElement('canvas');
+  function weekGroupMinWidth(title) {
+    var ctx = _measureCanvas.getContext('2d');
+    ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    var textPx = ctx.measureText(title).width;
+    // title text + button (14px) + button margin (6px) + cell padding (8px * 2) + buffer (10px)
+    return Math.ceil(textPx) + 46;
+  }
+
+  // Minimum width for a day column: measure the "DD/MM" date label + sort arrow
+  // (Tabulator adds padding-right:25px to sortable titles) + content padding (5px*2).
+  function dayColMinWidth(dateStr) {
+    var ctx = _measureCanvas.getContext('2d');
+    ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    var dateLabelPx = ctx.measureText(formatDayMonth(dateStr)).width;
+    return Math.ceil(dateLabelPx) + 25 + 10 + 8; // sort-arrow + padding + buffer
+  }
 
   // ── Per-week expandable column groups ──────────────────────────────────
   var tableRef = { current: null };
@@ -313,7 +336,7 @@ export function buildTable(data, colorMap) {
         title:    formatDayMonth(d),
         field:    'daily_' + d,
         hozAlign: 'right',
-        minWidth: 68,
+        minWidth: dayColMinWidth(d),
         cssClass: ['col-day-column', isWeekend ? 'col-weekend' : null].filter(Boolean).join(' '),
         visible:  isCurrentWeek,
         titleFormatter: function() {
@@ -327,11 +350,12 @@ export function buildTable(data, colorMap) {
     });
 
     // Week total column — always visible, italic for current week
+    // minWidth is driven by the group header title width so it never clips.
     var weekTotalCol = {
-      title:    'total',
+      title:    'Total',
       field:    'week_' + wk,
       hozAlign: 'right',
-      minWidth: 90,
+      minWidth: weekGroupMinWidth(weekTitle(wk)),
       cssClass: isCurrentWeek ? 'week-sep week-current-total' : 'week-sep',
       formatter: fmtGross,
       formatterParams: { html: true },
@@ -341,6 +365,14 @@ export function buildTable(data, colorMap) {
     // "week #N" inner sub-group
     var weekSubGroup = {
       title:   'week #' + weekNum,
+      titleFormatter: function() {
+        var el = document.createElement('span');
+        el.style.fontSize = '0.7rem';
+        el.style.color = 'var(--bs-secondary-color)';
+        el.style.fontWeight = 'normal';
+        el.textContent = 'week #' + weekNum;
+        return el;
+      },
       columns: [weekTotalCol].concat(dayCols),
     };
 

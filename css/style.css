@@ -65,7 +65,9 @@ body { font-size: 0.9rem; }
     border-right: none !important;
   }
 }
-.tabulator-col-title { white-space: normal; word-break: keep-all; overflow-wrap: normal; }
+.tabulator-col-title { white-space: normal; word-break: keep-all; overflow-wrap: normal; line-height: 1.1 !important; }
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content { padding: 5px 8px !important; }
+.tabulator .tabulator-header .tabulator-col-group .tabulator-col-content { padding: 8px 8px !important; }
 #table-wrapper { overflow-x: auto; }
 .tabulator .tabulator-col-resize-handle { display: none !important; }
 
@@ -157,8 +159,8 @@ body { font-size: 0.9rem; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 1.1em;
+  height: 1.1em;
   margin-left: 6px;
   font-size: 0.65rem;
   font-weight: 700;
@@ -166,13 +168,14 @@ body { font-size: 0.9rem; }
   user-select: none;
   vertical-align: middle;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: background 0.15s ease, color 0.15s ease;
 }
 .group-expand-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /* ── Current (in-progress) week — italic total cells  */
@@ -186,6 +189,7 @@ body { font-size: 0.9rem; }
   font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.04em;
+  line-height: 1;
   color: var(--bs-secondary-color);
   opacity: 0.6;
 }
@@ -235,12 +239,13 @@ body { font-size: 0.9rem; }
 
 /* ── Group expand button — light mode colours ────────────────────────────── */
 [data-bs-theme="light"] .group-expand-btn {
-  background: rgba(0, 0, 0, 0.07);
-  color: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 [data-bs-theme="light"] .group-expand-btn:hover {
-  background: rgba(0, 0, 0, 0.14);
-  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.16);
+  color: rgba(0, 0, 0, 0.85);
 }
 
 /* ── Negative daily gross footnote ──────────────────────────────────────── */
