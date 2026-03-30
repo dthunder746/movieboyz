@@ -131,7 +131,8 @@ export function buildTable(data, colorMap) {
   function fmtGross(cell) {
     var v = cell.getValue();
     if (v === null || v === undefined) return '<span class="text-neu">—</span>';
-    return fmt(v);
+    var cls = v > 0 ? 'text-pos' : 'text-neu';
+    return '<span class="' + cls + '">' + fmt(v) + '</span>';
   }
 
   function fmtDailyCell(cell) {

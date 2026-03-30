@@ -171,7 +171,17 @@ function init(data) {
         applyTableFilter(ownerFilter.getActive());
         return;
       }
-      if (e.target.closest('[data-clear]')) ownerFilter.clear();
+      if (e.target.closest('[data-clear]')) {
+        _showUnowned = false;
+        ownerFilter.clear();
+        if (_table) {
+          _table.setSort('release_date', 'asc');
+          _suppressMovieSelection = true;
+          _table.deselectRow();
+          _suppressMovieSelection = false;
+        }
+        if (clearMovieBtn) clearMovieBtn.classList.add('d-none');
+      }
     });
   }
 
@@ -183,7 +193,7 @@ function init(data) {
 }
 
 // ── Load data ──────────────────────────────────────────────────────────────
-var DATA_URL = 'https://raw.githubusercontent.com/dthunder746/movieboyz-site/data/data.json?t=' + Date.now();
+var DATA_URL = (import.meta.env.VITE_DATA_URL || 'https://raw.githubusercontent.com/dthunder746/movieboyz-site/data/data.json') + '?t=' + Date.now();
 fetch(DATA_URL)
   .then(function(r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
