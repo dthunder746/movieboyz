@@ -1,22 +1,20 @@
-import { fmt, colorClass, dateToIsoWeekKey, isoWeekBounds, formatShortDate } from './utils.js';
+import { fmt, colorClass, isoWeekBounds, formatShortDate } from './utils.js';
 
 export function buildWeekendStrip(data, owners, colorMap, LATEST_DATE) {
   var el = document.getElementById('weekend-strip');
   if (!el) return;
 
-  if (!LATEST_DATE) { el.classList.add('d-none'); return; }
-
-  var currentWeek = dateToIsoWeekKey(LATEST_DATE);
-  var bounds = isoWeekBounds(currentWeek);
-
-  // Collect all week keys across all movies to find the previous week
+  // Collect all week keys across all movies — use the max as current week
   var allWeekKeys = new Set();
   Object.values(data.movies).forEach(function(m) {
     Object.keys(m.weekly_gross || {}).forEach(function(w) { allWeekKeys.add(w); });
   });
   var sortedWeeks = Array.from(allWeekKeys).sort();
-  var prevWeekIdx = sortedWeeks.indexOf(currentWeek) - 1;
-  var prevWeek = prevWeekIdx >= 0 ? sortedWeeks[prevWeekIdx] : null;
+  if (!sortedWeeks.length) { el.classList.add('d-none'); return; }
+
+  var currentWeek = sortedWeeks[sortedWeeks.length - 1];
+  var bounds = isoWeekBounds(currentWeek);
+  var prevWeek = sortedWeeks.length > 1 ? sortedWeeks[sortedWeeks.length - 2] : null;
 
   // Build one card per owner — pick the most recently released movie
   var cards = owners.map(function(owner) {
@@ -49,8 +47,7 @@ export function buildWeekendStrip(data, owners, colorMap, LATEST_DATE) {
     + '<div class="weekend-strip-cards">';
 
   cards.forEach(function(c) {
-    var pickType = (c.movie.pick_type || 'hit').toLowerCase();
-    var pickLabel = pickType.charAt(0).toUpperCase() + pickType.slice(1);
+    var pickType = c.movie.pick_type ? c.movie.pick_type.toLowerCase() : null;
 
     var grossHtml = c.currentGross !== null
       ? '<span class="weekend-gross">' + fmt(c.currentGross) + '</span>'
@@ -68,7 +65,7 @@ export function buildWeekendStrip(data, owners, colorMap, LATEST_DATE) {
       + '<div class="weekend-card-owner">'
       + '<span class="owner-dot" style="background:' + c.color + '"></span>'
       + '<span class="fw-medium">' + c.owner + '</span>'
-      + '<span class="pick-badge pick-' + pickType + ' ms-1">' + pickLabel + '</span>'
+      + (pickType ? '<span class="pick-badge pick-' + pickType + ' ms-1">' + pickType.charAt(0).toUpperCase() + pickType.slice(1) + '</span>' : '')
       + '</div>'
       + '<div class="weekend-card-title" title="' + c.movie.movie_title + '">' + c.movie.movie_title + '</div>'
       + '<div class="weekend-card-gross">' + grossHtml + deltaHtml + '</div>'

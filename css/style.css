@@ -292,7 +292,6 @@ body { font-size: 0.9rem; }
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 6px;
-  max-width: 200px;
 }
 
 .weekend-card-gross {
