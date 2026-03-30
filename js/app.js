@@ -4,6 +4,7 @@ import { createOwnerFilter } from './filter.js';
 import { buildLeaderboard } from './leaderboard.js';
 import { buildChart } from './chart.js';
 import { buildTable, buildOwnerFilter } from './table.js';
+import { buildWeekendStrip } from './weekend-strip.js';
 
 // ── Module-level chart / table instances ─────────────────────────────────
 var _chart = null;
@@ -124,6 +125,7 @@ function init(data) {
 
   // Initial render (unowned hidden by default)
   buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
+  buildWeekendStrip(data, owners, colorMap, LATEST_PROFIT_DATE);
   _chart = buildChart(data, owners, colorMap, [], []);
   _table = buildTable(data, colorMap);
   buildOwnerFilter(owners, colorMap, [], _showUnowned);
