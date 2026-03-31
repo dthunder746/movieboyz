@@ -12,9 +12,18 @@ var PICK_ICONS = {
 // 9×9 bomb icon used inline in the ROI stat label
 var BOMB_ICON_SM = '<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="13" r="9"/><path d="m19.5 9.5 1.8-1.8a2.4 2.4 0 0 0 0-3.4l-1.6-1.6a2.4 2.4 0 0 0-3.4 0l-1.8 1.8"/><path d="m22 2-1.5 1.5"/></svg>';
 
-function pickIcon(pickType) {
+function seasonFromDate(releaseDate) {
+  if (!releaseDate) return 'winter';
+  var month = parseInt(releaseDate.split('-')[1], 10);
+  if (month <= 4) return 'winter';
+  if (month <= 8) return 'summer';
+  return 'fall';
+}
+
+function pickIcon(pickType, releaseDate) {
   if (!pickType) return '';
   var key = pickType.toLowerCase();
+  if (key === 'seasonal') key = seasonFromDate(releaseDate);
   return PICK_ICONS[key] ? '<span class="scorecard-pick-icon">' + PICK_ICONS[key] + '</span>' : '';
 }
 
@@ -196,7 +205,7 @@ export function buildWeekendStrip(data, owners, colorMap) {
           : '<span class="text-neu">—</span>';
         var profitTd = m.profit_td != null ? m.profit_td : null;
         return '<tr>'
-          + '<td>' + pickIcon(m.pick_type) + m.movie_title + '</td>'
+          + '<td>' + pickIcon(m.pick_type, m.release_date) + m.movie_title + '</td>'
           + '<td>' + (m.breakeven != null ? fmt(m.breakeven) : '<span class="text-neu">—</span>') + '</td>'
           + '<td>' + (m.gross_td != null ? fmt(m.gross_td) : '<span class="text-neu">—</span>') + '</td>'
           + '<td class="' + colorClass(profitTd) + '">' + fmt(profitTd) + '</td>'
@@ -224,7 +233,7 @@ export function buildWeekendStrip(data, owners, colorMap) {
 
     var nextTitleHtml = nextMovie
       ? '<div class="scorecard-next-title" title="' + nextMovie.movie_title + '">'
-          + pickIcon(nextMovie.pick_type) + nextMovie.movie_title + '</div>'
+          + pickIcon(nextMovie.pick_type, nextMovie.release_date) + nextMovie.movie_title + '</div>'
       : '<div class="scorecard-next-title">None scheduled</div>';
     var nextDaysHtml = daysUntil !== null
       ? '<div class="scorecard-next-days">' + daysUntil + 'd</div>'
