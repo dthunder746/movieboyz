@@ -281,7 +281,7 @@ body { font-size: 0.9rem; }
 }
 
 .scorecard-header:hover {
-  background: var(--bs-tertiary-bg);
+  background: var(--scorecard-hover-bg, var(--bs-tertiary-bg));
 }
 
 .scorecard-header-left {

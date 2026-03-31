@@ -240,7 +240,7 @@ export function buildWeekendStrip(data, owners, colorMap) {
 
     // ── Assemble card ─────────────────────────────────────────────────────────
     html += '<div class="scorecard-card' + (open ? ' is-open' : '') + '"'
-      + ' style="border-top:3px solid ' + colorMap[owner] + '">'
+      + ' style="border-top:3px solid ' + colorMap[owner] + ';--scorecard-hover-bg:color-mix(in srgb,' + colorMap[owner] + ' 15%,transparent)">'
       + headerHtml
       + '<div class="scorecard-body">'
       + statGridHtml
