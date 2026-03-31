@@ -153,7 +153,8 @@ export function buildWeekendStrip(data, owners, colorMap) {
     } else {
       var rows = activeMovies.map(function(m) {
         var cg = (m.weekly_gross || {})[currentWeek] || 0;
-        var pg = prevWeek !== null ? ((m.weekly_gross || {})[prevWeek] || null) : null;
+        var wgPrev = (m.weekly_gross || {})[prevWeek];
+        var pg = prevWeek !== null && wgPrev != null ? wgPrev : null;
         var d = pg !== null ? cg - pg : null;
         var deltaHtml = d !== null
           ? '<div class="scorecard-movie-delta ' + colorClass(d) + '">' + (d >= 0 ? '+' : '') + fmt(d) + '</div>'
