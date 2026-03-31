@@ -199,9 +199,9 @@ export function buildWeekendStrip(data, owners, colorMap) {
         var cg = wg[currentWeek] != null ? wg[currentWeek] : null;
         var wgPrev = prevWeek !== null ? wg[prevWeek] : undefined;
         var pg = prevWeek !== null && wgPrev != null ? wgPrev : null;
-        var wkD = (cg !== null && pg !== null) ? cg - pg : null;
+        var wkD = (cg !== null && pg !== null && pg !== 0) ? (cg - pg) / pg * 100 : null;
         var wkDHtml = wkD !== null
-          ? '<span class="' + colorClass(wkD) + '">' + (wkD >= 0 ? '+' : '') + fmt(wkD) + '</span>'
+          ? '<span class="' + colorClass(wkD) + '">' + fmtPct(wkD) + '</span>'
           : '<span class="text-neu">—</span>';
         var profitTd = m.profit_td != null ? m.profit_td : null;
         return '<tr>'
@@ -215,7 +215,7 @@ export function buildWeekendStrip(data, owners, colorMap) {
       movieTableHtml = '<div class="scorecard-movies">'
         + '<table class="scorecard-movie-table">'
         + '<thead><tr>'
-        + '<th>Movie</th><th>B/E</th><th>Gross TD</th><th>Profit TD</th><th>Wk &#916;</th>'
+        + '<th>Movie</th><th>B/E</th><th>Gross TD</th><th>Profit TD</th><th>Weekly Change</th>'
         + '</tr></thead>'
         + '<tbody>' + tableRows + '</tbody>'
         + '</table>'
