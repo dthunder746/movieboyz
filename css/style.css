@@ -441,7 +441,7 @@ body { font-size: 0.9rem; }
 }
 
 .scorecard-footer {
-  background: rgba(0, 0, 0, 0.15);
+  background: var(--bs-tertiary-bg);
   padding: 6px 12px;
   display: flex;
   justify-content: space-between;
