@@ -275,7 +275,6 @@ body { font-size: 0.9rem; }
   flex-direction: column;
 }
 
-/* Header */
 .scorecard-header {
   display: flex;
   justify-content: space-between;
@@ -312,13 +311,12 @@ body { font-size: 0.9rem; }
 }
 
 .scorecard-weekend-label {
-  font-size: 0.59375rem;
+  font-size: 0.59rem;
   text-transform: uppercase;
   color: var(--bs-secondary-color);
   letter-spacing: 0.06em;
 }
 
-/* Stat grid */
 .scorecard-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -346,7 +344,6 @@ body { font-size: 0.9rem; }
   letter-spacing: 0.05em;
 }
 
-/* Movie list */
 .scorecard-movies {
   padding: 6px 12px;
   flex: 1;
@@ -360,7 +357,7 @@ body { font-size: 0.9rem; }
 }
 
 .scorecard-movie-title {
-  font-size: 0.71875rem;
+  font-size: 0.72rem;
   color: var(--bs-secondary-color);
   white-space: nowrap;
   overflow: hidden;
@@ -381,17 +378,16 @@ body { font-size: 0.9rem; }
 }
 
 .scorecard-movie-delta {
-  font-size: 0.65625rem;
+  font-size: 0.66rem;
 }
 
 .scorecard-no-movies {
-  font-size: 0.71875rem;
+  font-size: 0.72rem;
   color: var(--bs-secondary-color);
   text-align: center;
   padding: 6px 0;
 }
 
-/* Footer */
 .scorecard-footer {
   background: rgba(0, 0, 0, 0.15);
   padding: 6px 12px;
@@ -409,7 +405,7 @@ body { font-size: 0.9rem; }
 }
 
 .scorecard-next-label {
-  font-size: 0.5625rem;
+  font-size: 0.56rem;
   text-transform: uppercase;
   color: var(--bs-secondary-color);
   letter-spacing: 0.06em;
