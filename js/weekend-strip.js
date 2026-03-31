@@ -69,7 +69,6 @@ export function buildWeekendStrip(data, owners, colorMap) {
   var sortedWeeks = Array.from(allWeekKeys).sort();
   if (!sortedWeeks.length) { el.classList.add('d-none'); return; }
   var currentWeek = sortedWeeks[sortedWeeks.length - 1];
-  var prevWeek = sortedWeeks.length > 1 ? sortedWeeks[sortedWeeks.length - 2] : null;
 
   // ── LATEST_DATE ──────────────────────────────────────────────────────────
   var allDates = new Set();
@@ -197,11 +196,8 @@ export function buildWeekendStrip(data, owners, colorMap) {
       var tableRows = releasedMovies.map(function(m) {
         var wg = m.weekly_gross || {};
         var cg = wg[currentWeek] != null ? wg[currentWeek] : null;
-        var wgPrev = prevWeek !== null ? wg[prevWeek] : undefined;
-        var pg = prevWeek !== null && wgPrev != null ? wgPrev : null;
-        var wkD = (cg !== null && pg !== null && pg !== 0) ? (cg - pg) / pg * 100 : null;
-        var wkDHtml = wkD !== null
-          ? '<span class="' + colorClass(wkD) + '">' + fmtPct(wkD) + '</span>'
+        var wkGHtml = cg !== null
+          ? '<span>' + fmt(cg) + '</span>'
           : '<span class="text-neu">—</span>';
         var profitTd = m.profit_td != null ? m.profit_td : null;
         return '<tr>'
@@ -209,13 +205,17 @@ export function buildWeekendStrip(data, owners, colorMap) {
           + '<td>' + (m.breakeven != null ? fmt(m.breakeven) : '<span class="text-neu">—</span>') + '</td>'
           + '<td>' + (m.gross_td != null ? fmt(m.gross_td) : '<span class="text-neu">—</span>') + '</td>'
           + '<td class="' + colorClass(profitTd) + '">' + fmt(profitTd) + '</td>'
-          + '<td>' + wkDHtml + '</td>'
+          + '<td>' + wkGHtml + '</td>'
           + '</tr>';
       }).join('');
       movieTableHtml = '<div class="scorecard-movies">'
         + '<table class="scorecard-movie-table">'
         + '<thead><tr>'
-        + '<th>Movie</th><th>B/E</th><th>Gross TD</th><th>Profit TD</th><th>Weekly Change</th>'
+        + '<th>Movie</th>'
+        + '<th>B/E</th>'
+        + '<th><span class="d-none d-sm-inline">Gross TD</span><span class="d-inline d-sm-none">Gr.</span></th>'
+        + '<th><span class="d-none d-sm-inline">Profit TD</span><span class="d-inline d-sm-none">Pr.</span></th>'
+        + '<th><span class="d-none d-sm-inline">Weekly Gross</span><span class="d-inline d-sm-none">Wk Gr.</span></th>'
         + '</tr></thead>'
         + '<tbody>' + tableRows + '</tbody>'
         + '</table>'
