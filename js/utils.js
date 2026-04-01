@@ -60,6 +60,23 @@ export function isoWeekBounds(weekKey) {
   return { start: iso(wMon), end: iso(wSun) };
 }
 
+export function dateToIsoWeekKey(dateStr) {
+  var parts = dateStr.split('-');
+  var d = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));
+  var day = d.getUTCDay() || 7; // Mon=1 … Sun=7
+  // Thursday of this week determines the ISO year
+  var thursday = new Date(d.getTime() + (4 - day) * 86400000);
+  var year = thursday.getUTCFullYear();
+  // Monday of ISO week 1 for that year
+  var jan4 = new Date(Date.UTC(year, 0, 4));
+  var jan4day = jan4.getUTCDay() || 7;
+  var w1Mon = new Date(jan4.getTime() - (jan4day - 1) * 86400000);
+  // Monday of the input date's week
+  var monday = new Date(d.getTime() - (day - 1) * 86400000);
+  var weekNum = 1 + Math.round((monday.getTime() - w1Mon.getTime()) / (7 * 86400000));
+  return year + '-W' + String(weekNum).padStart(2, '0');
+}
+
 export function fmtTimestamp(d) {
   if (typeof d === 'string') {
     // "2026-02-22 18:30:00" → "26-02-22 18:30:00" (already in local TZ)
@@ -83,3 +100,27 @@ export function grossAsOf(daily_gross, targetDate) {
   return daily_gross[dates[dates.length - 1]] || 0;
 }
 
+
+// ── Lucide pick-type icons (inline SVG, 11×11) ────────────────────────────
+export var PICK_ICONS = {
+  hit:    '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  winter: '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg>',
+  summer: '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
+  fall:   '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>',
+  bomb:   '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="13" r="9"/><path d="m19.5 9.5 1.8-1.8a2.4 2.4 0 0 0 0-3.4l-1.6-1.6a2.4 2.4 0 0 0-3.4 0l-1.8 1.8"/><path d="m22 2-1.5 1.5"/></svg>',
+};
+
+export function seasonFromDate(releaseDate) {
+  if (!releaseDate) return 'winter';
+  var month = parseInt(releaseDate.split('-')[1], 10);
+  if (month <= 4) return 'winter';
+  if (month <= 8) return 'summer';
+  return 'fall';
+}
+
+export function pickIcon(pickType, releaseDate) {
+  if (!pickType) return '';
+  var key = pickType.toLowerCase();
+  if (key === 'seasonal') key = seasonFromDate(releaseDate);
+  return PICK_ICONS[key] ? '<span class="scorecard-pick-icon">' + PICK_ICONS[key] + '</span>' : '';
+}

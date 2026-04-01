@@ -4,6 +4,8 @@ import { createOwnerFilter } from './filter.js';
 import { buildLeaderboard } from './leaderboard.js';
 import { buildChart } from './chart.js';
 import { buildTable, buildOwnerFilter } from './table.js';
+import { buildWeekendStrip } from './weekend-strip.js';
+import { buildInfoCards } from './info-cards.js';
 
 // ── Module-level chart / table instances ─────────────────────────────────
 var _chart = null;
@@ -128,6 +130,8 @@ function init(data) {
 
   // Initial render (unowned hidden by default)
   buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
+  buildWeekendStrip(data, owners, colorMap);
+  buildInfoCards(data, colorMap);
   _chart = buildChart(data, owners, colorMap, [], []);
   var tableResult   = buildTable(data, colorMap);
   _table            = tableResult.table;
@@ -207,10 +211,30 @@ function init(data) {
     if (_chart._zoomReset) _chart.zoomScale('x', _chart._zoomReset);
     else _chart.resetZoom();
   });
+
+  var chartWrapper = document.getElementById('chart-wrapper');
+
+  function exitChartFullscreen() {
+    chartWrapper.classList.remove('is-fullscreen');
+    if (_chart) requestAnimationFrame(function() { _chart.resize(); });
+  }
+
+  document.getElementById('fullscreen-chart').addEventListener('click', function() {
+    chartWrapper.classList.toggle('is-fullscreen');
+    if (_chart) requestAnimationFrame(function() { _chart.resize(); });
+  });
+
+  document.getElementById('fullscreen-close').addEventListener('click', exitChartFullscreen);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && chartWrapper.classList.contains('is-fullscreen')) {
+      exitChartFullscreen();
+    }
+  });
 }
 
 // ── Load data ──────────────────────────────────────────────────────────────
-var DATA_URL = 'https://raw.githubusercontent.com/dthunder746/movieboyz-site/data/data.json?t=' + Date.now();
+var DATA_URL = (import.meta.env.VITE_DATA_URL || 'https://raw.githubusercontent.com/dthunder746/movieboyz-site/data/data.json') + '?t=' + Date.now();
 fetch(DATA_URL)
   .then(function(r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
