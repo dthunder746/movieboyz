@@ -35,7 +35,24 @@ function writeCollapsedCookie(state) {
 }
 
 async function captureAndShare(card) {
-  var dataUrl = await htmlToImage.toPng(card, { pixelRatio: 2, backgroundColor: null });
+  var PIXEL_RATIO = 2;
+  var RADIUS = 8 * PIXEL_RATIO; // matches .scorecard-card border-radius: 8px
+  var dataUrl = await htmlToImage.toPng(card, { pixelRatio: PIXEL_RATIO, backgroundColor: null });
+
+  // Post-process: clip to rounded rect so corners are transparent in the output PNG.
+  var img = new Image();
+  img.src = dataUrl;
+  await new Promise(function(res) { img.onload = res; });
+  var canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  var ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.roundRect(0, 0, canvas.width, canvas.height, RADIUS);
+  ctx.clip();
+  ctx.drawImage(img, 0, 0);
+  dataUrl = canvas.toDataURL('image/png');
+
   var blob = await (await fetch(dataUrl)).blob();
   var file = new File([blob], 'scorecard.png', { type: 'image/png' });
 
