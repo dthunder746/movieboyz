@@ -5,7 +5,6 @@ export function buildInfoCards(data, colorMap) {
   if (!el) return;
 
   var today = new Date().toISOString().split('T')[0];
-
   var COOKIE = 'info_active_tab';
 
   function readTabCookie() {
@@ -38,25 +37,28 @@ export function buildInfoCards(data, colorMap) {
     return m.days_running == null && m.release_date > today && m.owner !== 'none';
   }).sort(function(a, b) { return a.release_date < b.release_date ? -1 : 1; });
 
+  // Full sorted arrays — row count for these is calculated dynamically from container height.
   var profitable = movies.filter(function(m) { return m.profit_td != null; })
-    .sort(function(a, b) { return b.profit_td - a.profit_td; }).slice(0, 10);
+    .sort(function(a, b) { return b.profit_td - a.profit_td; });
 
   var worst = movies.filter(function(m) { return m.profit_td != null; })
-    .sort(function(a, b) { return a.profit_td - b.profit_td; }).slice(0, 10);
+    .sort(function(a, b) { return a.profit_td - b.profit_td; });
 
-  var tabs = [
-    { id: 'upcoming',   label: 'Upcoming',        data: upcoming   },
-    { id: 'profitable', label: 'Most Profitable',  data: profitable },
-    { id: 'worst',      label: 'Least Profitable', data: worst      }
-  ];
-
-  function buildPane(tab) {
-    if (!tab.data.length) {
+  function buildPaneContent(tabId, tabData) {
+    if (!tabData.length) {
       return '<p class="info-tab-empty">No data available</p>';
     }
-    var rows = tab.data.map(function(m) {
+
+    var col3Header = tabId === 'upcoming' ? 'Date' : 'Profit (ROI)';
+    var thead = '<thead><tr>'
+      + '<th>Movie</th>'
+      + '<th>Owner</th>'
+      + '<th>' + col3Header + '</th>'
+      + '</tr></thead>';
+
+    var rows = tabData.map(function(m) {
       var col3 = '';
-      if (tab.id === 'upcoming') {
+      if (tabId === 'upcoming') {
         col3 = formatShortDate(m.release_date);
       } else {
         var roi = m.breakeven ? (m.profit_td / m.breakeven * 100) : null;
@@ -69,10 +71,20 @@ export function buildInfoCards(data, colorMap) {
         + '<td>' + col3 + '</td>'
         + '</tr>';
     }).join('');
+
     return '<div class="info-card-table-wrap">'
-      + '<table class="scorecard-movie-table"><tbody>' + rows + '</tbody></table>'
+      + '<table class="scorecard-movie-table">'
+      + thead
+      + '<tbody>' + rows + '</tbody>'
+      + '</table>'
       + '</div>';
   }
+
+  var tabs = [
+    { id: 'upcoming',   label: 'Upcoming Releases', data: upcoming   },
+    { id: 'profitable', label: 'Most Profitable',    data: profitable },
+    { id: 'worst',      label: 'Least Profitable',   data: worst      }
+  ];
 
   var navHtml = tabs.map(function(t) {
     return '<button class="info-tab-btn' + (t.id === activeTab ? ' active' : '') + '" data-tab="' + t.id + '">'
@@ -81,7 +93,7 @@ export function buildInfoCards(data, colorMap) {
 
   var panesHtml = tabs.map(function(t) {
     return '<div class="info-tab-pane' + (t.id === activeTab ? ' active' : '') + '" data-tab="' + t.id + '">'
-      + buildPane(t)
+      + buildPaneContent(t.id, t.data)
       + '</div>';
   }).join('');
 
@@ -90,6 +102,44 @@ export function buildInfoCards(data, colorMap) {
     + '<div class="info-tab-body">' + panesHtml + '</div>'
     + '</div>';
 
+  // ── Dynamic row count for profitable / worst ─────────────────────────────
+  // Row height and header height are measured from the live DOM on first call;
+  // after that the cached values are reused across ResizeObserver callbacks.
+  var ROW_PX = 0;
+  var HEADER_PX = 0;
+
+  function updateDynamicPanes() {
+    var body = el.querySelector('.info-tab-body');
+    if (!body) return;
+    var bodyH = body.clientHeight;
+    if (!bodyH) return;
+
+    // Measure once from a live thead/tbody row (any active pane will do).
+    if (!ROW_PX) {
+      var sampleRow = body.querySelector('tbody tr');
+      ROW_PX = sampleRow ? sampleRow.offsetHeight : 28;
+    }
+    if (!HEADER_PX) {
+      var sampleHead = body.querySelector('thead');
+      HEADER_PX = sampleHead ? sampleHead.offsetHeight : 24;
+    }
+
+    var count = Math.max(1, Math.floor((bodyH - HEADER_PX) / ROW_PX));
+
+    ['profitable', 'worst'].forEach(function(id) {
+      var pane = el.querySelector('.info-tab-pane[data-tab="' + id + '"]');
+      if (!pane) return;
+      var arr = id === 'profitable' ? profitable : worst;
+      pane.innerHTML = buildPaneContent(id, arr.slice(0, count));
+    });
+  }
+
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(updateDynamicPanes).observe(el.querySelector('.info-tab-body'));
+  }
+  updateDynamicPanes();
+
+  // ── Tab click ────────────────────────────────────────────────────────────
   el.addEventListener('click', function(e) {
     var btn = e.target.closest('.info-tab-btn');
     if (!btn) return;
@@ -101,5 +151,7 @@ export function buildInfoCards(data, colorMap) {
       p.classList.toggle('active', p.dataset.tab === id);
     });
     writeTabCookie(id);
+    // Recalculate if switching to a profit tab (pane was hidden during last resize).
+    if (id === 'profitable' || id === 'worst') updateDynamicPanes();
   });
 }
