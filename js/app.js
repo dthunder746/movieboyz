@@ -182,6 +182,26 @@ function init(data) {
     if (_chart._zoomReset) _chart.zoomScale('x', _chart._zoomReset);
     else _chart.resetZoom();
   });
+
+  var chartWrapper = document.getElementById('chart-wrapper');
+
+  function exitChartFullscreen() {
+    chartWrapper.classList.remove('is-fullscreen');
+    if (_chart) _chart.resize();
+  }
+
+  document.getElementById('fullscreen-chart').addEventListener('click', function() {
+    chartWrapper.classList.toggle('is-fullscreen');
+    if (_chart) _chart.resize();
+  });
+
+  document.getElementById('fullscreen-close').addEventListener('click', exitChartFullscreen);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && chartWrapper.classList.contains('is-fullscreen')) {
+      exitChartFullscreen();
+    }
+  });
 }
 
 // ── Load data ──────────────────────────────────────────────────────────────

@@ -50,9 +50,22 @@
   <!-- Chart -->
   <div class="d-flex align-items-center justify-content-between mb-2">
     <h6 id="chart-heading" class="text-uppercase text-muted fw-semibold mb-0" style="letter-spacing:.08em">Profit Over Time</h6>
-    <button id="reset-zoom" class="btn btn-sm btn-outline-secondary py-0" style="font-size:0.75rem">Reset zoom</button>
+    <div class="d-flex gap-2">
+      <button id="reset-zoom" class="btn btn-sm btn-outline-secondary py-0" style="font-size:0.75rem">Reset zoom</button>
+      <button id="fullscreen-chart" class="btn btn-sm btn-outline-secondary py-0" title="Fullscreen" aria-label="Toggle fullscreen chart">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+          <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
+      </button>
+    </div>
   </div>
   <div id="chart-wrapper" class="mb-4">
+    <button id="fullscreen-close" class="btn btn-sm btn-outline-secondary py-0" aria-label="Exit fullscreen">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
     <canvas id="profitChart"></canvas>
   </div>
 

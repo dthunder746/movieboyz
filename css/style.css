@@ -8,6 +8,28 @@ body { font-size: 0.9rem; }
   #chart-wrapper { height: 33vh; min-height: 150px; }
 }
 
+#chart-wrapper.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  height: auto !important;
+  background: var(--bs-body-bg);
+  padding: 1rem;
+  margin: 0;
+}
+
+#fullscreen-close {
+  display: none;
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+}
+
+#chart-wrapper.is-fullscreen #fullscreen-close {
+  display: block;
+}
+
 /* ── Pick-type badges ───────────────────────────────────────────────────── */
 .pick-badge {
   display: inline-block;
