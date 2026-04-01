@@ -231,18 +231,20 @@ export function buildWeekendStrip(data, owners, colorMap) {
 
     var nextTitleHtml = nextMovie
       ? '<div class="scorecard-next-title" title="' + nextMovie.movie_title + '">'
-          + pickIcon(nextMovie.pick_type, nextMovie.release_date) + nextMovie.movie_title + '</div>'
-      : '<div class="scorecard-next-title">None scheduled</div>';
-    var nextDaysHtml = daysUntil !== null
-      ? '<div class="scorecard-next-days">' + daysUntil + 'd</div>'
-      : '<div class="scorecard-next-days text-neu">—</div>';
+          + '<span class="scorecard-next-title-text">'
+          + pickIcon(nextMovie.pick_type, nextMovie.release_date) + nextMovie.movie_title
+          + '</span>'
+          + (daysUntil !== null
+              ? '<span class="scorecard-next-days-badge">' + daysUntil + 'd</span>'
+              : '')
+          + '</div>'
+      : '<div class="scorecard-next-title"><span class="scorecard-next-title-text">None scheduled</span></div>';
 
     var footerHtml = '<div class="scorecard-footer">'
       + '<div class="scorecard-footer-left">'
       + '<div class="scorecard-next-label">Next</div>'
       + nextTitleHtml
       + '</div>'
-      + nextDaysHtml
       + '<button class="scorecard-share-btn" title="Share card" aria-label="Share card">'
       + '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
       + '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>'

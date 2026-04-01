@@ -465,6 +465,13 @@ body { font-size: 0.9rem; }
 }
 
 .scorecard-next-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.scorecard-next-title-text {
   font-size: 0.69rem;
   color: var(--bs-secondary-color);
   white-space: nowrap;
@@ -473,13 +480,15 @@ body { font-size: 0.9rem; }
   display: flex;
   align-items: center;
   gap: 3px;
+  min-width: 0;
 }
 
-.scorecard-next-days {
+.scorecard-next-days-badge {
   font-size: 0.69rem;
   font-weight: 700;
   color: var(--bs-info);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .scorecard-share-btn {
