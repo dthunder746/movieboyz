@@ -1,6 +1,7 @@
 import { fmtTimestamp } from './utils.js';
 import { buildColorMap } from './palettes.js';
 import { createOwnerFilter } from './filter.js';
+import { buildLeaderboard } from './leaderboard.js';
 import { buildChart } from './chart.js';
 import { buildTable, buildOwnerFilter } from './table.js';
 import { buildWeekendStrip } from './weekend-strip.js';
@@ -64,8 +65,12 @@ function init(data) {
     })
     .catch(function() {});
 
-  // ── Unowned-movie visibility toggle state ────────────────────────────
-  var _showUnowned = false;
+  // ── Unowned-movie visibility / week history toggle state ─────────────
+  var _showUnowned      = false;
+  var _showWeekHistory  = false;
+  var _hiddenWeekCols   = [];
+  var _showRatings      = false;
+  var _hiddenRatingCols = [];
 
   function applyTableFilter(activeOwners) {
     if (!_table) return;
@@ -106,7 +111,8 @@ function init(data) {
   // ── Owner filter state ─────────────────────────────────────────────────
   var ownerFilter = createOwnerFilter(function onChange(activeOwners) {
     // Re-render all linked components whenever the selection changes
-    buildOwnerFilter(owners, colorMap, activeOwners, _showUnowned);
+    buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, activeOwners);
+    buildOwnerFilter(owners, colorMap, activeOwners, _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
 
     // Clear movie selection so chart stays consistent with table view
     _suppressMovieSelection = true;
@@ -123,11 +129,15 @@ function init(data) {
   });
 
   // Initial render (unowned hidden by default)
+  buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
   buildWeekendStrip(data, owners, colorMap);
   buildInfoCards(data, colorMap);
   _chart = buildChart(data, owners, colorMap, [], []);
-  _table = buildTable(data, colorMap);
-  buildOwnerFilter(owners, colorMap, [], _showUnowned);
+  var tableResult   = buildTable(data, colorMap);
+  _table            = tableResult.table;
+  _hiddenWeekCols   = tableResult.hiddenWeekCols;
+  _hiddenRatingCols = tableResult.hiddenRatingCols;
+  buildOwnerFilter(owners, colorMap, [], _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
   applyTableFilter([]);
 
   // ── Movie selection (Tabulator as source of truth) ────────────────────
@@ -151,6 +161,15 @@ function init(data) {
     });
   }
 
+  // Leaderboard — event delegation (survives innerHTML re-renders)
+  var lbEl = document.getElementById('leaderboard');
+  if (lbEl) {
+    lbEl.addEventListener('click', function(e) {
+      var card = e.target.closest('[data-owner]');
+      if (card) ownerFilter.toggle(card.dataset.owner);
+    });
+  }
+
   // Owner filter — event delegation
   var ofEl = document.getElementById('owner-filter');
   if (ofEl) {
@@ -159,21 +178,31 @@ function init(data) {
       if (btn) { ownerFilter.toggle(btn.dataset.owner); return; }
       if (e.target.closest('[data-toggle-unowned]')) {
         _showUnowned = !_showUnowned;
-        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned);
+        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
         applyTableFilter(ownerFilter.getActive());
         return;
       }
-      if (e.target.closest('[data-clear]')) {
-        _showUnowned = false;
-        ownerFilter.clear();
-        if (_table) {
-          _table.setSort('release_date', 'asc');
-          _suppressMovieSelection = true;
-          _table.deselectRow();
-          _suppressMovieSelection = false;
-        }
-        if (clearMovieBtn) clearMovieBtn.classList.add('d-none');
+      if (e.target.closest('[data-toggle-week-history]')) {
+        _showWeekHistory = !_showWeekHistory;
+        _hiddenWeekCols.forEach(function(f) {
+          if (_showWeekHistory) _table.showColumn(f);
+          else                  _table.hideColumn(f);
+        });
+        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
+        return;
       }
+      if (e.target.closest('[data-toggle-ratings]')) {
+        _showRatings = !_showRatings;
+        _hiddenRatingCols.forEach(function(f) {
+          if (_showRatings) _table.showColumn(f);
+          else              _table.hideColumn(f);
+        });
+        var tw = document.getElementById('table-wrapper');
+        if (tw) tw.classList.toggle('ratings-expanded', _showRatings);
+        buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned, _showWeekHistory, _hiddenWeekCols.length > 0, _showRatings, _hiddenRatingCols.length > 0);
+        return;
+      }
+      if (e.target.closest('[data-clear]')) ownerFilter.clear();
     });
   }
 
