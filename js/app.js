@@ -1,7 +1,6 @@
 import { fmtTimestamp } from './utils.js';
 import { buildColorMap } from './palettes.js';
 import { createOwnerFilter } from './filter.js';
-import { buildLeaderboard } from './leaderboard.js';
 import { buildChart } from './chart.js';
 import { buildTable, buildOwnerFilter } from './table.js';
 import { buildWeekendStrip } from './weekend-strip.js';
@@ -107,7 +106,6 @@ function init(data) {
   // ── Owner filter state ─────────────────────────────────────────────────
   var ownerFilter = createOwnerFilter(function onChange(activeOwners) {
     // Re-render all linked components whenever the selection changes
-    buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, activeOwners);
     buildOwnerFilter(owners, colorMap, activeOwners, _showUnowned);
 
     // Clear movie selection so chart stays consistent with table view
@@ -125,7 +123,6 @@ function init(data) {
   });
 
   // Initial render (unowned hidden by default)
-  buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
   buildWeekendStrip(data, owners, colorMap);
   buildInfoCards(data, colorMap);
   _chart = buildChart(data, owners, colorMap, [], []);
@@ -151,15 +148,6 @@ function init(data) {
   if (clearMovieBtn) {
     clearMovieBtn.addEventListener('click', function() {
       if (_table) _table.deselectRow();
-    });
-  }
-
-  // Leaderboard — event delegation (survives innerHTML re-renders)
-  var lbEl = document.getElementById('leaderboard');
-  if (lbEl) {
-    lbEl.addEventListener('click', function(e) {
-      var card = e.target.closest('[data-owner]');
-      if (card) ownerFilter.toggle(card.dataset.owner);
     });
   }
 

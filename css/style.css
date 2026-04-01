@@ -500,14 +500,36 @@ body { font-size: 0.9rem; }
   background: var(--bs-tertiary-bg);
 }
 
+/* ── Top panel: scorecard strip + info cards side by side ────────────────── */
+.top-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  .top-panel {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .top-panel #weekend-strip {
+    flex-shrink: 0;
+  }
+  .top-panel #info-cards {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+  }
+  .scorecard-strip {
+    min-width: 550px;
+  }
+}
+
 /* ── Info cards grid ────────────────────────────────────────────────────── */
 .info-cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.5rem;
-}
-@media (max-width: 549px) {
-  .info-cards-grid { grid-template-columns: 1fr; }
 }
 .info-card {
   background: var(--bs-body-bg);
