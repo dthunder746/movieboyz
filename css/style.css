@@ -261,7 +261,6 @@ body { font-size: 0.9rem; }
   flex-direction: column;
   gap: 0.375rem;
   margin-bottom: 1.5rem;
-  max-width: 550px;
 }
 
 .scorecard-card {
@@ -520,7 +519,8 @@ body { font-size: 0.9rem; }
     min-width: 0;
   }
   .scorecard-strip {
-    min-width: 550px;
+    min-width: 600px;
+    max-width: 600px;
   }
 }
 
