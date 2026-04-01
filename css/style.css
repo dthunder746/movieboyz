@@ -546,7 +546,7 @@ body { font-size: 0.9rem; }
   gap: 0.75rem;
 }
 
-@media (max-width: 959px) {
+@media (max-width: 935px) {
   #info-cards {
     height: 350px;
     display: flex;
@@ -554,23 +554,25 @@ body { font-size: 0.9rem; }
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 936px) {
   .top-panel {
     flex-direction: row;
     align-items: flex-start;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .top-panel #weekend-strip {
-    flex-shrink: 0;
+    flex: 1;
+    min-width: 450px;
   }
   .top-panel #info-cards {
-    flex: 1;
-    min-width: 0;
+    width: 450px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
   }
   .scorecard-strip {
-    min-width: 600px;
-    max-width: 600px;
     margin-bottom: 0;
   }
 }
