@@ -34,7 +34,7 @@ export function buildInfoCards(data, colorMap) {
   var movies = Object.values(data.movies);
 
   var upcoming = movies.filter(function(m) {
-    return m.days_running == null && m.release_date > today && m.owner !== 'none';
+    return m.days_running == null && m.release_date > today;
   }).sort(function(a, b) { return a.release_date < b.release_date ? -1 : 1; });
 
   // Full sorted arrays — row count for these is calculated dynamically from container height.
@@ -137,6 +137,29 @@ export function buildInfoCards(data, colorMap) {
   if (typeof ResizeObserver !== 'undefined') {
     new ResizeObserver(updateDynamicPanes).observe(el.querySelector('.info-tab-body'));
   }
+
+  // ── Height sync: drive #info-cards height from the strip on desktop ───────
+  // align-items: stretch is NOT used — it would let #info-cards content grow
+  // the container height, preventing the strip from shrinking. Instead we
+  // observe the strip and set an explicit height on #info-cards so the flex
+  // chain inside (.info-tab-card / .info-tab-body) has a definite height to
+  // work against.
+  var strip = document.getElementById('weekend-strip');
+
+  function syncHeight() {
+    if (window.innerWidth < 960 || !strip) {
+      el.style.height = '';
+      return;
+    }
+    el.style.height = strip.offsetHeight + 'px';
+  }
+
+  if (typeof ResizeObserver !== 'undefined' && strip) {
+    new ResizeObserver(syncHeight).observe(strip);
+  }
+  syncHeight();
+  window.addEventListener('resize', syncHeight);
+
   updateDynamicPanes();
 
   // ── Tab click ────────────────────────────────────────────────────────────

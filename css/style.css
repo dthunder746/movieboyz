@@ -518,7 +518,7 @@ body { font-size: 0.9rem; }
 @media (min-width: 960px) {
   .top-panel {
     flex-direction: row;
-    align-items: stretch;
+    align-items: flex-start;
   }
   .top-panel #weekend-strip {
     flex-shrink: 0;
