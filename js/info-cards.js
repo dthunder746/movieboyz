@@ -81,7 +81,7 @@ export function buildInfoCards(data, colorMap) {
   }
 
   var tabs = [
-    { id: 'upcoming',   label: 'Upcoming Releases', data: upcoming   },
+    { id: 'upcoming',   label: 'Upcoming', data: upcoming   },
     { id: 'profitable', label: 'Most Profitable',    data: profitable },
     { id: 'worst',      label: 'Least Profitable',   data: worst      }
   ];
