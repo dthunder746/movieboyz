@@ -124,7 +124,8 @@ export function buildInfoCards(data, colorMap) {
       HEADER_PX = sampleHead ? sampleHead.offsetHeight : 24;
     }
 
-    var count = Math.max(1, Math.floor((bodyH - HEADER_PX) / ROW_PX));
+    var BOTTOM_PAD = 6; // .info-card-table-wrap padding-bottom
+    var count = Math.max(1, Math.floor((bodyH - HEADER_PX - BOTTOM_PAD) / ROW_PX));
 
     ['profitable', 'worst'].forEach(function(id) {
       var pane = el.querySelector('.info-tab-pane[data-tab="' + id + '"]');

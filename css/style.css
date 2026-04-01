@@ -582,7 +582,7 @@ body { font-size: 0.9rem; }
 .info-tab-body {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .info-tab-pane {
@@ -591,6 +591,12 @@ body { font-size: 0.9rem; }
 
 .info-tab-pane.active {
   display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+.info-tab-pane[data-tab="upcoming"].active {
+  overflow-y: auto;
 }
 
 .info-card-table-wrap {
