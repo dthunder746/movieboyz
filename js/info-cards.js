@@ -126,7 +126,7 @@ export function buildInfoCards(data, colorMap) {
 
     var BOTTOM_PAD = 6; // .info-card-table-wrap padding-bottom
     var count = Math.max(1, Math.floor((bodyH - HEADER_PX - BOTTOM_PAD) / ROW_PX));
-    if (window.innerWidth < 960) count = Math.min(10, count);
+    if (window.innerWidth < 936) count = Math.min(10, count);
 
     ['profitable', 'worst'].forEach(function(id) {
       var pane = el.querySelector('.info-tab-pane[data-tab="' + id + '"]');
@@ -149,7 +149,7 @@ export function buildInfoCards(data, colorMap) {
   var strip = document.getElementById('weekend-strip');
 
   function syncHeight() {
-    if (window.innerWidth < 960 || !strip) {
+    if (window.innerWidth < 936 || !strip) {
       el.style.height = '';
       return;
     }
