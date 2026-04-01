@@ -187,12 +187,12 @@ function init(data) {
 
   function exitChartFullscreen() {
     chartWrapper.classList.remove('is-fullscreen');
-    if (_chart) _chart.resize();
+    if (_chart) requestAnimationFrame(function() { _chart.resize(); });
   }
 
   document.getElementById('fullscreen-chart').addEventListener('click', function() {
     chartWrapper.classList.toggle('is-fullscreen');
-    if (_chart) _chart.resize();
+    if (_chart) requestAnimationFrame(function() { _chart.resize(); });
   });
 
   document.getElementById('fullscreen-close').addEventListener('click', exitChartFullscreen);

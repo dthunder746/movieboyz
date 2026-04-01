@@ -18,6 +18,13 @@ body { font-size: 0.9rem; }
   margin: 0;
 }
 
+#fullscreen-chart,
+#fullscreen-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #fullscreen-close {
   display: none;
   position: absolute;
@@ -27,7 +34,7 @@ body { font-size: 0.9rem; }
 }
 
 #chart-wrapper.is-fullscreen #fullscreen-close {
-  display: block;
+  display: inline-flex;
 }
 
 /* ── Pick-type badges ───────────────────────────────────────────────────── */
