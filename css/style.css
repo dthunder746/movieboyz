@@ -533,46 +533,65 @@ body { font-size: 0.9rem; }
   }
 }
 
-/* ── Info cards grid ────────────────────────────────────────────────────── */
-.info-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.5rem;
-}
-.info-card {
+/* ── Info tab card ───────────────────────────────────────────────────────── */
+.info-tab-card {
   background: var(--bs-body-bg);
   border: 1px solid var(--bs-border-color);
   border-radius: 8px;
   overflow: hidden;
-}
-.info-card-header {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.1s;
+  flex-direction: column;
 }
-.info-card-header:hover { background: var(--bs-tertiary-bg); }
-.info-card-title {
-  font-size: 0.8rem;
+
+.info-tab-nav {
+  display: flex;
+  border-bottom: 1px solid var(--bs-border-color);
+  flex-shrink: 0;
+}
+
+.info-tab-btn {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  color: var(--bs-secondary-color);
+  transition: background 0.1s, color 0.1s;
+  white-space: nowrap;
 }
-.info-card.is-open .scorecard-toggle-icon { transform: rotate(90deg); }
-.info-card-body {
-  display: none;
-  border-top: 1px solid var(--bs-border-color);
-  max-height: 300px;
+
+.info-tab-btn:hover {
+  background: var(--bs-tertiary-bg);
+  color: var(--bs-body-color);
+}
+
+.info-tab-btn.active {
+  color: var(--bs-body-color);
+  border-bottom-color: var(--bs-primary);
+}
+
+.info-tab-body {
   overflow-y: auto;
 }
-.info-card.is-open .info-card-body { display: block; }
+
+.info-tab-pane {
+  display: none;
+}
+
+.info-tab-pane.active {
+  display: block;
+}
+
 .info-card-table-wrap {
   padding: 0 12px 6px;
   overflow-x: auto;
 }
-.info-card-empty {
+
+.info-tab-empty {
   font-size: 0.72rem;
   color: var(--bs-secondary-color);
   text-align: center;

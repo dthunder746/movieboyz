@@ -6,33 +6,27 @@ export function buildInfoCards(data, colorMap) {
 
   var today = new Date().toISOString().split('T')[0];
 
-  function readCollapsedCookie() {
-    var match = document.cookie.match(/(?:^|;)\s*info_cards_collapsed=([^;]*)/);
-    if (!match) return null;
-    try { return JSON.parse(decodeURIComponent(match[1])); } catch(e) { return null; }
+  var COOKIE = 'info_active_tab';
+
+  function readTabCookie() {
+    var match = document.cookie.match(/(?:^|;)\s*info_active_tab=([^;]*)/);
+    return match ? decodeURIComponent(match[1]) : null;
   }
 
-  function writeCollapsedCookie(state) {
+  function writeTabCookie(id) {
     var exp = new Date();
     exp.setFullYear(exp.getFullYear() + 1);
-    document.cookie = 'info_cards_collapsed=' + encodeURIComponent(JSON.stringify(state))
+    document.cookie = COOKIE + '=' + encodeURIComponent(id)
       + '; expires=' + exp.toUTCString() + '; path=/; SameSite=Lax';
   }
 
-  var cookieState = readCollapsedCookie() || {};
-  var defaultOpen = window.innerWidth >= 550;
-
-  function isOpen(id) {
-    if (cookieState[id] !== undefined) return cookieState[id];
-    return defaultOpen;
-  }
+  var activeTab = readTabCookie() || 'upcoming';
 
   function ownerDot(owner) {
     if (!owner || owner === 'none') return '<span class="text-neu">—</span>';
     return '<span class="owner-dot" style="background:' + (colorMap[owner] || '#ccc') + '"></span>' + owner;
   }
 
-  // For unowned movies, fall back to the season icon derived from release date.
   function movieIcon(m) {
     var type = m.pick_type || (m.release_date ? 'seasonal' : null);
     return pickIcon(type, m.release_date);
@@ -50,66 +44,62 @@ export function buildInfoCards(data, colorMap) {
   var worst = movies.filter(function(m) { return m.profit_td != null; })
     .sort(function(a, b) { return a.profit_td - b.profit_td; }).slice(0, 10);
 
-  var cards = [
-    { id: 'upcoming',   title: 'Upcoming Releases',  data: upcoming   },
-    { id: 'profitable', title: '10 Most Profitable',  data: profitable },
-    { id: 'worst',      title: '10 Least Profitable', data: worst      }
+  var tabs = [
+    { id: 'upcoming',   label: 'Upcoming',        data: upcoming   },
+    { id: 'profitable', label: 'Most Profitable',  data: profitable },
+    { id: 'worst',      label: 'Least Profitable', data: worst      }
   ];
 
-  var html = '<div class="info-cards-grid">';
-
-  cards.forEach(function(c) {
-    var open = isOpen(c.id);
-    var tableHtml = '';
-
-    if (!c.data.length) {
-      tableHtml = '<p class="info-card-empty">No data available</p>';
-    } else {
-      var rows = c.data.map(function(m) {
-        var col3 = '';
-        if (c.id === 'upcoming') {
-          col3 = formatShortDate(m.release_date);
-        } else {
-          var roi = m.breakeven ? (m.profit_td / m.breakeven * 100) : null;
-          col3 = '<span class="' + colorClass(m.profit_td) + '">' + fmt(m.profit_td) + '</span>'
-            + ' <span class="text-neu" style="font-size:0.9em">(' + (roi !== null ? fmtPct(roi) : '—') + ')</span>';
-        }
-
-        return '<tr>'
-          + '<td>' + movieIcon(m) + m.movie_title + '</td>'
-          + '<td>' + ownerDot(m.owner) + '</td>'
-          + '<td>' + col3 + '</td>'
-          + '</tr>';
-      }).join('');
-
-      tableHtml = '<div class="info-card-table-wrap">'
-        + '<table class="scorecard-movie-table">'
-        + '<tbody>' + rows + '</tbody>'
-        + '</table>'
-        + '</div>';
+  function buildPane(tab) {
+    if (!tab.data.length) {
+      return '<p class="info-tab-empty">No data available</p>';
     }
-
-    html += '<div class="info-card' + (open ? ' is-open' : '') + '" data-card-id="' + c.id + '">'
-      + '<div class="info-card-header" data-card-id="' + c.id + '">'
-      + '<span class="scorecard-toggle-icon"></span>'
-      + '<span class="info-card-title">' + c.title + '</span>'
-      + '</div>'
-      + '<div class="info-card-body">' + tableHtml + '</div>'
+    var rows = tab.data.map(function(m) {
+      var col3 = '';
+      if (tab.id === 'upcoming') {
+        col3 = formatShortDate(m.release_date);
+      } else {
+        var roi = m.breakeven ? (m.profit_td / m.breakeven * 100) : null;
+        col3 = '<span class="' + colorClass(m.profit_td) + '">' + fmt(m.profit_td) + '</span>'
+          + ' <span class="text-neu" style="font-size:0.9em">(' + (roi !== null ? fmtPct(roi) : '—') + ')</span>';
+      }
+      return '<tr>'
+        + '<td>' + movieIcon(m) + m.movie_title + '</td>'
+        + '<td>' + ownerDot(m.owner) + '</td>'
+        + '<td>' + col3 + '</td>'
+        + '</tr>';
+    }).join('');
+    return '<div class="info-card-table-wrap">'
+      + '<table class="scorecard-movie-table"><tbody>' + rows + '</tbody></table>'
       + '</div>';
-  });
+  }
 
-  html += '</div>';
-  el.innerHTML = html;
+  var navHtml = tabs.map(function(t) {
+    return '<button class="info-tab-btn' + (t.id === activeTab ? ' active' : '') + '" data-tab="' + t.id + '">'
+      + t.label + '</button>';
+  }).join('');
 
-  // ── Collapse toggle ───────────────────────────────────────────────────────
+  var panesHtml = tabs.map(function(t) {
+    return '<div class="info-tab-pane' + (t.id === activeTab ? ' active' : '') + '" data-tab="' + t.id + '">'
+      + buildPane(t)
+      + '</div>';
+  }).join('');
+
+  el.innerHTML = '<div class="info-tab-card">'
+    + '<div class="info-tab-nav">' + navHtml + '</div>'
+    + '<div class="info-tab-body">' + panesHtml + '</div>'
+    + '</div>';
+
   el.addEventListener('click', function(e) {
-    var header = e.target.closest('.info-card-header');
-    if (!header) return;
-    var card = header.closest('.info-card');
-    var id = header.dataset.cardId;
-    card.classList.toggle('is-open');
-    var state = readCollapsedCookie() || {};
-    state[id] = card.classList.contains('is-open');
-    writeCollapsedCookie(state);
+    var btn = e.target.closest('.info-tab-btn');
+    if (!btn) return;
+    var id = btn.dataset.tab;
+    el.querySelectorAll('.info-tab-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.tab === id);
+    });
+    el.querySelectorAll('.info-tab-pane').forEach(function(p) {
+      p.classList.toggle('active', p.dataset.tab === id);
+    });
+    writeTabCookie(id);
   });
 }
