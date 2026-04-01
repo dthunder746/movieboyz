@@ -132,7 +132,15 @@ export function buildInfoCards(data, colorMap) {
       var pane = el.querySelector('.info-tab-pane[data-tab="' + id + '"]');
       if (!pane) return;
       var arr = id === 'profitable' ? profitable : worst;
-      pane.innerHTML = buildPaneContent(id, arr.slice(0, count));
+      var c = count;
+      pane.innerHTML = buildPaneContent(id, arr.slice(0, c));
+      // Trim rows until content fits — multi-line titles can make rows taller than ROW_PX.
+      if (pane.classList.contains('active')) {
+        while (c > 1 && pane.scrollHeight > pane.clientHeight) {
+          c--;
+          pane.innerHTML = buildPaneContent(id, arr.slice(0, c));
+        }
+      }
     });
   }
 
