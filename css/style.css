@@ -481,3 +481,20 @@ body { font-size: 0.9rem; }
   color: var(--bs-info);
   flex-shrink: 0;
 }
+
+.scorecard-share-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--bs-secondary-color);
+  flex-shrink: 0;
+  line-height: 1;
+  border-radius: 4px;
+  transition: color 0.1s, background 0.1s;
+}
+
+.scorecard-share-btn:hover {
+  color: var(--bs-body-color);
+  background: var(--bs-tertiary-bg);
+}

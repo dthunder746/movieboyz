@@ -1,3 +1,4 @@
+import * as htmlToImage from 'html-to-image';
 import { fmt, fmtPct, colorClass } from './utils.js';
 
 // ── Lucide pick-type icons (inline SVG, 11×11) ────────────────────────────
@@ -55,6 +56,27 @@ function writeCollapsedCookie(state) {
   exp.setFullYear(exp.getFullYear() + 1);
   document.cookie = 'scorecard_collapsed=' + encodeURIComponent(JSON.stringify(state))
     + '; expires=' + exp.toUTCString() + '; path=/; SameSite=Lax';
+}
+
+async function captureAndShare(card) {
+  var dataUrl = await htmlToImage.toPng(card, { pixelRatio: 2 });
+  var blob = await (await fetch(dataUrl)).blob();
+  var file = new File([blob], 'scorecard.png', { type: 'image/png' });
+
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    await navigator.share({ files: [file], title: 'MovieBoyz Scorecard' });
+    return;
+  }
+
+  if (navigator.clipboard && navigator.clipboard.write) {
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    return;
+  }
+
+  var a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = 'scorecard.png';
+  a.click();
 }
 
 export function buildWeekendStrip(data, owners, colorMap) {
@@ -245,6 +267,13 @@ export function buildWeekendStrip(data, owners, colorMap) {
       + nextTitleHtml
       + '</div>'
       + nextDaysHtml
+      + '<button class="scorecard-share-btn" title="Share card" aria-label="Share card">'
+      + '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+      + '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>'
+      + '<polyline points="16 6 12 2 8 6"/>'
+      + '<line x1="12" y1="2" x2="12" y2="15"/>'
+      + '</svg>'
+      + '</button>'
       + '</div>';
 
     // ── Assemble card ─────────────────────────────────────────────────────────
@@ -265,6 +294,16 @@ export function buildWeekendStrip(data, owners, colorMap) {
 
   // ── Collapse toggle ───────────────────────────────────────────────────────
   el.addEventListener('click', function(e) {
+    var shareBtn = e.target.closest('.scorecard-share-btn');
+    if (shareBtn) {
+      e.stopPropagation();
+      var card = shareBtn.closest('.scorecard-card');
+      captureAndShare(card).catch(function(err) {
+        if (err.name !== 'AbortError') console.error('Share failed', err);
+      });
+      return;
+    }
+
     var header = e.target.closest('.scorecard-header');
     if (!header) return;
     var card = header.closest('.scorecard-card');
