@@ -518,7 +518,7 @@ body { font-size: 0.9rem; }
 @media (min-width: 900px) {
   .top-panel {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
   }
   .top-panel #weekend-strip {
     flex-shrink: 0;
@@ -526,10 +526,13 @@ body { font-size: 0.9rem; }
   .top-panel #info-cards {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
   }
   .scorecard-strip {
     min-width: 600px;
     max-width: 600px;
+    margin-bottom: 0;
   }
 }
 
@@ -541,6 +544,7 @@ body { font-size: 0.9rem; }
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .info-tab-nav {
@@ -575,6 +579,7 @@ body { font-size: 0.9rem; }
 }
 
 .info-tab-body {
+  flex: 1;
   overflow-y: auto;
 }
 
