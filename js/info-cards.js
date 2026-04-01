@@ -1,4 +1,4 @@
-import { fmt, fmtPct, colorClass, formatShortDate, pickIcon, seasonFromDate } from './utils.js';
+import { fmt, fmtPct, colorClass, formatShortDate, pickIcon } from './utils.js';
 
 export function buildInfoCards(data, colorMap) {
   var el = document.getElementById('info-cards');
@@ -100,25 +100,6 @@ export function buildInfoCards(data, colorMap) {
 
   html += '</div>';
   el.innerHTML = html;
-
-  // ── Height sync: clamp info-cards to scorecard strip height on desktop ───
-  var strip = document.getElementById('weekend-strip');
-
-  function syncHeight() {
-    if (window.innerWidth < 900 || !strip) {
-      el.style.maxHeight = '';
-      return;
-    }
-    el.style.maxHeight = strip.offsetHeight + 'px';
-  }
-
-  syncHeight();
-
-  if (typeof ResizeObserver !== 'undefined' && strip) {
-    new ResizeObserver(syncHeight).observe(strip);
-  }
-
-  window.addEventListener('resize', syncHeight);
 
   // ── Collapse toggle ───────────────────────────────────────────────────────
   el.addEventListener('click', function(e) {
