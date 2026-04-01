@@ -599,6 +599,13 @@ body { font-size: 0.9rem; }
   overflow-y: auto;
 }
 
+.info-tab-pane[data-tab="upcoming"] .scorecard-movie-table th {
+  position: sticky;
+  top: 0;
+  background: var(--bs-body-bg);
+  z-index: 1;
+}
+
 .info-card-table-wrap {
   padding: 0 12px 6px;
   overflow-x: auto;
