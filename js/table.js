@@ -467,7 +467,7 @@ export function buildOwnerFilter(owners, colorMap, activeOwners, showUnowned) {
 
   var clear = document.createElement('button');
   clear.className = 'btn btn-sm btn-outline-secondary';
-  clear.textContent = 'Clear';
+  clear.textContent = 'Reset';
   clear.dataset.clear = '1';
   container.appendChild(clear);
 }
