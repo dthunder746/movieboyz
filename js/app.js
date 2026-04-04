@@ -67,6 +67,8 @@ function init(data) {
 
   // ── Unowned-movie visibility toggle state ────────────────────────────
   var _showUnowned = false;
+  var _suppressMovieSelection = false;
+  var _resetting = false;
 
   function applyFilters() {
     if (!_table) return;
@@ -118,8 +120,6 @@ function init(data) {
     if (dateFromEl) dateFromEl.value = '';
     if (dateToEl)   dateToEl.value   = '';
 
-    _resetting = false;
-
     buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
     buildOwnerFilter(owners, colorMap, [], false);
     applyFilters();
@@ -129,11 +129,10 @@ function init(data) {
     updateChartHeading([], []);
 
     if (clearMovieBtn) clearMovieBtn.classList.add('d-none');
+    _resetting = false;
   }
 
   // ── Movie-selection helpers ───────────────────────────────────────────
-  var _suppressMovieSelection = false;
-  var _resetting = false;
   var clearMovieBtn = null; // assigned after buildTable
 
   function updateChartHeading(activeOwners, activeMovieIds) {
