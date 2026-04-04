@@ -102,8 +102,38 @@ function init(data) {
     });
   }
 
+  function resetAll() {
+    _resetting = true;
+    ownerFilter.clear();
+    _showUnowned = false;
+
+    _suppressMovieSelection = true;
+    if (_table) _table.deselectRow();
+    _suppressMovieSelection = false;
+
+    if (_table) _table.setSort('release_date', 'asc');
+
+    var dateFromEl = document.getElementById('date-from');
+    var dateToEl   = document.getElementById('date-to');
+    if (dateFromEl) dateFromEl.value = '';
+    if (dateToEl)   dateToEl.value   = '';
+
+    _resetting = false;
+
+    buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, []);
+    buildOwnerFilter(owners, colorMap, [], false);
+    applyFilters();
+
+    if (_chart) _chart.destroy();
+    _chart = buildChart(data, owners, colorMap, [], []);
+    updateChartHeading([], []);
+
+    if (clearMovieBtn) clearMovieBtn.classList.add('d-none');
+  }
+
   // ── Movie-selection helpers ───────────────────────────────────────────
   var _suppressMovieSelection = false;
+  var _resetting = false;
   var clearMovieBtn = null; // assigned after buildTable
 
   function updateChartHeading(activeOwners, activeMovieIds) {
@@ -129,6 +159,7 @@ function init(data) {
 
   // ── Owner filter state ─────────────────────────────────────────────────
   var ownerFilter = createOwnerFilter(function onChange(activeOwners) {
+    if (_resetting) return;
     // Re-render all linked components whenever the selection changes
     buildLeaderboard(data, owners, colorMap, LATEST_PROFIT_DATE, activeOwners);
     buildOwnerFilter(owners, colorMap, activeOwners, _showUnowned);
@@ -203,7 +234,7 @@ function init(data) {
         applyFilters();
         return;
       }
-      if (e.target.closest('[data-clear]')) ownerFilter.clear();
+      if (e.target.closest('[data-clear]')) { resetAll(); return; }
     });
   }
 
