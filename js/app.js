@@ -68,15 +68,38 @@ function init(data) {
   // ── Unowned-movie visibility toggle state ────────────────────────────
   var _showUnowned = false;
 
-  function applyTableFilter(activeOwners) {
+  function applyFilters() {
     if (!_table) return;
-    if (activeOwners.length > 0) {
-      _table.setFilter('owner', 'in', activeOwners);
-    } else if (!_showUnowned) {
-      _table.setFilter('owner', '!=', 'none');
-    } else {
+    var activeOwners = ownerFilter.getActive();
+    var fromEl = document.getElementById('date-from');
+    var toEl   = document.getElementById('date-to');
+    var from   = fromEl ? fromEl.value : '';
+    var to     = toEl   ? toEl.value   : '';
+    var hasDateFilter = !!(from || to);
+
+    if (activeOwners.length === 0 && _showUnowned && !hasDateFilter) {
       _table.clearFilter();
+      return;
     }
+
+    _table.setFilter(function(data) {
+      // Owner filter
+      if (activeOwners.length > 0) {
+        if (activeOwners.indexOf(data.owner) === -1) return false;
+      } else if (!_showUnowned) {
+        if (data.owner === 'none') return false;
+      }
+
+      // Date filter
+      if (hasDateFilter) {
+        var d = data.release_date;
+        if (!d || d === 'TBA') return false;
+        if (from && d < from) return false;
+        if (to   && d > to)   return false;
+      }
+
+      return true;
+    });
   }
 
   // ── Movie-selection helpers ───────────────────────────────────────────
@@ -121,7 +144,7 @@ function init(data) {
 
     updateChartHeading(activeOwners, []);
 
-    applyTableFilter(activeOwners);
+    applyFilters();
   });
 
   // Initial render (unowned hidden by default)
@@ -131,7 +154,7 @@ function init(data) {
   _chart = buildChart(data, owners, colorMap, [], []);
   _table = buildTable(data, colorMap);
   buildOwnerFilter(owners, colorMap, [], _showUnowned);
-  applyTableFilter([]);
+  applyFilters();
 
   // ── Movie selection (Tabulator as source of truth) ────────────────────
   clearMovieBtn = document.getElementById('clear-movie-selection');
@@ -154,6 +177,11 @@ function init(data) {
     });
   }
 
+  var dateFromEl = document.getElementById('date-from');
+  var dateToEl   = document.getElementById('date-to');
+  if (dateFromEl) dateFromEl.addEventListener('change', applyFilters);
+  if (dateToEl)   dateToEl.addEventListener('change', applyFilters);
+
   // Leaderboard — event delegation (survives innerHTML re-renders)
   var lbEl = document.getElementById('leaderboard');
   if (lbEl) {
@@ -172,7 +200,7 @@ function init(data) {
       if (e.target.closest('[data-toggle-unowned]')) {
         _showUnowned = !_showUnowned;
         buildOwnerFilter(owners, colorMap, ownerFilter.getActive(), _showUnowned);
-        applyTableFilter(ownerFilter.getActive());
+        applyFilters();
         return;
       }
       if (e.target.closest('[data-clear]')) ownerFilter.clear();
