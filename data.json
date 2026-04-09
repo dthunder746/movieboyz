@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-10 06:00:14",
+  "fetched_at": "2026-04-10 07:00:12",
   "latest_date": "2026-04-08",
   "latest_profit_date": "2026-04-08",
   "movies": {
@@ -5781,8 +5781,8 @@
       "profit": {},
       "profit_td": null,
       "ratings": null,
-      "release_date": "2026-05-15",
-      "season": "SUMMER",
+      "release_date": "2026-10-16",
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
