@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-09 13:00:02",
+  "fetched_at": "2026-04-09 14:00:03",
   "latest_date": "2026-04-07",
   "latest_profit_date": "2026-04-07",
   "movies": {
@@ -2130,8 +2130,8 @@
       "year": 2026
     },
     "tt21285562": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 220000000,
+      "budget": 110000000,
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
@@ -5507,8 +5507,8 @@
       "year": 2026
     },
     "tt31450459": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 250000000,
+      "budget": 125000000,
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
@@ -9359,8 +9359,8 @@
       "year": 2026
     },
     "tt35538033": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 160000000,
+      "budget": 80000000,
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
@@ -9814,7 +9814,7 @@
       "profit": {},
       "profit_td": null,
       "ratings": null,
-      "release_date": "2026-05-29",
+      "release_date": "2026-06-12",
       "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
@@ -9890,7 +9890,7 @@
       "profit": {},
       "profit_td": null,
       "ratings": null,
-      "release_date": "2026-05-06",
+      "release_date": "2026-05-08",
       "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
