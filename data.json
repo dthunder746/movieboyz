@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-10 02:00:03",
+  "fetched_at": "2026-04-10 03:00:03",
   "latest_date": "2026-04-07",
   "latest_profit_date": "2026-04-07",
   "movies": {
@@ -729,8 +729,8 @@
       "year": 2026
     },
     "tt13570066": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 300000000,
+      "budget": 150000000,
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
