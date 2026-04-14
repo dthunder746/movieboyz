@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-14 05:00:13",
+  "fetched_at": "2026-04-14 06:00:15",
   "latest_date": "2026-04-12",
   "latest_profit_date": "2026-04-12",
   "movies": {
@@ -8659,14 +8659,14 @@
       },
       "profit_td": 34285335,
       "ratings": {
-        "fetched_at": "2026-04-06",
+        "fetched_at": "2026-04-14",
         "imdb": {
           "score": 64,
-          "votes": 4226
+          "votes": 4449
         },
         "letterboxd": {
           "score": 50,
-          "votes": 75489
+          "votes": 81618
         },
         "metacritic": {
           "score": 49,
@@ -8674,19 +8674,19 @@
         },
         "rt_audience": {
           "score": 88,
-          "votes": 463
+          "votes": 485
         },
         "rt_critic": {
           "score": 57,
-          "votes": 109
+          "votes": 111
         },
         "tmdb": {
           "score": 70,
-          "votes": 82
+          "votes": 89
         },
         "trakt": {
-          "score": 64,
-          "votes": 123
+          "score": 65,
+          "votes": 142
         }
       },
       "release_date": "2026-03-13",
@@ -10275,34 +10275,34 @@
       },
       "profit_td": 18849179,
       "ratings": {
-        "fetched_at": "2026-04-06",
+        "fetched_at": "2026-04-14",
         "imdb": {
           "score": 62,
-          "votes": 5052
+          "votes": 5183
         },
         "letterboxd": {
           "score": 58,
-          "votes": 117600
+          "votes": 126789
         },
         "metacritic": {
-          "score": 66,
-          "votes": 28
+          "score": 65,
+          "votes": 31
         },
         "rt_audience": {
           "score": 50,
-          "votes": 548
+          "votes": 553
         },
         "rt_critic": {
-          "score": 72,
-          "votes": 148
+          "score": 73,
+          "votes": 162
         },
         "tmdb": {
-          "score": 62,
-          "votes": 24
+          "score": 64,
+          "votes": 35
         },
         "trakt": {
-          "score": 63,
-          "votes": 138
+          "score": 62,
+          "votes": 155
         }
       },
       "release_date": "2026-03-13",
