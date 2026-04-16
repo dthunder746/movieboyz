@@ -1,20 +1,37 @@
 {
-  "fetched_at": "2026-04-14 11:14:50",
-  "latest_date": "2026-04-12",
-  "latest_profit_date": "2026-04-12",
+  "fetched_at": "2026-04-16 21:09:46",
+  "game_config": {
+    "bomb_mode": "split",
+    "breakeven_multiplier": 2,
+    "name": "MovieBoyz 2026",
+    "num_players": 5,
+    "year": 2026
+  },
+  "last_processed_snapshot": "2026-04-16T09-48-27Z",
+  "latest_date": "2026-04-16",
+  "latest_profit_date": "2026-04-16",
   "movies": {
     "tt0427340": {
       "breakeven": 400000000,
       "budget": 200000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Masters of the Universe",
       "owner": "Connie",
       "pick_type": "bomb",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-05",
@@ -88,7 +105,9 @@
         "2026-04-09": 1298,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 1867
+        "2026-04-12": 1867,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-22": 0,
@@ -153,10 +172,12 @@
         "2026-04-09": 1753311,
         "2026-04-10": 1753311,
         "2026-04-11": 1753311,
-        "2026-04-12": 1755178
+        "2026-04-12": 1755178,
+        "2026-04-15": 1755178,
+        "2026-04-16": 1755178
       },
-      "days_running": 79,
-      "estimated_budget": null,
+      "days_running": 83,
+      "estimated_budget": true,
       "gross_td": 1755178,
       "movie_title": "H Is for Hawk",
       "owner": "none",
@@ -224,7 +245,9 @@
         "2026-04-09": -8246689,
         "2026-04-10": -8246689,
         "2026-04-11": -8246689,
-        "2026-04-12": -8244822
+        "2026-04-12": -8244822,
+        "2026-04-15": -8244822,
+        "2026-04-16": -8244822
       },
       "profit_td": -8244822,
       "ratings": {
@@ -277,15 +300,24 @@
     "tt10794054": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Weight",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-18",
@@ -296,15 +328,24 @@
     "tt11378946": {
       "breakeven": 400000000,
       "budget": 200000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Michael",
       "owner": "Matt",
       "pick_type": "seasonal",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-04-24",
@@ -315,15 +356,24 @@
     "tt11995650": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "I Play Rocky",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-20",
@@ -359,7 +409,9 @@
         "2026-04-09": 3006218,
         "2026-04-10": 6836000,
         "2026-04-11": 68344026,
-        "2026-04-12": -439422
+        "2026-04-12": -439422,
+        "2026-04-15": 1885427,
+        "2026-04-16": 2640747
       },
       "daily_gross": {
         "2026-03-19": 0,
@@ -386,11 +438,13 @@
         "2026-04-09": 435477974,
         "2026-04-10": 442313974,
         "2026-04-11": 510658000,
-        "2026-04-12": 510218578
+        "2026-04-12": 510218578,
+        "2026-04-15": 512104005,
+        "2026-04-16": 514744752
       },
-      "days_running": 23,
-      "estimated_budget": null,
-      "gross_td": 510218578,
+      "days_running": 27,
+      "estimated_budget": false,
+      "gross_td": 514744752,
       "movie_title": "Project Hail Mary",
       "owner": "Marcus",
       "pick_type": "seasonal",
@@ -419,9 +473,11 @@
         "2026-04-09": 35477974,
         "2026-04-10": 42313974,
         "2026-04-11": 110658000,
-        "2026-04-12": 110218578
+        "2026-04-12": 110218578,
+        "2026-04-15": 112104005,
+        "2026-04-16": 114744752
       },
-      "profit_td": 110218578,
+      "profit_td": 114744752,
       "ratings": {
         "fetched_at": "2026-04-13",
         "imdb": {
@@ -459,7 +515,8 @@
         "2026-W12": 140906007,
         "2026-W13": 159820489,
         "2026-W14": 120923657,
-        "2026-W15": 88568425
+        "2026-W15": 88568425,
+        "2026-W16": 4526174
       },
       "year": 2026
     },
@@ -487,7 +544,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-03-19": 0,
@@ -510,10 +569,12 @@
         "2026-04-09": 4499577,
         "2026-04-10": 4499577,
         "2026-04-11": 4499577,
-        "2026-04-12": 4499577
+        "2026-04-12": 4499577,
+        "2026-04-15": 4499577,
+        "2026-04-16": 4499577
       },
-      "days_running": 23,
-      "estimated_budget": null,
+      "days_running": 27,
+      "estimated_budget": true,
       "gross_td": 4499577,
       "movie_title": "The Pout-Pout Fish",
       "owner": "none",
@@ -539,7 +600,9 @@
         "2026-04-09": -15500423,
         "2026-04-10": -15500423,
         "2026-04-11": -15500423,
-        "2026-04-12": -15500423
+        "2026-04-12": -15500423,
+        "2026-04-15": -15500423,
+        "2026-04-16": -15500423
       },
       "profit_td": -15500423,
       "ratings": {
@@ -585,15 +648,24 @@
     "tt13071984": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "4 Kids Walk Into a Bank",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-14",
@@ -647,7 +719,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-11": 0,
@@ -692,10 +766,12 @@
         "2026-04-09": 8431443,
         "2026-04-10": 8431443,
         "2026-04-11": 8431443,
-        "2026-04-12": 8431443
+        "2026-04-12": 8431443,
+        "2026-04-15": 8431443,
+        "2026-04-16": 8431443
       },
-      "days_running": 58,
-      "estimated_budget": null,
+      "days_running": 62,
+      "estimated_budget": false,
       "gross_td": 8431443,
       "movie_title": "Good Luck, Have Fun, Don't Die",
       "owner": "Emerson",
@@ -743,7 +819,9 @@
         "2026-04-09": -31568557,
         "2026-04-10": -31568557,
         "2026-04-11": -31568557,
-        "2026-04-12": -31568557
+        "2026-04-12": -31568557,
+        "2026-04-15": -31568557,
+        "2026-04-16": -31568557
       },
       "profit_td": -31568557,
       "ratings": {
@@ -792,15 +870,24 @@
     "tt13570066": {
       "breakeven": 300000000,
       "budget": 150000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Desert Warrior",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-04-24",
@@ -811,15 +898,24 @@
     "tt14173636": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Invite",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-26",
@@ -827,18 +923,55 @@
       "weekly_gross": {},
       "year": 2026
     },
+    "tt14371256": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Klara and the Sun",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-10-23",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
+    },
     "tt1441251": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Cliffhanger",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-28",
@@ -853,16 +986,20 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 1700000,
-        "2026-04-12": -52283
+        "2026-04-12": -52283,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 1700000,
-        "2026-04-12": 1647717
+        "2026-04-12": 1647717,
+        "2026-04-15": 1647717,
+        "2026-04-16": 1647717
       },
-      "days_running": 2,
-      "estimated_budget": null,
+      "days_running": 6,
+      "estimated_budget": false,
       "gross_td": 1647717,
       "movie_title": "Faces of Death",
       "owner": "none",
@@ -871,7 +1008,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": -13100000,
-        "2026-04-12": -13152283
+        "2026-04-12": -13152283,
+        "2026-04-15": -13152283,
+        "2026-04-16": -13152283
       },
       "profit_td": -13152283,
       "ratings": {
@@ -993,7 +1132,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-07": 0,
@@ -1073,10 +1214,12 @@
         "2026-04-09": 24226228,
         "2026-04-10": 24226228,
         "2026-04-11": 24226228,
-        "2026-04-12": 24226228
+        "2026-04-12": 24226228,
+        "2026-04-15": 24226228,
+        "2026-04-16": 24226228
       },
-      "days_running": 93,
-      "estimated_budget": null,
+      "days_running": 97,
+      "estimated_budget": false,
       "gross_td": 24226228,
       "movie_title": "Greenland 2: Migration",
       "owner": "none",
@@ -1159,7 +1302,9 @@
         "2026-04-09": -155773772,
         "2026-04-10": -155773772,
         "2026-04-11": -155773772,
-        "2026-04-12": -155773772
+        "2026-04-12": -155773772,
+        "2026-04-15": -155773772,
+        "2026-04-16": -155773772
       },
       "profit_td": -155773772,
       "ratings": {
@@ -1267,7 +1412,9 @@
         "2026-04-07": 10823,
         "2026-04-09": 0,
         "2026-04-10": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-28": 0,
@@ -1328,10 +1475,12 @@
         "2026-04-07": 5195257,
         "2026-04-09": 5195257,
         "2026-04-10": 5195257,
-        "2026-04-12": 5195257
+        "2026-04-12": 5195257,
+        "2026-04-15": 5195257,
+        "2026-04-16": 5195257
       },
-      "days_running": 72,
-      "estimated_budget": null,
+      "days_running": 76,
+      "estimated_budget": false,
       "gross_td": 5195257,
       "movie_title": "Arco",
       "owner": "none",
@@ -1395,7 +1544,9 @@
         "2026-04-07": -16804743,
         "2026-04-09": -16804743,
         "2026-04-10": -16804743,
-        "2026-04-12": -16804743
+        "2026-04-12": -16804743,
+        "2026-04-15": -16804743,
+        "2026-04-16": -16804743
       },
       "profit_td": -16804743,
       "ratings": {
@@ -1449,15 +1600,24 @@
     "tt15047880": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Disclosure Day",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-12",
@@ -1540,7 +1700,9 @@
         "2026-04-07": 0,
         "2026-04-09": 0,
         "2026-04-10": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-14": 0,
@@ -1614,10 +1776,12 @@
         "2026-04-07": 2553308,
         "2026-04-09": 2553308,
         "2026-04-10": 2553308,
-        "2026-04-12": 2553308
+        "2026-04-12": 2553308,
+        "2026-04-15": 2553308,
+        "2026-04-16": 2553308
       },
-      "days_running": 86,
-      "estimated_budget": null,
+      "days_running": 90,
+      "estimated_budget": true,
       "gross_td": 2553308,
       "movie_title": "Dead Man's Wire",
       "owner": "none",
@@ -1694,7 +1858,9 @@
         "2026-04-07": -27446692,
         "2026-04-09": -27446692,
         "2026-04-10": -27446692,
-        "2026-04-12": -27446692
+        "2026-04-12": -27446692,
+        "2026-04-15": -27446692,
+        "2026-04-16": -27446692
       },
       "profit_td": -27446692,
       "ratings": {
@@ -1742,15 +1908,24 @@
     "tt15799564": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Wild Horse Nine",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-06",
@@ -1780,34 +1955,71 @@
     "tt17043156": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
-      "movie_title": "Insidious: The Bleeding World",
+      "movie_title": "Insidious: Out of the Further",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-21",
       "season": "Summer",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
+    },
+    "tt17055444": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {},
+      "daily_gross": {},
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Hershey",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-11-26",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
     },
     "tt17490712": {
       "breakeven": 136000000,
       "budget": 68000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Mortal Kombat 2",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-08",
@@ -1818,15 +2030,24 @@
     "tt1756855": {
       "breakeven": 140000000,
       "budget": 70000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Coyote vs. Acme",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-28",
@@ -1873,7 +2094,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-18": 0,
@@ -1911,10 +2134,12 @@
         "2026-04-09": 2555070,
         "2026-04-10": 2555070,
         "2026-04-11": 2555070,
-        "2026-04-12": 2555070
+        "2026-04-12": 2555070,
+        "2026-04-15": 2555070,
+        "2026-04-16": 2555070
       },
-      "days_running": 51,
-      "estimated_budget": null,
+      "days_running": 55,
+      "estimated_budget": false,
       "gross_td": 2555070,
       "movie_title": "Psycho Killer",
       "owner": "none",
@@ -1955,7 +2180,9 @@
         "2026-04-09": -17444930,
         "2026-04-10": -17444930,
         "2026-04-11": -17444930,
-        "2026-04-12": -17444930
+        "2026-04-12": -17444930,
+        "2026-04-15": -17444930,
+        "2026-04-16": -17444930
       },
       "profit_td": -17444930,
       "ratings": {
@@ -2098,7 +2325,9 @@
         "2026-04-09": 1868,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 19328
       },
       "daily_gross": {
         "2026-01-08": 0,
@@ -2177,11 +2406,13 @@
         "2026-04-09": 2046116,
         "2026-04-10": 2046116,
         "2026-04-11": 2046116,
-        "2026-04-12": 2046116
+        "2026-04-12": 2046116,
+        "2026-04-15": 2046116,
+        "2026-04-16": 2065444
       },
-      "days_running": 93,
-      "estimated_budget": null,
-      "gross_td": 2046116,
+      "days_running": 97,
+      "estimated_budget": true,
+      "gross_td": 2065444,
       "movie_title": "I Was a Stranger",
       "owner": "none",
       "pick_type": null,
@@ -2262,9 +2493,11 @@
         "2026-04-09": -7953884,
         "2026-04-10": -7953884,
         "2026-04-11": -7953884,
-        "2026-04-12": -7953884
+        "2026-04-12": -7953884,
+        "2026-04-15": -7953884,
+        "2026-04-16": -7934556
       },
-      "profit_td": -7953884,
+      "profit_td": -7934556,
       "ratings": {
         "fetched_at": "2026-04-05",
         "imdb": {
@@ -2306,22 +2539,32 @@
         "2026-W06": 1302,
         "2026-W12": 20366,
         "2026-W13": 15197,
-        "2026-W15": 1868
+        "2026-W15": 1868,
+        "2026-W16": 19328
       },
       "year": 2026
     },
     "tt21285562": {
       "breakeven": 220000000,
       "budget": 110000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Dog Stars",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-28",
@@ -2330,36 +2573,54 @@
       "year": 2026
     },
     "tt21357150": {
-      "breakeven": null,
-      "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "breakeven": 800000000,
+      "budget": 400000000,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Avengers: Doomsday",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-18",
       "season": "Fall",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt22084616": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Spider-Man: Brand New Day",
       "owner": "Marcus",
       "pick_type": "hit",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-31",
@@ -2433,7 +2694,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-22": 0,
@@ -2498,10 +2761,12 @@
         "2026-04-09": 29702877,
         "2026-04-10": 29702877,
         "2026-04-11": 29702877,
-        "2026-04-12": 29702877
+        "2026-04-12": 29702877,
+        "2026-04-15": 29702877,
+        "2026-04-16": 29702877
       },
-      "days_running": 79,
-      "estimated_budget": null,
+      "days_running": 83,
+      "estimated_budget": true,
       "gross_td": 29702877,
       "movie_title": "Return to Silent Hill",
       "owner": "none",
@@ -2569,7 +2834,9 @@
         "2026-04-09": -16297123,
         "2026-04-10": -16297123,
         "2026-04-11": -16297123,
-        "2026-04-12": -16297123
+        "2026-04-12": -16297123,
+        "2026-04-15": -16297123,
+        "2026-04-16": -16297123
       },
       "profit_td": -16297123,
       "ratings": {
@@ -2616,15 +2883,24 @@
     "tt2321555": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Dr. Seuss\u2019 The Cat in the Hat",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-06",
@@ -2635,21 +2911,30 @@
     "tt2467700": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Animal Farm",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-01",
       "season": "SUMMER",
       "weekly_gross": {},
-      "year": 2025
+      "year": 2026
     },
     "tt26443616": {
       "breakeven": 300000000,
@@ -2693,7 +2978,9 @@
         "2026-04-09": 629599,
         "2026-04-10": 1100000,
         "2026-04-11": 17534083,
-        "2026-04-12": 609677
+        "2026-04-12": 609677,
+        "2026-04-15": 233852,
+        "2026-04-16": 363171
       },
       "daily_gross": {
         "2026-03-05": 0,
@@ -2734,11 +3021,13 @@
         "2026-04-09": 335788776,
         "2026-04-10": 336888776,
         "2026-04-11": 354422859,
-        "2026-04-12": 355032536
+        "2026-04-12": 355032536,
+        "2026-04-15": 355266388,
+        "2026-04-16": 355629559
       },
-      "days_running": 37,
-      "estimated_budget": null,
-      "gross_td": 355032536,
+      "days_running": 41,
+      "estimated_budget": false,
+      "gross_td": 355629559,
       "movie_title": "Hoppers",
       "owner": "Matt",
       "pick_type": "seasonal",
@@ -2781,9 +3070,11 @@
         "2026-04-09": 35788776,
         "2026-04-10": 36888776,
         "2026-04-11": 54422859,
-        "2026-04-12": 55032536
+        "2026-04-12": 55032536,
+        "2026-04-15": 55266388,
+        "2026-04-16": 55629559
       },
-      "profit_td": 55032536,
+      "profit_td": 55629559,
       "ratings": {
         "fetched_at": "2026-04-13",
         "imdb": {
@@ -2823,22 +3114,32 @@
         "2026-W12": 77687836,
         "2026-W13": 55559873,
         "2026-W14": 34471511,
-        "2026-W15": 22612416
+        "2026-W15": 22612416,
+        "2026-W16": 597023
       },
       "year": 2026
     },
     "tt26657236": {
       "breakeven": 20000000,
       "budget": 10000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Backrooms",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-29",
@@ -2849,15 +3150,24 @@
     "tt26735127": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Jumanji 3",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-25",
@@ -2914,7 +3224,9 @@
         "2026-04-09": 77595,
         "2026-04-10": 135000,
         "2026-04-11": 2034897,
-        "2026-04-12": -13850
+        "2026-04-12": -13850,
+        "2026-04-15": 36063,
+        "2026-04-16": 38104
       },
       "daily_gross": {
         "2026-02-25": 0,
@@ -2962,11 +3274,13 @@
         "2026-04-09": 209812103,
         "2026-04-10": 209947103,
         "2026-04-11": 211982000,
-        "2026-04-12": 211968150
+        "2026-04-12": 211968150,
+        "2026-04-15": 212004213,
+        "2026-04-16": 212042317
       },
-      "days_running": 44,
-      "estimated_budget": null,
-      "gross_td": 211968150,
+      "days_running": 48,
+      "estimated_budget": false,
+      "gross_td": 212042317,
       "movie_title": "Scream 7",
       "owner": "Chris",
       "pick_type": "seasonal",
@@ -3016,9 +3330,11 @@
         "2026-04-09": 119812103,
         "2026-04-10": 119947103,
         "2026-04-11": 121982000,
-        "2026-04-12": 121968150
+        "2026-04-12": 121968150,
+        "2026-04-15": 122004213,
+        "2026-04-16": 122042317
       },
-      "profit_td": 121968150,
+      "profit_td": 122042317,
       "ratings": {
         "fetched_at": "2026-04-13",
         "imdb": {
@@ -3059,22 +3375,32 @@
         "2026-W12": 16911393,
         "2026-W13": 10237181,
         "2026-W14": 5284981,
-        "2026-W15": 2587493
+        "2026-W15": 2587493,
+        "2026-W16": 74167
       },
       "year": 2026
     },
     "tt27200708": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Mother Mary",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-04-24",
@@ -3085,15 +3411,24 @@
     "tt27419420": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Street Fighter",
       "owner": "Chris",
       "pick_type": "bomb",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-16",
@@ -3104,21 +3439,58 @@
     "tt27419466": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Moana",
       "owner": "Connie",
       "pick_type": "hit",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-10",
       "season": "Summer",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
+    },
+    "tt27530512": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Toxic",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-06-04",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
     },
     "tt27564844": {
       "breakeven": 6000000,
@@ -3180,7 +3552,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-28": 0,
@@ -3239,10 +3613,12 @@
         "2026-04-09": 51226173,
         "2026-04-10": 51226173,
         "2026-04-11": 51226173,
-        "2026-04-12": 51226173
+        "2026-04-12": 51226173,
+        "2026-04-15": 51226173,
+        "2026-04-16": 51226173
       },
-      "days_running": 72,
-      "estimated_budget": null,
+      "days_running": 76,
+      "estimated_budget": false,
       "gross_td": 51226173,
       "movie_title": "Iron Lung",
       "owner": "none",
@@ -3304,7 +3680,9 @@
         "2026-04-09": 45226173,
         "2026-04-10": 45226173,
         "2026-04-11": 45226173,
-        "2026-04-12": 45226173
+        "2026-04-12": 45226173,
+        "2026-04-15": 45226173,
+        "2026-04-16": 45226173
       },
       "profit_td": 45226173,
       "ratings": {
@@ -3414,7 +3792,9 @@
         "2026-04-09": 56952,
         "2026-04-10": 80000,
         "2026-04-11": 219659,
-        "2026-04-12": -17466
+        "2026-04-12": -17466,
+        "2026-04-15": 10084,
+        "2026-04-16": 12258
       },
       "daily_gross": {
         "2026-02-11": 0,
@@ -3476,11 +3856,13 @@
         "2026-04-09": 185471341,
         "2026-04-10": 185551341,
         "2026-04-11": 185771000,
-        "2026-04-12": 185753534
+        "2026-04-12": 185753534,
+        "2026-04-15": 185763618,
+        "2026-04-16": 185775876
       },
-      "days_running": 58,
-      "estimated_budget": null,
-      "gross_td": 185753534,
+      "days_running": 62,
+      "estimated_budget": false,
+      "gross_td": 185775876,
       "movie_title": "GOAT",
       "owner": "Chris",
       "pick_type": "seasonal",
@@ -3544,9 +3926,11 @@
         "2026-04-09": 25471341,
         "2026-04-10": 25551341,
         "2026-04-11": 25771000,
-        "2026-04-12": 25753534
+        "2026-04-12": 25753534,
+        "2026-04-15": 25763618,
+        "2026-04-16": 25775876
       },
-      "profit_td": 25753534,
+      "profit_td": 25775876,
       "ratings": {
         "fetched_at": "2026-04-13",
         "imdb": {
@@ -3589,22 +3973,32 @@
         "2026-W12": 11679801,
         "2026-W13": 6381446,
         "2026-W14": 4303694,
-        "2026-W15": 632657
+        "2026-W15": 632657,
+        "2026-W16": 22342
       },
       "year": 2026
     },
     "tt27681354": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "In the Grey",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-15",
@@ -3615,15 +4009,24 @@
     "tt27706593": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Rivals of Amziah King",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-21",
@@ -3634,15 +4037,24 @@
     "tt27739255": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Charlie Harper",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-25",
@@ -3731,7 +4143,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 151585
+        "2026-04-12": 151585,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-07": 0,
@@ -3811,10 +4225,12 @@
         "2026-04-09": 9832680,
         "2026-04-10": 9832680,
         "2026-04-11": 9832680,
-        "2026-04-12": 9984265
+        "2026-04-12": 9984265,
+        "2026-04-15": 9984265,
+        "2026-04-16": 9984265
       },
-      "days_running": 93,
-      "estimated_budget": null,
+      "days_running": 97,
+      "estimated_budget": true,
       "gross_td": 9984265,
       "movie_title": "Is This Thing On?",
       "owner": "none",
@@ -3897,7 +4313,9 @@
         "2026-04-09": -10167320,
         "2026-04-10": -10167320,
         "2026-04-11": -10167320,
-        "2026-04-12": -10015735
+        "2026-04-12": -10015735,
+        "2026-04-15": -10015735,
+        "2026-04-16": -10015735
       },
       "profit_td": -10015735,
       "ratings": {
@@ -4015,7 +4433,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-22": 0,
@@ -4080,10 +4500,12 @@
         "2026-04-09": 2644377,
         "2026-04-10": 2644377,
         "2026-04-11": 2644377,
-        "2026-04-12": 2644377
+        "2026-04-12": 2644377,
+        "2026-04-15": 2644377,
+        "2026-04-16": 2644377
       },
-      "days_running": 79,
-      "estimated_budget": null,
+      "days_running": 83,
+      "estimated_budget": true,
       "gross_td": 2644377,
       "movie_title": "Clika",
       "owner": "none",
@@ -4151,7 +4573,9 @@
         "2026-04-09": -7355623,
         "2026-04-10": -7355623,
         "2026-04-11": -7355623,
-        "2026-04-12": -7355623
+        "2026-04-12": -7355623,
+        "2026-04-15": -7355623,
+        "2026-04-16": -7355623
       },
       "profit_td": -7355623,
       "ratings": {
@@ -4201,15 +4625,24 @@
     "tt28535715": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Whalefall",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-15",
@@ -4233,7 +4666,9 @@
         "2026-04-09": 7935870,
         "2026-04-10": 17500000,
         "2026-04-11": 190323865,
-        "2026-04-12": -175220
+        "2026-04-12": -175220,
+        "2026-04-15": 2911805,
+        "2026-04-16": 4792830
       },
       "daily_gross": {
         "2026-03-31": 0,
@@ -4248,11 +4683,13 @@
         "2026-04-09": 420941135,
         "2026-04-10": 438441135,
         "2026-04-11": 628765000,
-        "2026-04-12": 628589780
+        "2026-04-12": 628589780,
+        "2026-04-15": 631501585,
+        "2026-04-16": 636294415
       },
-      "days_running": 11,
-      "estimated_budget": null,
-      "gross_td": 628589780,
+      "days_running": 15,
+      "estimated_budget": false,
+      "gross_td": 636294415,
       "movie_title": "The Super Mario Galaxy Movie",
       "owner": "Emerson",
       "pick_type": "hit",
@@ -4269,9 +4706,11 @@
         "2026-04-09": 200941135,
         "2026-04-10": 218441135,
         "2026-04-11": 408765000,
-        "2026-04-12": 408589780
+        "2026-04-12": 408589780,
+        "2026-04-15": 411501585,
+        "2026-04-16": 416294415
       },
-      "profit_td": 408589780,
+      "profit_td": 416294415,
       "ratings": {
         "fetched_at": "2026-04-09",
         "imdb": {
@@ -4307,7 +4746,8 @@
       "season": "WINTER",
       "weekly_gross": {
         "2026-W14": 372640795,
-        "2026-W15": 255948985
+        "2026-W15": 255948985,
+        "2026-W16": 7704635
       },
       "year": 2026
     },
@@ -4364,7 +4804,9 @@
         "2026-04-09": 452086,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-04": 0,
@@ -4416,10 +4858,12 @@
         "2026-04-09": 10182876,
         "2026-04-10": 10182876,
         "2026-04-11": 10182876,
-        "2026-04-12": 10182876
+        "2026-04-12": 10182876,
+        "2026-04-15": 10182876,
+        "2026-04-16": 10182876
       },
-      "days_running": 65,
-      "estimated_budget": null,
+      "days_running": 69,
+      "estimated_budget": false,
       "gross_td": 10182876,
       "movie_title": "The Strangers: Chapter 3",
       "owner": "none",
@@ -4474,7 +4918,9 @@
         "2026-04-09": -6817124,
         "2026-04-10": -6817124,
         "2026-04-11": -6817124,
-        "2026-04-12": -6817124
+        "2026-04-12": -6817124,
+        "2026-04-15": -6817124,
+        "2026-04-16": -6817124
       },
       "profit_td": -6817124,
       "ratings": {
@@ -4524,15 +4970,24 @@
     "tt29008864": {
       "breakeven": 170000000,
       "budget": 85000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The End of Oak Street",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-14",
@@ -4543,15 +4998,24 @@
     "tt29355505": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Toy Story 5",
       "owner": "Chris",
       "pick_type": "hit",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-19",
@@ -4562,15 +5026,24 @@
     "tt29356163": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "PAW Patrol: The Dino Movie",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-14",
@@ -4585,16 +5058,20 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 600000
+        "2026-04-12": 600000,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 600000
+        "2026-04-12": 600000,
+        "2026-04-15": 600000,
+        "2026-04-16": 600000
       },
-      "days_running": 2,
-      "estimated_budget": null,
+      "days_running": 6,
+      "estimated_budget": false,
       "gross_td": 600000,
       "movie_title": "Hunting Matthew Nichols",
       "owner": "none",
@@ -4603,7 +5080,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 50000
+        "2026-04-12": 50000,
+        "2026-04-15": 50000,
+        "2026-04-16": 50000
       },
       "profit_td": 50000,
       "ratings": {
@@ -4647,15 +5126,24 @@
     "tt29516222": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Deep Water",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-01",
@@ -4715,7 +5203,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-05": 0,
@@ -4766,10 +5256,12 @@
         "2026-04-09": 1757853,
         "2026-04-10": 1757853,
         "2026-04-11": 1757853,
-        "2026-04-12": 1757853
+        "2026-04-12": 1757853,
+        "2026-04-15": 1757853,
+        "2026-04-16": 1757853
       },
-      "days_running": 65,
-      "estimated_budget": null,
+      "days_running": 69,
+      "estimated_budget": false,
       "gross_td": 1757853,
       "movie_title": "Whistle",
       "owner": "none",
@@ -4823,7 +5315,9 @@
         "2026-04-09": -2242147,
         "2026-04-10": -2242147,
         "2026-04-11": -2242147,
-        "2026-04-12": -2242147
+        "2026-04-12": -2242147,
+        "2026-04-15": -2242147,
+        "2026-04-16": -2242147
       },
       "profit_td": -2242147,
       "ratings": {
@@ -4941,7 +5435,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-15": 0,
@@ -5012,10 +5508,12 @@
         "2026-04-09": 2766216,
         "2026-04-10": 2766216,
         "2026-04-11": 2766216,
-        "2026-04-12": 2766216
+        "2026-04-12": 2766216,
+        "2026-04-15": 2766216,
+        "2026-04-16": 2766216
       },
-      "days_running": 86,
-      "estimated_budget": null,
+      "days_running": 90,
+      "estimated_budget": true,
       "gross_td": 2766216,
       "movie_title": "Charlie the Wonderdog",
       "owner": "none",
@@ -5089,7 +5587,9 @@
         "2026-04-09": -37233784,
         "2026-04-10": -37233784,
         "2026-04-11": -37233784,
-        "2026-04-12": -37233784
+        "2026-04-12": -37233784,
+        "2026-04-15": -37233784,
+        "2026-04-16": -37233784
       },
       "profit_td": -37233784,
       "ratings": {
@@ -5155,7 +5655,9 @@
         "2026-04-09": 195694,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 49879
+        "2026-04-12": 49879,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-03-26": 0,
@@ -5175,10 +5677,12 @@
         "2026-04-09": 2217041,
         "2026-04-10": 2217041,
         "2026-04-11": 2217041,
-        "2026-04-12": 2266920
+        "2026-04-12": 2266920,
+        "2026-04-15": 2266920,
+        "2026-04-16": 2266920
       },
-      "days_running": 16,
-      "estimated_budget": null,
+      "days_running": 20,
+      "estimated_budget": true,
       "gross_td": 2266920,
       "movie_title": "Forbidden Fruits",
       "owner": "none",
@@ -5201,7 +5705,9 @@
         "2026-04-09": -1782959,
         "2026-04-10": -1782959,
         "2026-04-11": -1782959,
-        "2026-04-12": -1733080
+        "2026-04-12": -1733080,
+        "2026-04-15": -1733080,
+        "2026-04-16": -1733080
       },
       "profit_td": -1733080,
       "ratings": {
@@ -5247,15 +5753,24 @@
     "tt30825738": {
       "breakeven": 332800000,
       "budget": 166400000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "The Mandalorian & Grogu",
       "owner": "Marcus",
       "pick_type": "bomb",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-22",
@@ -5266,15 +5781,24 @@
     "tt30827810": {
       "breakeven": 40000000,
       "budget": 20000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "I Love Boosters",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-22",
@@ -5324,7 +5848,9 @@
         "2026-04-09": 300000,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-03-05": 0,
@@ -5365,10 +5891,12 @@
         "2026-04-09": 23744025,
         "2026-04-10": 23744025,
         "2026-04-11": 23744025,
-        "2026-04-12": 23744025
+        "2026-04-12": 23744025,
+        "2026-04-15": 23744025,
+        "2026-04-16": 23744025
       },
-      "days_running": 37,
-      "estimated_budget": null,
+      "days_running": 41,
+      "estimated_budget": false,
       "gross_td": 23744025,
       "movie_title": "The Bride!",
       "owner": "Emerson",
@@ -5412,7 +5940,9 @@
         "2026-04-09": -156255975,
         "2026-04-10": -156255975,
         "2026-04-11": -156255975,
-        "2026-04-12": -156255975
+        "2026-04-12": -156255975,
+        "2026-04-15": -156255975,
+        "2026-04-16": -156255975
       },
       "profit_td": -156255975,
       "ratings": {
@@ -5525,7 +6055,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-21": 0,
@@ -5591,10 +6123,12 @@
         "2026-04-09": 53690303,
         "2026-04-10": 53690303,
         "2026-04-11": 53690303,
-        "2026-04-12": 53690303
+        "2026-04-12": 53690303,
+        "2026-04-15": 53690303,
+        "2026-04-16": 53690303
       },
-      "days_running": 79,
-      "estimated_budget": null,
+      "days_running": 83,
+      "estimated_budget": false,
       "gross_td": 53690303,
       "movie_title": "Mercy",
       "owner": "none",
@@ -5663,7 +6197,9 @@
         "2026-04-09": -66309697,
         "2026-04-10": -66309697,
         "2026-04-11": -66309697,
-        "2026-04-12": -66309697
+        "2026-04-12": -66309697,
+        "2026-04-15": -66309697,
+        "2026-04-16": -66309697
       },
       "profit_td": -66309697,
       "ratings": {
@@ -5712,15 +6248,24 @@
     "tt31170389": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Evil Dead Burn",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-24",
@@ -5731,15 +6276,24 @@
     "tt31192372": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Fall 2",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-07",
@@ -5750,15 +6304,24 @@
     "tt31195136": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Normal",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-04-17",
@@ -5766,18 +6329,46 @@
       "weekly_gross": {},
       "year": 2026
     },
-    "tt31378509": {
+    "tt31349844": {
       "breakeven": null,
       "budget": 0,
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Runner",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-09-11",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
+    },
+    "tt31378509": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Dune: Part Three",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-18",
@@ -5828,7 +6419,9 @@
         "2026-04-07": 0,
         "2026-04-09": 0,
         "2026-04-10": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-04": 0,
@@ -5870,10 +6463,12 @@
         "2026-04-07": 42404858,
         "2026-04-09": 42404858,
         "2026-04-10": 42404858,
-        "2026-04-12": 42404858
+        "2026-04-12": 42404858,
+        "2026-04-15": 42404858,
+        "2026-04-16": 42404858
       },
-      "days_running": 65,
-      "estimated_budget": null,
+      "days_running": 69,
+      "estimated_budget": false,
       "gross_td": 42404858,
       "movie_title": "Dracula",
       "owner": "Marcus",
@@ -5918,7 +6513,9 @@
         "2026-04-07": -61595142,
         "2026-04-09": -61595142,
         "2026-04-10": -61595142,
-        "2026-04-12": -61595142
+        "2026-04-12": -61595142,
+        "2026-04-15": -61595142,
+        "2026-04-16": -61595142
       },
       "profit_td": -61595142,
       "ratings": {
@@ -5969,15 +6566,24 @@
     "tt31450459": {
       "breakeven": 250000000,
       "budget": 125000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Digger",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-02",
@@ -6007,7 +6613,9 @@
         "2026-04-09": 769842,
         "2026-04-10": 155000,
         "2026-04-11": 0,
-        "2026-04-12": 975951
+        "2026-04-12": 975951,
+        "2026-04-15": 55000,
+        "2026-04-16": 70343
       },
       "daily_gross": {
         "2026-03-25": 0,
@@ -6028,11 +6636,13 @@
         "2026-04-09": 16871576,
         "2026-04-10": 17026576,
         "2026-04-11": 17026576,
-        "2026-04-12": 18002527
+        "2026-04-12": 18002527,
+        "2026-04-15": 18057527,
+        "2026-04-16": 18127870
       },
-      "days_running": 16,
-      "estimated_budget": null,
-      "gross_td": 18002527,
+      "days_running": 20,
+      "estimated_budget": false,
+      "gross_td": 18127870,
       "movie_title": "They Will Kill You",
       "owner": "none",
       "pick_type": null,
@@ -6055,9 +6665,11 @@
         "2026-04-09": -23128424,
         "2026-04-10": -22973424,
         "2026-04-11": -22973424,
-        "2026-04-12": -21997473
+        "2026-04-12": -21997473,
+        "2026-04-15": -21942473,
+        "2026-04-16": -21872130
       },
-      "profit_td": -21997473,
+      "profit_td": -21872130,
       "ratings": {
         "fetched_at": "2026-04-12",
         "imdb": {
@@ -6094,22 +6706,32 @@
       "weekly_gross": {
         "2026-W13": 8970000,
         "2026-W14": 6262000,
-        "2026-W15": 2770527
+        "2026-W15": 2770527,
+        "2026-W16": 125343
       },
       "year": 2026
     },
     "tt32063220": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Poetic License",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-16",
@@ -6120,15 +6742,24 @@
     "tt32093575": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Scary Movie 6",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-05",
@@ -6139,15 +6770,24 @@
     "tt32104007": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Young Washington",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-03",
@@ -6229,7 +6869,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-14": 0,
@@ -6302,10 +6944,12 @@
         "2026-04-09": 56947583,
         "2026-04-10": 56947583,
         "2026-04-11": 56947583,
-        "2026-04-12": 56947583
+        "2026-04-12": 56947583,
+        "2026-04-15": 56947583,
+        "2026-04-16": 56947583
       },
-      "days_running": 86,
-      "estimated_budget": null,
+      "days_running": 90,
+      "estimated_budget": false,
       "gross_td": 56947583,
       "movie_title": "28 Years Later: The Bone Temple",
       "owner": "none",
@@ -6381,7 +7025,9 @@
         "2026-04-09": -69052417,
         "2026-04-10": -69052417,
         "2026-04-11": -69052417,
-        "2026-04-12": -69052417
+        "2026-04-12": -69052417,
+        "2026-04-15": -69052417,
+        "2026-04-16": -69052417
       },
       "profit_td": -69052417,
       "ratings": {
@@ -6430,15 +7076,24 @@
     "tt32261958": {
       "breakeven": 80000000,
       "budget": 40000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Verity",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-02",
@@ -6449,15 +7104,24 @@
     "tt32267691": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Power Ballad",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-05",
@@ -6468,15 +7132,24 @@
     "tt32273171": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Death of Robin Hood",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-19",
@@ -6537,7 +7210,9 @@
         "2026-04-09": 19282,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-04": 0,
@@ -6589,10 +7264,12 @@
         "2026-04-09": 25719275,
         "2026-04-10": 25719275,
         "2026-04-11": 25719275,
-        "2026-04-12": 25719275
+        "2026-04-12": 25719275,
+        "2026-04-15": 25719275,
+        "2026-04-16": 25719275
       },
-      "days_running": 65,
-      "estimated_budget": null,
+      "days_running": 69,
+      "estimated_budget": false,
       "gross_td": 25719275,
       "movie_title": "Solo Mio",
       "owner": "none",
@@ -6647,7 +7324,9 @@
         "2026-04-09": 17719275,
         "2026-04-10": 17719275,
         "2026-04-11": 17719275,
-        "2026-04-12": 17719275
+        "2026-04-12": 17719275,
+        "2026-04-15": 17719275,
+        "2026-04-16": 17719275
       },
       "profit_td": 17719275,
       "ratings": {
@@ -6735,7 +7414,9 @@
         "2026-04-09": 51692,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-18": 0,
@@ -6773,10 +7454,12 @@
         "2026-04-09": 5481998,
         "2026-04-10": 5481998,
         "2026-04-11": 5481998,
-        "2026-04-12": 5481998
+        "2026-04-12": 5481998,
+        "2026-04-15": 5481998,
+        "2026-04-16": 5481998
       },
-      "days_running": 51,
-      "estimated_budget": null,
+      "days_running": 55,
+      "estimated_budget": false,
       "gross_td": 5481998,
       "movie_title": "Pillion",
       "owner": "none",
@@ -6817,7 +7500,9 @@
         "2026-04-09": 3481998,
         "2026-04-10": 3481998,
         "2026-04-11": 3481998,
-        "2026-04-12": 3481998
+        "2026-04-12": 3481998,
+        "2026-04-15": 3481998,
+        "2026-04-16": 3481998
       },
       "profit_td": 3481998,
       "ratings": {
@@ -6865,15 +7550,24 @@
     "tt32338669": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Mutiny",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-21",
@@ -6941,7 +7635,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-28": 0,
@@ -7000,10 +7696,12 @@
         "2026-04-09": 49305541,
         "2026-04-10": 49305541,
         "2026-04-11": 49305541,
-        "2026-04-12": 49305541
+        "2026-04-12": 49305541,
+        "2026-04-15": 49305541,
+        "2026-04-16": 49305541
       },
-      "days_running": 72,
-      "estimated_budget": null,
+      "days_running": 76,
+      "estimated_budget": false,
       "gross_td": 49305541,
       "movie_title": "Shelter",
       "owner": "none",
@@ -7065,7 +7763,9 @@
         "2026-04-09": -50694459,
         "2026-04-10": -50694459,
         "2026-04-11": -50694459,
-        "2026-04-12": -50694459
+        "2026-04-12": -50694459,
+        "2026-04-15": -50694459,
+        "2026-04-16": -50694459
       },
       "profit_td": -50694459,
       "ratings": {
@@ -7115,15 +7815,24 @@
     "tt32359344": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Wife & Dog",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-23",
@@ -7179,7 +7888,9 @@
         "2026-04-07": 0,
         "2026-04-09": 224469,
         "2026-04-10": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-11": 0,
@@ -7226,10 +7937,12 @@
         "2026-04-07": 72334698,
         "2026-04-09": 72559167,
         "2026-04-10": 72559167,
-        "2026-04-12": 72559167
+        "2026-04-12": 72559167,
+        "2026-04-15": 72559167,
+        "2026-04-16": 72559167
       },
-      "days_running": 58,
-      "estimated_budget": null,
+      "days_running": 62,
+      "estimated_budget": false,
       "gross_td": 72559167,
       "movie_title": "Crime 101",
       "owner": "Marcus",
@@ -7279,7 +7992,9 @@
         "2026-04-07": -107665302,
         "2026-04-09": -107440833,
         "2026-04-10": -107440833,
-        "2026-04-12": -107440833
+        "2026-04-12": -107440833,
+        "2026-04-15": -107440833,
+        "2026-04-16": -107440833
       },
       "profit_td": -107440833,
       "ratings": {
@@ -7331,34 +8046,52 @@
     "tt32432428": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Violent Night 2",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-04",
       "season": "Fall",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt32432654": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Girls Like Girls",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-19",
@@ -7369,15 +8102,24 @@
     "tt32499466": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Finding Emily",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-28",
@@ -7388,15 +8130,24 @@
     "tt32547691": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Pressure",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-29",
@@ -7407,53 +8158,80 @@
     "tt32557122": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Angry Birds Movie 3",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-23",
       "season": "Fall",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt32558705": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Hunger Games: Sunrise on the Reaping",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-20",
       "season": "Fall",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt32565993": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Sheep Detectives",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-08",
@@ -7464,15 +8242,24 @@
     "tt32588798": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Practical Magic 2",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-11",
@@ -7483,15 +8270,24 @@
     "tt32612507": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Lee Cronin's The Mummy",
       "owner": "Connie",
       "pick_type": "seasonal",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-04-17",
@@ -7587,7 +8383,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2025-12-31": 0,
@@ -7674,10 +8472,12 @@
         "2026-04-09": 685153,
         "2026-04-10": 685153,
         "2026-04-11": 685153,
-        "2026-04-12": 685153
+        "2026-04-12": 685153,
+        "2026-04-15": 685153,
+        "2026-04-16": 685153
       },
-      "days_running": 100,
-      "estimated_budget": null,
+      "days_running": 104,
+      "estimated_budget": true,
       "gross_td": 685153,
       "movie_title": "The Plague",
       "owner": "none",
@@ -7767,7 +8567,9 @@
         "2026-04-09": -1314847,
         "2026-04-10": -1314847,
         "2026-04-11": -1314847,
-        "2026-04-12": -1314847
+        "2026-04-12": -1314847,
+        "2026-04-15": -1314847,
+        "2026-04-16": -1314847
       },
       "profit_td": -1314847,
       "ratings": {
@@ -7814,21 +8616,30 @@
     "tt32890033": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Minions and Monsters",
       "owner": "Matt",
       "pick_type": "hit",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-01",
       "season": "Summer",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt32897959": {
       "breakeven": 160000000,
@@ -7892,7 +8703,9 @@
         "2026-04-09": 918044,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-11": 0,
@@ -7953,10 +8766,12 @@
         "2026-04-09": 240401072,
         "2026-04-10": 240401072,
         "2026-04-11": 240401072,
-        "2026-04-12": 240401072
+        "2026-04-12": 240401072,
+        "2026-04-15": 240401072,
+        "2026-04-16": 240401072
       },
-      "days_running": 58,
-      "estimated_budget": null,
+      "days_running": 62,
+      "estimated_budget": false,
       "gross_td": 240401072,
       "movie_title": "Wuthering Heights",
       "owner": "Connie",
@@ -8020,7 +8835,9 @@
         "2026-04-09": 80401072,
         "2026-04-10": 80401072,
         "2026-04-11": 80401072,
-        "2026-04-12": 80401072
+        "2026-04-12": 80401072,
+        "2026-04-15": 80401072,
+        "2026-04-16": 80401072
       },
       "profit_td": 80401072,
       "ratings": {
@@ -8072,20 +8889,31 @@
     "tt32915652": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 15204888,
+        "2026-04-16": 15204888
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "MOBILE SUIT GUNDAM HATHAWAY The Sorcery of Nymph Circe",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 15204888,
+        "2026-04-16": 15204888
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-15",
       "season": "SUMMER",
-      "weekly_gross": {},
+      "weekly_gross": {
+        "2026-W16": 15204888
+      },
       "year": 2026
     },
     "tt33028778": {
@@ -8169,7 +8997,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-07": 0,
@@ -8249,10 +9079,12 @@
         "2026-04-09": 41235665,
         "2026-04-10": 41235665,
         "2026-04-11": 41235665,
-        "2026-04-12": 41235665
+        "2026-04-12": 41235665,
+        "2026-04-15": 41235665,
+        "2026-04-16": 41235665
       },
-      "days_running": 93,
-      "estimated_budget": null,
+      "days_running": 97,
+      "estimated_budget": false,
       "gross_td": 41235665,
       "movie_title": "Primate",
       "owner": "none",
@@ -8335,7 +9167,9 @@
         "2026-04-09": -6764335,
         "2026-04-10": -6764335,
         "2026-04-11": -6764335,
-        "2026-04-12": -6764335
+        "2026-04-12": -6764335,
+        "2026-04-15": -6764335,
+        "2026-04-16": -6764335
       },
       "profit_td": -6764335,
       "ratings": {
@@ -8382,6 +9216,25 @@
       },
       "year": 2026
     },
+    "tt33070884": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {},
+      "daily_gross": {},
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "The Brink Of War",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-08-14",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
+    },
     "tt33071426": {
       "breakeven": 56000000,
       "budget": 28000000,
@@ -8396,7 +9249,9 @@
         "2026-04-09": 0,
         "2026-04-10": 10611303,
         "2026-04-11": 5857751,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 1217396,
+        "2026-04-16": 2560962
       },
       "daily_gross": {
         "2026-04-01": 0,
@@ -8409,11 +9264,13 @@
         "2026-04-09": 26232083,
         "2026-04-10": 36843386,
         "2026-04-11": 42701137,
-        "2026-04-12": 42701137
+        "2026-04-12": 42701137,
+        "2026-04-15": 43918533,
+        "2026-04-16": 46479495
       },
-      "days_running": 9,
-      "estimated_budget": null,
-      "gross_td": 42701137,
+      "days_running": 13,
+      "estimated_budget": false,
+      "gross_td": 46479495,
       "movie_title": "The Drama",
       "owner": "Emerson",
       "pick_type": "seasonal",
@@ -8428,9 +9285,11 @@
         "2026-04-09": -29767917,
         "2026-04-10": -19156614,
         "2026-04-11": -13298863,
-        "2026-04-12": -13298863
+        "2026-04-12": -13298863,
+        "2026-04-15": -12081467,
+        "2026-04-16": -9520505
       },
-      "profit_td": -13298863,
+      "profit_td": -9520505,
       "ratings": {
         "fetched_at": "2026-04-11",
         "imdb": {
@@ -8466,7 +9325,8 @@
       "season": "WINTER",
       "weekly_gross": {
         "2026-W14": 26232083,
-        "2026-W15": 16469054
+        "2026-W15": 16469054,
+        "2026-W16": 3778358
       },
       "year": 2026
     },
@@ -8476,7 +9336,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Great Beyond",
       "owner": "none",
@@ -8492,15 +9352,24 @@
     "tt33296751": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Tuner",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-29",
@@ -8511,18 +9380,27 @@
     "tt33305867": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Spa Weekend",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
-      "release_date": "2026-09-04",
+      "release_date": "2026-08-21",
       "season": "FALL",
       "weekly_gross": {},
       "year": 2026
@@ -8530,15 +9408,24 @@
     "tt33612209": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Devil Wears Prada 2",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-01",
@@ -8581,7 +9468,9 @@
         "2026-04-09": 175625,
         "2026-04-10": 320000,
         "2026-04-11": 3661860,
-        "2026-04-12": 117335
+        "2026-04-12": 117335,
+        "2026-04-15": 66960,
+        "2026-04-16": 116075
       },
       "daily_gross": {
         "2026-03-12": 0,
@@ -8615,11 +9504,13 @@
         "2026-04-09": 80186140,
         "2026-04-10": 80506140,
         "2026-04-11": 84168000,
-        "2026-04-12": 84285335
+        "2026-04-12": 84285335,
+        "2026-04-15": 84352295,
+        "2026-04-16": 84468370
       },
-      "days_running": 30,
-      "estimated_budget": null,
-      "gross_td": 84285335,
+      "days_running": 34,
+      "estimated_budget": false,
+      "gross_td": 84468370,
       "movie_title": "Reminders of Him",
       "owner": "none",
       "pick_type": null,
@@ -8655,9 +9546,11 @@
         "2026-04-09": 30186140,
         "2026-04-10": 30506140,
         "2026-04-11": 34168000,
-        "2026-04-12": 34285335
+        "2026-04-12": 34285335,
+        "2026-04-15": 34352295,
+        "2026-04-16": 34468370
       },
-      "profit_td": 34285335,
+      "profit_td": 34468370,
       "ratings": {
         "fetched_at": "2026-04-14",
         "imdb": {
@@ -8696,7 +9589,8 @@
         "2026-W12": 25682180,
         "2026-W13": 15778425,
         "2026-W14": 9405530,
-        "2026-W15": 5201200
+        "2026-W15": 5201200,
+        "2026-W16": 183035
       },
       "year": 2026
     },
@@ -8706,7 +9600,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Passenger",
       "owner": "none",
@@ -8722,21 +9616,30 @@
     "tt33764258": {
       "breakeven": 500000000,
       "budget": 250000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Odyssey",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-17",
       "season": "Summer",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt33978029": {
       "breakeven": 28000000,
@@ -8765,7 +9668,9 @@
         "2026-04-09": 154129,
         "2026-04-10": 260000,
         "2026-04-11": 4973339,
-        "2026-04-12": 109548
+        "2026-04-12": 109548,
+        "2026-04-15": 80463,
+        "2026-04-16": 112447
       },
       "daily_gross": {
         "2026-03-19": 0,
@@ -8791,11 +9696,13 @@
         "2026-04-09": 32319535,
         "2026-04-10": 32579535,
         "2026-04-11": 37552874,
-        "2026-04-12": 37662422
+        "2026-04-12": 37662422,
+        "2026-04-15": 37742885,
+        "2026-04-16": 37855332
       },
-      "days_running": 23,
-      "estimated_budget": null,
-      "gross_td": 37662422,
+      "days_running": 27,
+      "estimated_budget": true,
+      "gross_td": 37855332,
       "movie_title": "Ready or Not 2: Here I Come",
       "owner": "Emerson",
       "pick_type": "seasonal",
@@ -8823,9 +9730,11 @@
         "2026-04-09": 4319535,
         "2026-04-10": 4579535,
         "2026-04-11": 9552874,
-        "2026-04-12": 9662422
+        "2026-04-12": 9662422,
+        "2026-04-15": 9742885,
+        "2026-04-16": 9855332
       },
-      "profit_td": 9662422,
+      "profit_td": 9855332,
       "ratings": {
         "fetched_at": "2026-04-13",
         "imdb": {
@@ -8863,22 +9772,32 @@
         "2026-W12": 11875271,
         "2026-W13": 11746787,
         "2026-W14": 7759457,
-        "2026-W15": 6280907
+        "2026-W15": 6280907,
+        "2026-W16": 192910
       },
       "year": 2026
     },
     "tt34379051": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "By Any Means",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-04",
@@ -8889,15 +9808,24 @@
     "tt34379307": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Is God Is",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-15",
@@ -8908,15 +9836,24 @@
     "tt34384661": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Godzilla Minus Zero",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-06",
@@ -8927,15 +9864,24 @@
     "tt34459219": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Breadwinner",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-29",
@@ -8971,7 +9917,9 @@
         "2026-04-07": 72690,
         "2026-04-09": 740,
         "2026-04-10": 460,
-        "2026-04-12": 1185
+        "2026-04-12": 1185,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-03-05": 0,
@@ -8998,10 +9946,12 @@
         "2026-04-07": 1594425,
         "2026-04-09": 1595165,
         "2026-04-10": 1595625,
-        "2026-04-12": 1596810
+        "2026-04-12": 1596810,
+        "2026-04-15": 1596810,
+        "2026-04-16": 1596810
       },
-      "days_running": 37,
-      "estimated_budget": null,
+      "days_running": 41,
+      "estimated_budget": true,
       "gross_td": 1596810,
       "movie_title": "Protector",
       "owner": "none",
@@ -9031,7 +9981,9 @@
         "2026-04-07": -18405575,
         "2026-04-09": -18404835,
         "2026-04-10": -18404375,
-        "2026-04-12": -18403190
+        "2026-04-12": -18403190,
+        "2026-04-15": -18403190,
+        "2026-04-16": -18403190
       },
       "profit_td": -18403190,
       "ratings": {
@@ -9099,15 +10051,24 @@
     "tt34685692": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Over Your Dead Body",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-04-24",
@@ -9182,7 +10143,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 41042
+        "2026-04-12": 41042,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-21": 0,
@@ -9248,10 +10211,12 @@
         "2026-04-09": 4139342,
         "2026-04-10": 4139342,
         "2026-04-11": 4139342,
-        "2026-04-12": 4180384
+        "2026-04-12": 4180384,
+        "2026-04-15": 4180384,
+        "2026-04-16": 4180384
       },
-      "days_running": 79,
-      "estimated_budget": null,
+      "days_running": 83,
+      "estimated_budget": false,
       "gross_td": 4180384,
       "movie_title": "The Testament of Ann Lee",
       "owner": "none",
@@ -9320,7 +10285,9 @@
         "2026-04-09": -15860658,
         "2026-04-10": -15860658,
         "2026-04-11": -15860658,
-        "2026-04-12": -15819616
+        "2026-04-12": -15819616,
+        "2026-04-15": -15819616,
+        "2026-04-16": -15819616
       },
       "profit_td": -15819616,
       "ratings": {
@@ -9425,7 +10392,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-18": 0,
@@ -9480,10 +10449,12 @@
         "2026-04-09": 18588615,
         "2026-04-10": 18588615,
         "2026-04-11": 18588615,
-        "2026-04-12": 18588615
+        "2026-04-12": 18588615,
+        "2026-04-15": 18588615,
+        "2026-04-16": 18588615
       },
-      "days_running": 51,
-      "estimated_budget": null,
+      "days_running": 55,
+      "estimated_budget": false,
       "gross_td": 18588615,
       "movie_title": "I Can Only Imagine 2",
       "owner": "none",
@@ -9541,7 +10512,9 @@
         "2026-04-09": -17411385,
         "2026-04-10": -17411385,
         "2026-04-11": -17411385,
-        "2026-04-12": -17411385
+        "2026-04-12": -17411385,
+        "2026-04-15": -17411385,
+        "2026-04-16": -17411385
       },
       "profit_td": -17411385,
       "ratings": {
@@ -9591,15 +10564,24 @@
     "tt34890576": {
       "breakeven": 80000000,
       "budget": 40000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Clayface",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-23",
@@ -9610,15 +10592,24 @@
     "tt34966140": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Focker-In-Law",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-25",
@@ -9673,7 +10664,9 @@
         "2026-04-07": 0,
         "2026-04-09": 0,
         "2026-04-10": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-11": 0,
@@ -9719,10 +10712,12 @@
         "2026-04-07": 2264126,
         "2026-04-09": 2264126,
         "2026-04-10": 2264126,
-        "2026-04-12": 2264126
+        "2026-04-12": 2264126,
+        "2026-04-15": 2264126,
+        "2026-04-16": 2264126
       },
-      "days_running": 58,
-      "estimated_budget": null,
+      "days_running": 62,
+      "estimated_budget": true,
       "gross_td": 2264126,
       "movie_title": "Scarlet",
       "owner": "Chris",
@@ -9771,7 +10766,9 @@
         "2026-04-07": -5735874,
         "2026-04-09": -5735874,
         "2026-04-10": -5735874,
-        "2026-04-12": -5735874
+        "2026-04-12": -5735874,
+        "2026-04-15": -5735874,
+        "2026-04-16": -5735874
       },
       "profit_td": -5735874,
       "ratings": {
@@ -9822,15 +10819,24 @@
     "tt35298123": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Teenage Sex and Death at Camp Miasma",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-07",
@@ -9841,15 +10847,24 @@
     "tt35514120": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Werwulf",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-25",
@@ -9916,7 +10931,9 @@
         "2026-04-09": 9182,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-29": 0,
@@ -9974,10 +10991,12 @@
         "2026-04-09": 4955021,
         "2026-04-10": 4955021,
         "2026-04-11": 4955021,
-        "2026-04-12": 4955021
+        "2026-04-12": 4955021,
+        "2026-04-15": 4955021,
+        "2026-04-16": 4955021
       },
-      "days_running": 72,
-      "estimated_budget": null,
+      "days_running": 76,
+      "estimated_budget": false,
       "gross_td": 4955021,
       "movie_title": "The Moment",
       "owner": "none",
@@ -10038,7 +11057,9 @@
         "2026-04-09": -3044979,
         "2026-04-10": -3044979,
         "2026-04-11": -3044979,
-        "2026-04-12": -3044979
+        "2026-04-12": -3044979,
+        "2026-04-15": -3044979,
+        "2026-04-16": -3044979
       },
       "profit_td": -3044979,
       "ratings": {
@@ -10089,15 +11110,24 @@
     "tt35538033": {
       "breakeven": 160000000,
       "budget": 80000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Resident Evil",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-18",
@@ -10108,15 +11138,24 @@
     "tt35621542": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Remain",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-23",
@@ -10130,7 +11169,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Hokum",
       "owner": "none",
@@ -10146,15 +11185,24 @@
     "tt35866986": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "How to Rob a Bank",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-04",
@@ -10197,7 +11245,9 @@
         "2026-04-09": 177487,
         "2026-04-10": 0,
         "2026-04-11": 136300,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-03-12": 0,
@@ -10231,10 +11281,12 @@
         "2026-04-09": 19712879,
         "2026-04-10": 19712879,
         "2026-04-11": 19849179,
-        "2026-04-12": 19849179
+        "2026-04-12": 19849179,
+        "2026-04-15": 19849179,
+        "2026-04-16": 19849179
       },
-      "days_running": 30,
-      "estimated_budget": null,
+      "days_running": 34,
+      "estimated_budget": false,
       "gross_td": 19849179,
       "movie_title": "undertone",
       "owner": "Matt",
@@ -10271,7 +11323,9 @@
         "2026-04-09": 18712879,
         "2026-04-10": 18712879,
         "2026-04-11": 18849179,
-        "2026-04-12": 18849179
+        "2026-04-12": 18849179,
+        "2026-04-15": 18849179,
+        "2026-04-16": 18849179
       },
       "profit_td": 18849179,
       "ratings": {
@@ -10319,15 +11373,24 @@
     "tt36246412": {
       "breakeven": 98000000,
       "budget": 49000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Cut Off",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-17",
@@ -10343,18 +11406,22 @@
         "2026-04-09": 750000,
         "2026-04-10": 2410000,
         "2026-04-11": 5948000,
-        "2026-04-12": -311850
+        "2026-04-12": -311850,
+        "2026-04-15": 556380,
+        "2026-04-16": 1118905
       },
       "daily_gross": {
         "2026-04-08": 0,
         "2026-04-09": 750000,
         "2026-04-10": 3160000,
         "2026-04-11": 9108000,
-        "2026-04-12": 8796150
+        "2026-04-12": 8796150,
+        "2026-04-15": 9352530,
+        "2026-04-16": 10471435
       },
-      "days_running": 2,
-      "estimated_budget": null,
-      "gross_td": 8796150,
+      "days_running": 6,
+      "estimated_budget": false,
+      "gross_td": 10471435,
       "movie_title": "You, Me & Tuscany",
       "owner": "none",
       "pick_type": null,
@@ -10363,9 +11430,11 @@
         "2026-04-09": -35250000,
         "2026-04-10": -32840000,
         "2026-04-11": -26892000,
-        "2026-04-12": -27203850
+        "2026-04-12": -27203850,
+        "2026-04-15": -26647470,
+        "2026-04-16": -25528565
       },
-      "profit_td": -27203850,
+      "profit_td": -25528565,
       "ratings": {
         "fetched_at": "2026-04-10",
         "imdb": {
@@ -10400,22 +11469,32 @@
       "release_date": "2026-04-10",
       "season": "WINTER",
       "weekly_gross": {
-        "2026-W15": 8796150
+        "2026-W15": 8796150,
+        "2026-W16": 1675285
       },
       "year": 2026
     },
     "tt36583977": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Forgotten Island",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-25",
@@ -10426,15 +11505,24 @@
     "tt36586020": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Other Mommy",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-09",
@@ -10442,18 +11530,55 @@
       "weekly_gross": {},
       "year": 2026
     },
+    "tt36834010": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Gail Daughtry and the Celebrity Sex Pass",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-07-10",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
+    },
     "tt36841161": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Shaun the Sheep: The Beast of Mossy Bottom",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-18",
@@ -10464,15 +11589,24 @@
     "tt36893729": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Ice Cream Man",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-07",
@@ -10480,18 +11614,76 @@
       "weekly_gross": {},
       "year": 2026
     },
-    "tt37287335": {
-      "breakeven": 2000000,
-      "budget": 1000000,
+    "tt36931184": {
+      "breakeven": null,
+      "budget": 0,
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "A Place in Hell",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-12-25",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
+    },
+    "tt37185884": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 4514327,
+        "2026-04-16": 4514327
+      },
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Tom and Jerry: Forbidden Compass",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {
+        "2026-04-15": 4514327,
+        "2026-04-16": 4514327
+      },
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-09-09",
+      "season": null,
+      "weekly_gross": {
+        "2026-W16": 4514327
+      },
+      "year": 2026
+    },
+    "tt37287335": {
+      "breakeven": 2000000,
+      "budget": 1000000,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Obsession",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-15",
@@ -10502,15 +11694,24 @@
     "tt37439146": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Sense and Sensibility",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-16",
@@ -10521,15 +11722,24 @@
     "tt37510326": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Social Reckoning",
       "owner": "Matt",
       "pick_type": "bomb",
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-09",
@@ -10559,15 +11769,24 @@
     "tt37887501": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "One Night Only",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-07",
@@ -10578,34 +11797,52 @@
     "tt38077943": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Hexed",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-25",
       "season": "Fall",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt38128726": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "STOP! THAT! TRAIN!",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-12",
@@ -10616,15 +11853,24 @@
     "tt38650409": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "That Time I Got Reincarnated as a Slime the Movie: Tears of the Azure Sea",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-01",
@@ -10635,15 +11881,24 @@
     "tt38686316": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Archangel",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-05",
@@ -10651,18 +11906,46 @@
       "weekly_gross": {},
       "year": 2026
     },
-    "tt38773219": {
+    "tt38692727": {
       "breakeven": null,
       "budget": 0,
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "The Amazing Digital Circus: The Last Act",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-06-05",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
+    },
+    "tt38773219": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Ebenezer: A Christmas Carol",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-13",
@@ -10673,15 +11956,24 @@
     "tt39018643": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Billie Eilish - Hit Me Hard and Soft: The Tour (Live in 3D)",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-08",
@@ -10695,7 +11987,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Jackass: Best and Last",
       "owner": "none",
@@ -10735,7 +12027,9 @@
         "2026-04-07": 5058,
         "2026-04-09": 1105381,
         "2026-04-10": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-19": 0,
@@ -10761,10 +12055,12 @@
         "2026-04-07": 16758150,
         "2026-04-09": 17863531,
         "2026-04-10": 17863531,
-        "2026-04-12": 17863531
+        "2026-04-12": 17863531,
+        "2026-04-15": 17863531,
+        "2026-04-16": 17863531
       },
-      "days_running": 51,
-      "estimated_budget": null,
+      "days_running": 55,
+      "estimated_budget": false,
       "gross_td": 17863531,
       "movie_title": "How to Make a Killing",
       "owner": "Connie",
@@ -10793,7 +12089,9 @@
         "2026-04-07": -13241850,
         "2026-04-09": -12136469,
         "2026-04-10": -12136469,
-        "2026-04-12": -12136469
+        "2026-04-12": -12136469,
+        "2026-04-15": -12136469,
+        "2026-04-16": -12136469
       },
       "profit_td": -12136469,
       "ratings": {
@@ -10837,6 +12135,34 @@
         "2026-W14": 3512519,
         "2026-W15": 1110439
       },
+      "year": 2026
+    },
+    "tt6628920": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Idiots",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-08-28",
+      "season": null,
+      "weekly_gross": {},
       "year": 2026
     },
     "tt8036976": {
@@ -10916,7 +12242,9 @@
         "2026-04-09": 1404,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-28": 0,
@@ -10992,10 +12320,12 @@
         "2026-04-09": 94041481,
         "2026-04-10": 94041481,
         "2026-04-11": 94041481,
-        "2026-04-12": 94041481
+        "2026-04-12": 94041481,
+        "2026-04-15": 94041481,
+        "2026-04-16": 94041481
       },
-      "days_running": 72,
-      "estimated_budget": null,
+      "days_running": 76,
+      "estimated_budget": false,
       "gross_td": 94041481,
       "movie_title": "Send Help",
       "owner": "none",
@@ -11074,7 +12404,9 @@
         "2026-04-09": 14041481,
         "2026-04-10": 14041481,
         "2026-04-11": 14041481,
-        "2026-04-12": 14041481
+        "2026-04-12": 14041481,
+        "2026-04-15": 14041481,
+        "2026-04-16": 14041481
       },
       "profit_td": 14041481,
       "ratings": {
@@ -11206,7 +12538,9 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-01-07": 0,
@@ -11286,10 +12620,12 @@
         "2026-04-09": 505744,
         "2026-04-10": 505744,
         "2026-04-11": 505744,
-        "2026-04-12": 505744
+        "2026-04-12": 505744,
+        "2026-04-15": 505744,
+        "2026-04-16": 505744
       },
-      "days_running": 93,
-      "estimated_budget": null,
+      "days_running": 97,
+      "estimated_budget": true,
       "gross_td": 505744,
       "movie_title": "The Chronology of Water",
       "owner": "none",
@@ -11372,7 +12708,9 @@
         "2026-04-09": -9494256,
         "2026-04-10": -9494256,
         "2026-04-11": -9494256,
-        "2026-04-12": -9494256
+        "2026-04-12": -9494256,
+        "2026-04-15": -9494256,
+        "2026-04-16": -9494256
       },
       "profit_td": -9494256,
       "ratings": {
@@ -11419,37 +12757,80 @@
       },
       "year": 2026
     },
+    "tt8702454": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {
+        "2026-04-15": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0
+      },
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "The Third Parent",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {
+        "2026-04-15": 0
+      },
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-08-07",
+      "season": null,
+      "weekly_gross": {},
+      "year": 2026
+    },
     "tt8814476": {
       "breakeven": 200000000,
       "budget": 100000000,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Supergirl: Woman of Tomorrow",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-26",
       "season": "Summer",
       "weekly_gross": {},
-      "year": null
+      "year": 2026
     },
     "tt8820258": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Super Troopers 3: Winter Soldiers",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-07",
@@ -11491,7 +12872,9 @@
         "2026-04-07": 0,
         "2026-04-09": 0,
         "2026-04-10": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "daily_gross": {
         "2026-02-11": 0,
@@ -11524,10 +12907,12 @@
         "2026-04-07": 3929970,
         "2026-04-09": 3929970,
         "2026-04-10": 3929970,
-        "2026-04-12": 3929970
+        "2026-04-12": 3929970,
+        "2026-04-15": 3929970,
+        "2026-04-16": 3929970
       },
-      "days_running": 58,
-      "estimated_budget": null,
+      "days_running": 62,
+      "estimated_budget": true,
       "gross_td": 3929970,
       "movie_title": "Cold Storage",
       "owner": "none",
@@ -11563,7 +12948,9 @@
         "2026-04-07": -16070030,
         "2026-04-09": -16070030,
         "2026-04-10": -16070030,
-        "2026-04-12": -16070030
+        "2026-04-12": -16070030,
+        "2026-04-15": -16070030,
+        "2026-04-16": -16070030
       },
       "profit_td": -16070030,
       "ratings": {
@@ -11612,15 +12999,24 @@
     "tt9077514": {
       "breakeven": null,
       "budget": 0,
-      "daily_change": {},
-      "daily_gross": {},
+      "daily_change": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
+      "daily_gross": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "days_running": null,
-      "estimated_budget": null,
+      "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Narnia",
       "owner": "none",
       "pick_type": null,
-      "profit": {},
+      "profit": {
+        "2026-04-15": 0,
+        "2026-04-16": 0
+      },
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-26",
@@ -11699,7 +13095,11 @@
         "2026-04-09": -39063994,
         "2026-04-10": -39063994,
         "2026-04-11": -39063994,
-        "2026-04-12": -39063994
+        "2026-04-12": -39063994,
+        "2026-04-13": -39063994,
+        "2026-04-14": -39063994,
+        "2026-04-15": -39063994,
+        "2026-04-16": -39063994
       },
       "picks_profit": {
         "2026-02-04": 0,
@@ -11769,7 +13169,11 @@
         "2026-04-09": 139547570,
         "2026-04-10": 139762570,
         "2026-04-11": 142017126,
-        "2026-04-12": 141985810
+        "2026-04-12": 141985810,
+        "2026-04-13": 141985810,
+        "2026-04-14": 141985810,
+        "2026-04-15": 142031957,
+        "2026-04-16": 142082319
       },
       "total": {
         "2026-02-04": 0,
@@ -11839,7 +13243,11 @@
         "2026-04-09": 100483576,
         "2026-04-10": 100698576,
         "2026-04-11": 102953132,
-        "2026-04-12": 102921816
+        "2026-04-12": 102921816,
+        "2026-04-13": 102921816,
+        "2026-04-14": 102921816,
+        "2026-04-15": 102967963,
+        "2026-04-16": 103018325
       }
     },
     "Connie": {
@@ -11911,7 +13319,11 @@
         "2026-04-09": -39063994,
         "2026-04-10": -39063994,
         "2026-04-11": -39063994,
-        "2026-04-12": -39063994
+        "2026-04-12": -39063994,
+        "2026-04-13": -39063994,
+        "2026-04-14": -39063994,
+        "2026-04-15": -39063994,
+        "2026-04-16": -39063994
       },
       "picks_profit": {
         "2026-02-04": 0,
@@ -11981,7 +13393,11 @@
         "2026-04-09": 68264603,
         "2026-04-10": 68264603,
         "2026-04-11": 68264603,
-        "2026-04-12": 68264603
+        "2026-04-12": 68264603,
+        "2026-04-13": 68264603,
+        "2026-04-14": 68264603,
+        "2026-04-15": 68264603,
+        "2026-04-16": 68264603
       },
       "total": {
         "2026-02-04": 0,
@@ -12051,7 +13467,11 @@
         "2026-04-09": 29200609,
         "2026-04-10": 29200609,
         "2026-04-11": 29200609,
-        "2026-04-12": 29200609
+        "2026-04-12": 29200609,
+        "2026-04-13": 29200609,
+        "2026-04-14": 29200609,
+        "2026-04-15": 29200609,
+        "2026-04-16": 29200609
       }
     },
     "Emerson": {
@@ -12123,7 +13543,11 @@
         "2026-04-09": 0,
         "2026-04-10": 0,
         "2026-04-11": 0,
-        "2026-04-12": 0
+        "2026-04-12": 0,
+        "2026-04-13": 0,
+        "2026-04-14": 0,
+        "2026-04-15": 0,
+        "2026-04-16": 0
       },
       "picks_profit": {
         "2026-02-04": 0,
@@ -12193,7 +13617,11 @@
         "2026-04-09": 143924196,
         "2026-04-10": 172295499,
         "2026-04-11": 373450454,
-        "2026-04-12": 373384782
+        "2026-04-12": 373384782,
+        "2026-04-13": 373384782,
+        "2026-04-14": 373384782,
+        "2026-04-15": 377594446,
+        "2026-04-16": 385060685
       },
       "total": {
         "2026-02-04": 0,
@@ -12263,7 +13691,11 @@
         "2026-04-09": 143924196,
         "2026-04-10": 172295499,
         "2026-04-11": 373450454,
-        "2026-04-12": 373384782
+        "2026-04-12": 373384782,
+        "2026-04-13": 373384782,
+        "2026-04-14": 373384782,
+        "2026-04-15": 377594446,
+        "2026-04-16": 385060685
       }
     },
     "Marcus": {
@@ -12335,7 +13767,11 @@
         "2026-04-09": -39063994,
         "2026-04-10": -39063994,
         "2026-04-11": -39063994,
-        "2026-04-12": -39063994
+        "2026-04-12": -39063994,
+        "2026-04-13": -39063994,
+        "2026-04-14": -39063994,
+        "2026-04-15": -39063994,
+        "2026-04-16": -39063994
       },
       "picks_profit": {
         "2026-02-04": 0,
@@ -12405,7 +13841,11 @@
         "2026-04-09": -133558001,
         "2026-04-10": -126722001,
         "2026-04-11": -58377975,
-        "2026-04-12": -58817397
+        "2026-04-12": -58817397,
+        "2026-04-13": -58817397,
+        "2026-04-14": -58817397,
+        "2026-04-15": -56931970,
+        "2026-04-16": -54291223
       },
       "total": {
         "2026-02-04": 0,
@@ -12475,7 +13915,11 @@
         "2026-04-09": -172621995,
         "2026-04-10": -165785995,
         "2026-04-11": -97441969,
-        "2026-04-12": -97881391
+        "2026-04-12": -97881391,
+        "2026-04-13": -97881391,
+        "2026-04-14": -97881391,
+        "2026-04-15": -95995964,
+        "2026-04-16": -93355217
       }
     },
     "Matt": {
@@ -12547,7 +13991,11 @@
         "2026-04-09": -39063994,
         "2026-04-10": -39063994,
         "2026-04-11": -39063994,
-        "2026-04-12": -39063994
+        "2026-04-12": -39063994,
+        "2026-04-13": -39063994,
+        "2026-04-14": -39063994,
+        "2026-04-15": -39063994,
+        "2026-04-16": -39063994
       },
       "picks_profit": {
         "2026-02-04": 0,
@@ -12617,7 +14065,11 @@
         "2026-04-09": 54501655,
         "2026-04-10": 55601655,
         "2026-04-11": 73272038,
-        "2026-04-12": 73881715
+        "2026-04-12": 73881715,
+        "2026-04-13": 73881715,
+        "2026-04-14": 73881715,
+        "2026-04-15": 74115567,
+        "2026-04-16": 74478738
       },
       "total": {
         "2026-02-04": 0,
@@ -12687,7 +14139,11 @@
         "2026-04-09": 15437661,
         "2026-04-10": 16537661,
         "2026-04-11": 34208044,
-        "2026-04-12": 34817721
+        "2026-04-12": 34817721,
+        "2026-04-13": 34817721,
+        "2026-04-14": 34817721,
+        "2026-04-15": 35051573,
+        "2026-04-16": 35414744
       }
     }
   }
