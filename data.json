@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-19 05:27:02",
+  "fetched_at": "2026-04-19 19:28:07",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-04-18T21-26-52Z",
+  "last_processed_snapshot": "2026-04-19T11-27-56Z",
   "latest_date": "2026-04-17",
   "latest_profit_date": "2026-04-17",
   "movies": {
@@ -10217,34 +10217,34 @@
       },
       "profit_td": 9000000,
       "ratings": {
-        "fetched_at": "2026-04-11",
+        "fetched_at": "2026-04-19",
         "imdb": {
           "score": 75,
-          "votes": 10652
+          "votes": 27752
         },
         "letterboxd": {
           "score": 76,
-          "votes": 532400
+          "votes": 959633
         },
         "metacritic": {
           "score": 59,
-          "votes": 50
+          "votes": 52
         },
         "rt_audience": {
-          "score": 80,
-          "votes": 286
+          "score": 78,
+          "votes": 450
         },
         "rt_critic": {
-          "score": 76,
-          "votes": 217
+          "score": 77,
+          "votes": 245
         },
         "tmdb": {
           "score": 70,
-          "votes": 221
+          "votes": 429
         },
         "trakt": {
-          "score": 74,
-          "votes": 445
+          "score": 75,
+          "votes": 836
         }
       },
       "release_date": "2026-04-03",
