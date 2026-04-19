@@ -1056,7 +1056,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-10-23",
-      "season": null,
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -2121,7 +2121,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": null,
-      "season": "TBA",
+      "season": null,
       "weekly_gross": {},
       "year": "TBA"
     },
@@ -2158,7 +2158,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-21",
-      "season": "Summer",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -2177,7 +2177,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-26",
-      "season": null,
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -2450,7 +2450,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": null,
-      "season": "TBA",
+      "season": null,
       "weekly_gross": {},
       "year": "TBA"
     },
@@ -2832,7 +2832,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-18",
-      "season": "Fall",
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -3797,7 +3797,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-10",
-      "season": "Summer",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -3834,7 +3834,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-04",
-      "season": null,
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -6947,7 +6947,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-11",
-      "season": null,
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -8834,7 +8834,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-04",
-      "season": "Fall",
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -8982,7 +8982,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-23",
-      "season": "Fall",
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -9019,7 +9019,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-20",
-      "season": "Fall",
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -9526,7 +9526,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-01",
-      "season": "Summer",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -10148,7 +10148,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-14",
-      "season": null,
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -10345,7 +10345,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-21",
-      "season": "FALL",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -10608,7 +10608,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-17",
-      "season": "Summer",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -11069,7 +11069,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": null,
-      "season": "TBA",
+      "season": null,
       "weekly_gross": {},
       "year": "TBA"
     },
@@ -12743,7 +12743,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-07-10",
-      "season": null,
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -12836,7 +12836,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-12-25",
-      "season": null,
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -12873,7 +12873,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-09-09",
-      "season": null,
+      "season": "FALL",
       "weekly_gross": {
         "2026-W16": 4514327
       },
@@ -13079,7 +13079,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-11-25",
-      "season": "Fall",
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
@@ -13209,7 +13209,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-05",
-      "season": null,
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -13485,7 +13485,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-28",
-      "season": null,
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -14120,7 +14120,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-08-07",
-      "season": null,
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
@@ -14157,7 +14157,7 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-06-26",
-      "season": "Summer",
+      "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
     },
