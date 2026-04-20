@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-21 05:56:01",
+  "fetched_at": "2026-04-21 07:56:13",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-04-20T21-55-51Z",
+  "last_processed_snapshot": "2026-04-20T23-56-03Z",
   "latest_date": "2026-04-19",
   "latest_profit_date": "2026-04-19",
   "movies": {
@@ -7239,8 +7239,8 @@
       "year": 2026
     },
     "tt31195136": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 32000000,
+      "budget": 16000000,
       "daily_change": {
         "2026-04-13": 0,
         "2026-04-14": 0,
@@ -7260,7 +7260,7 @@
         "2026-04-19": 2650000
       },
       "days_running": 2,
-      "estimated_budget": false,
+      "estimated_budget": true,
       "gross_td": 2650000,
       "movie_title": "Normal",
       "owner": "none",
@@ -7271,10 +7271,10 @@
         "2026-04-15": 0,
         "2026-04-16": 0,
         "2026-04-17": 0,
-        "2026-04-18": 2650000,
-        "2026-04-19": 2650000
+        "2026-04-18": -29350000,
+        "2026-04-19": -29350000
       },
-      "profit_td": 2650000,
+      "profit_td": -29350000,
       "ratings": {
         "fetched_at": "2026-04-17",
         "imdb": {
