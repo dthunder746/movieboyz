@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-23 05:53:19",
+  "fetched_at": "2026-04-23 07:19:40",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-04-22T21-16-43Z",
+  "last_processed_snapshot": "2026-04-22T23-19-30Z",
   "latest_date": "2026-04-21",
   "latest_profit_date": "2026-04-21",
   "movies": {
@@ -14955,6 +14955,25 @@
       "profit_td": null,
       "ratings": null,
       "release_date": "2026-05-08",
+      "season": "SUMMER",
+      "weekly_gross": {},
+      "year": 2026
+    },
+    "tt39143902": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {},
+      "daily_gross": {},
+      "days_running": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Leviticus",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-06-19",
       "season": "SUMMER",
       "weekly_gross": {},
       "year": 2026
