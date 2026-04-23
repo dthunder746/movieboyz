@@ -120,7 +120,8 @@ export function buildInfoCards(data, colorMap) {
       return '<p class="info-tab-empty">No data available</p>';
     }
 
-    if (tabId === 'daily') return buildDailyPane(tabData);
+    if (tabId === 'daily')  return buildDailyPane(tabData);
+    if (tabId === 'weekly') return buildWeeklyPane(tabData);
 
     var col3Header = tabId === 'upcoming' ? 'Date' : 'Profit (ROI)';
     var thead = '<thead><tr>'
@@ -186,11 +187,38 @@ export function buildInfoCards(data, colorMap) {
       + '</div>';
   }
 
+  function buildWeeklyPane(rows) {
+    var thead = '<thead><tr>'
+      + '<th>Movie</th>'
+      + '<th>Owner</th>'
+      + '<th class="text-end">Gross</th>'
+      + '<th class="text-end info-pct-col" title="Change vs last week’s gross">%LW</th>'
+      + '</tr></thead>';
+
+    var body = rows.map(function(r) {
+      var m = r.movie;
+      return '<tr>'
+        + '<td>' + movieIcon(m) + m.movie_title + '</td>'
+        + '<td>' + ownerDot(m.owner) + '</td>'
+        + '<td class="text-end">' + fmt(r.gross) + '</td>'
+        + '<td class="text-end">' + pctCell(r.pctLw) + '</td>'
+        + '</tr>';
+    }).join('');
+
+    return '<div class="info-card-table-wrap">'
+      + '<table class="scorecard-movie-table">'
+      + thead
+      + '<tbody>' + body + '</tbody>'
+      + '</table>'
+      + '</div>';
+  }
+
   var tabs = [
     { id: 'upcoming',   label: 'Upcoming',         data: upcoming,   row: 1 },
     { id: 'profitable', label: 'Most Profitable',  data: profitable, row: 1 },
     { id: 'worst',      label: 'Least Profitable', data: worst,      row: 1 },
-    { id: 'daily',      label: dailyTabLabel(),    data: dailyRows,  row: 2 }
+    { id: 'daily',      label: dailyTabLabel(),    data: dailyRows,  row: 2 },
+    { id: 'weekly',     label: weeklyTabLabel(),   data: weeklyRows, row: 2 }
   ];
 
   function btnHtml(t) {
