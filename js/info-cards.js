@@ -71,12 +71,45 @@ export function buildInfoCards(data, colorMap) {
     }).sort(function(a, b) { return b.gross - a.gross; });
   }
 
+  // ── Top Weekly ───────────────────────────────────────────────────────────
+  var allWeekKeys = new Set();
+  movies.forEach(function(m) {
+    if (m.weekly_gross) Object.keys(m.weekly_gross).forEach(function(w) { allWeekKeys.add(w); });
+  });
+  var sortedWeeks = Array.from(allWeekKeys).sort();
+  var currentWeek = sortedWeeks.length ? sortedWeeks[sortedWeeks.length - 1] : null;
+
+  var weeklyRows = [];
+  if (currentWeek) {
+    weeklyRows = movies.filter(function(m) {
+      return m.weekly_gross && m.weekly_gross[currentWeek] != null;
+    }).map(function(m) {
+      var thisWk = m.weekly_gross[currentWeek];
+      var movieKeys = Object.keys(m.weekly_gross).sort();
+      var idx = movieKeys.indexOf(currentWeek);
+      var prevKey = idx > 0 ? movieKeys[idx - 1] : null;
+      var prev = prevKey != null ? m.weekly_gross[prevKey] : null;
+      return {
+        movie: m,
+        gross: thisWk,
+        pctLw: (prev != null && prev !== 0) ? (thisWk - prev) / prev * 100 : null
+      };
+    }).sort(function(a, b) { return b.gross - a.gross; });
+  }
+
   function dailyTabLabel() {
     if (!latestDate) return 'Top Daily';
     var parts = latestDate.split('-');       // YYYY-MM-DD
     var dd    = parts[2];
     var m     = String(parseInt(parts[1], 10));
     return 'Top Daily (' + dd + '/' + m + ')';
+  }
+
+  function weeklyTabLabel() {
+    if (!currentWeek) return 'Top Weekly';
+    var parts  = currentWeek.split('-W');
+    var weekNo = parts[1] || '';
+    return 'Top Weekly (WK#' + weekNo + ')';
   }
 
   function buildPaneContent(tabId, tabData) {
