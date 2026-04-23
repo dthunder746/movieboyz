@@ -60,6 +60,14 @@ export function isoWeekBounds(weekKey) {
   return { start: iso(wMon), end: iso(wSun) };
 }
 
+export function weekTitle(wk) {
+  var b = isoWeekBounds(wk);
+  var sm = b.start.split('-'), em = b.end.split('-');
+  return sm[1] === em[1]
+    ? formatShortDate(b.start) + '–' + parseInt(em[2])
+    : formatShortDate(b.start) + '–' + formatShortDate(b.end);
+}
+
 export function dateToIsoWeekKey(dateStr) {
   var parts = dateStr.split('-');
   var d = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));

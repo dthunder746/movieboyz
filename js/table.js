@@ -1,6 +1,7 @@
 import {
   fmt, fmtPct, colorClass, ratingColorClass,
   formatShortDate, formatDayMonth, isoWeekBounds, getWeekdayAbbr, dateToIsoWeekKey,
+  weekTitle,
 } from './utils.js';
 
 // ── Expandable column group factory ──────────────────────────────────────
@@ -146,15 +147,6 @@ export function buildTable(data, colorMap) {
     if (v === null || v === undefined) return '<span class="text-neu">—</span>';
     if (v < 0) return '<span class="daily-neg-revised">' + fmt(v) + '</span>';
     return '<span class="' + colorClass(v) + '">' + fmt(v) + '</span>';
-  }
-
-  // Week column title from ISO week key (Mon–Sun date range)
-  function weekTitle(wk) {
-    var b = isoWeekBounds(wk);
-    var sm = b.start.split('-'), em = b.end.split('-');
-    return sm[1] === em[1]
-      ? formatShortDate(b.start) + '–' + parseInt(em[2])
-      : formatShortDate(b.start) + '–' + formatShortDate(b.end);
   }
 
   // Rating sources

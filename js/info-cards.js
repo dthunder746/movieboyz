@@ -1,4 +1,4 @@
-import { fmt, fmtPct, colorClass, formatShortDate, pickIcon } from './utils.js';
+import { fmt, fmtPct, colorClass, formatShortDate, pickIcon, weekTitle } from './utils.js';
 
 function shiftIsoDate(iso, deltaDays) {
   var d = new Date(iso + 'T00:00:00Z');
@@ -110,9 +110,7 @@ export function buildInfoCards(data, colorMap) {
 
   function weeklyTabLabel() {
     if (!currentWeek) return 'Top Weekly';
-    var parts  = currentWeek.split('-W');
-    var weekNo = parts[1] || '';
-    return 'Top Weekly (WK#' + weekNo + ')';
+    return 'Top Weekly (' + weekTitle(currentWeek) + ')';
   }
 
   function buildPaneContent(tabId, tabData) {
