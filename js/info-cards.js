@@ -1,4 +1,7 @@
-import { fmt, fmtPct, colorClass, formatShortDate, pickIcon, weekTitle } from './utils.js';
+import {
+  fmt, fmtPct, colorClass, formatShortDate, pickIcon,
+  weekTitle, isoWeekBounds, dateToIsoWeekKey
+} from './utils.js';
 
 function shiftIsoDate(iso, deltaDays) {
   var d = new Date(iso + 'T00:00:00Z');
@@ -75,12 +78,24 @@ export function buildInfoCards(data, colorMap) {
   }
 
   // ── Top Weekly ───────────────────────────────────────────────────────────
-  var allWeekKeys = new Set();
-  movies.forEach(function(m) {
-    if (m.weekly_gross) Object.keys(m.weekly_gross).forEach(function(w) { allWeekKeys.add(w); });
-  });
-  var sortedWeeks = Array.from(allWeekKeys).sort();
-  var currentWeek = sortedWeeks.length ? sortedWeeks[sortedWeeks.length - 1] : null;
+  // currentWeek is the ISO week containing latest_date. %LW compares this
+  // week's partial gross against last week's partial gross up to the same
+  // weekday, so a mid-week snapshot is an apples-to-apples comparison.
+  var currentWeek    = latestDate ? dateToIsoWeekKey(latestDate) : null;
+  var sameDayLastWk  = latestDate ? shiftIsoDate(latestDate, -7) : null;
+  var lastWeekBounds = sameDayLastWk ? isoWeekBounds(dateToIsoWeekKey(sameDayLastWk)) : null;
+
+  function sumDailyChangeInRange(m, startIso, endIso) {
+    if (!m.daily_change) return 0;
+    var sum = 0;
+    Object.keys(m.daily_change).forEach(function(d) {
+      if (d >= startIso && d <= endIso) {
+        var v = m.daily_change[d];
+        if (typeof v === 'number') sum += v;
+      }
+    });
+    return sum;
+  }
 
   var weeklyRows = [];
   if (currentWeek) {
@@ -88,14 +103,13 @@ export function buildInfoCards(data, colorMap) {
       return m.weekly_gross && m.weekly_gross[currentWeek] != null && m.weekly_gross[currentWeek] !== 0;
     }).map(function(m) {
       var thisWk = m.weekly_gross[currentWeek];
-      var movieKeys = Object.keys(m.weekly_gross).sort();
-      var idx = movieKeys.indexOf(currentWeek);
-      var prevKey = idx > 0 ? movieKeys[idx - 1] : null;
-      var prev = prevKey != null ? m.weekly_gross[prevKey] : null;
+      var lastWkPartial = (lastWeekBounds && sameDayLastWk)
+        ? sumDailyChangeInRange(m, lastWeekBounds.start, sameDayLastWk)
+        : 0;
       return {
         movie: m,
         gross: thisWk,
-        pctLw: (prev != null && prev !== 0) ? (thisWk - prev) / prev * 100 : null
+        pctLw: (lastWkPartial !== 0) ? (thisWk - lastWkPartial) / lastWkPartial * 100 : null
       };
     }).sort(function(a, b) { return b.gross - a.gross; });
   }
@@ -193,7 +207,7 @@ export function buildInfoCards(data, colorMap) {
       + '<th>Movie</th>'
       + '<th>Owner</th>'
       + '<th class="text-end">Gross</th>'
-      + '<th class="text-end info-pct-col" title="Change vs last week’s gross">%LW</th>'
+      + '<th class="text-end info-pct-col" title="Change vs last week to the same weekday">%LW</th>'
       + '</tr></thead>';
 
     var body = rows.map(function(r) {
