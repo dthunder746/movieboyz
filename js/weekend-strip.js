@@ -111,10 +111,13 @@ export function buildWeekendStrip(data, owners, colorMap) {
   var rankMap = {};
   ranked.forEach(function(o, i) { rankMap[o] = i + 1; });
 
-  // ── Collapsed state — default all collapsed; cookie overrides per owner ───
+  // ── Collapsed state — default only #1 card open; cookie overrides per owner ──
   var cookieState = readCollapsedCookie();
   function isOpen(owner) {
-    return !!(cookieState && cookieState[owner] === true);
+    if (cookieState && Object.prototype.hasOwnProperty.call(cookieState, owner)) {
+      return cookieState[owner] === true;
+    }
+    return rankMap[owner] === 1;
   }
 
   // ── Stat cell helper ─────────────────────────────────────────────────────
