@@ -51,21 +51,24 @@ export function buildInfoCards(data, colorMap) {
     .sort(function(a, b) { return a.profit_td - b.profit_td; });
 
   // ── Top Daily ────────────────────────────────────────────────────────────
+  // Uses daily_change (incremental per-day gross) rather than daily_gross
+  // (cumulative-to-date). Movies with zero change are excluded — a zero
+  // typically means the API did not report an update, not a real zero day.
   var latestDate = data.latest_date || null;
   var dailyRows  = [];
   if (latestDate) {
     var yDate = shiftIsoDate(latestDate, -1);
     var wDate = shiftIsoDate(latestDate, -7);
     dailyRows = movies.filter(function(m) {
-      return m.daily_gross && m.daily_gross[latestDate] != null;
+      return m.daily_change && m.daily_change[latestDate] != null && m.daily_change[latestDate] !== 0;
     }).map(function(m) {
-      var today    = m.daily_gross[latestDate];
-      var yest     = m.daily_gross[yDate];
-      var lastWeek = m.daily_gross[wDate];
+      var today    = m.daily_change[latestDate];
+      var yest     = m.daily_change[yDate];
+      var lastWeek = m.daily_change[wDate];
       return {
         movie:  m,
         gross:  today,
-        pctYd:  (yest != null && yest !== 0)     ? (today - yest)     / yest     * 100 : null,
+        pctYd:  (yest != null && yest !== 0)         ? (today - yest)     / yest     * 100 : null,
         pctLw:  (lastWeek != null && lastWeek !== 0) ? (today - lastWeek) / lastWeek * 100 : null,
       };
     }).sort(function(a, b) { return b.gross - a.gross; });
@@ -82,7 +85,7 @@ export function buildInfoCards(data, colorMap) {
   var weeklyRows = [];
   if (currentWeek) {
     weeklyRows = movies.filter(function(m) {
-      return m.weekly_gross && m.weekly_gross[currentWeek] != null;
+      return m.weekly_gross && m.weekly_gross[currentWeek] != null && m.weekly_gross[currentWeek] !== 0;
     }).map(function(m) {
       var thisWk = m.weekly_gross[currentWeek];
       var movieKeys = Object.keys(m.weekly_gross).sort();
