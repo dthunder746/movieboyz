@@ -1,4 +1,4 @@
-import { fmtTimestamp } from './utils.js';
+import { fmtTimestamp, formatDayMonth, fmtRelativeAgo } from './utils.js';
 import { buildColorMap } from './palettes.js';
 import { createOwnerFilter } from './filter.js';
 import { buildLeaderboard } from './leaderboard.js';
@@ -64,6 +64,27 @@ function init(data) {
       }
     })
     .catch(function() {});
+
+  // Header: Latest Gross date + "updated X ago"
+  if (data.latest_date) {
+    var dayMonth = formatDayMonth(data.latest_date);
+    var parts    = dayMonth.split('/');
+    var dd       = parts[0];
+    var m        = String(parseInt(parts[1], 10));  // strip leading zero on month only
+    var dateLabel = 'Latest Gross: ' + dd + '/' + m;
+
+    var updatedLabel = data.fetched_at
+      ? 'Updated ' + fmtRelativeAgo(data.fetched_at)
+      : '';
+
+    var dateEl    = document.getElementById('latest-gross-date');
+    var updatedEl = document.getElementById('latest-gross-updated');
+    if (dateEl)    dateEl.textContent    = dateLabel;
+    if (updatedEl) updatedEl.textContent = updatedLabel;
+
+    var statusEl = document.querySelector('.navbar-status');
+    if (statusEl) statusEl.classList.remove('d-none');
+  }
 
   // ── Unowned-movie visibility toggle state ────────────────────────────
   var _showUnowned = false;

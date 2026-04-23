@@ -690,3 +690,15 @@ body { font-size: 0.9rem; }
   padding: 10px 12px;
   margin: 0;
 }
+
+/* ── Header status cluster ──────────────────────────────────────────────── */
+.navbar-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.navbar-status-sep {
+  opacity: 0.5;
+}
