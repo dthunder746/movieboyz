@@ -163,7 +163,10 @@ export function buildInfoCards(data, colorMap) {
     var thead = '<thead><tr>'
       + '<th>Movie</th>'
       + '<th>Owner</th>'
-      + '<th class="text-end">Gross</th>'
+      + '<th class="text-end" title="Daily gross">'
+      +   '<span class="d-none d-sm-inline">Daily Gross</span>'
+      +   '<span class="d-inline d-sm-none">DG</span>'
+      + '</th>'
       + '<th class="text-end info-pct-col" title="Change vs yesterday’s daily gross">%YD</th>'
       + '<th class="text-end info-pct-col" title="Change vs same weekday last week">%LW</th>'
       + '</tr></thead>';
