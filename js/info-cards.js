@@ -1,6 +1,6 @@
 import {
   fmt, fmtPct, colorClass, formatShortDate, pickIcon,
-  weekTitle, isoWeekBounds, dateToIsoWeekKey
+  weekTitle, isoWeekBounds, dateToIsoWeekKey, getWeekdayAbbr
 } from './utils.js';
 
 function shiftIsoDate(iso, deltaDays) {
@@ -119,7 +119,9 @@ export function buildInfoCards(data, colorMap) {
     var parts = latestDate.split('-');       // YYYY-MM-DD
     var dd    = parts[2];
     var m     = String(parseInt(parts[1], 10));
-    return 'Top Daily (' + dd + '/' + m + ')';
+    var abbr  = getWeekdayAbbr(latestDate);            // e.g. 'TUE'
+    var day   = abbr[0] + abbr.slice(1).toLowerCase(); // 'Tue'
+    return 'Top Daily (' + day + ' ' + dd + '/' + m + ')';
   }
 
   function weeklyTabLabel() {
