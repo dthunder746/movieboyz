@@ -706,3 +706,21 @@ body { font-size: 0.9rem; }
 .info-tab-nav-secondary {
   border-bottom: 1px solid var(--bs-border-color);
 }
+
+.info-tab-pane[data-tab="daily"].active,
+.info-tab-pane[data-tab="weekly"].active {
+  overflow-y: auto;
+}
+
+.info-tab-pane[data-tab="daily"] .scorecard-movie-table th,
+.info-tab-pane[data-tab="weekly"] .scorecard-movie-table th {
+  position: sticky;
+  top: 0;
+  background: var(--bs-body-bg);
+  z-index: 1;
+}
+
+.info-pct-col {
+  width: 52px;
+  min-width: 52px;
+}

@@ -1,5 +1,11 @@
 import { fmt, fmtPct, colorClass, formatShortDate, pickIcon } from './utils.js';
 
+function shiftIsoDate(iso, deltaDays) {
+  var d = new Date(iso + 'T00:00:00Z');
+  d.setUTCDate(d.getUTCDate() + deltaDays);
+  return d.toISOString().split('T')[0];
+}
+
 export function buildInfoCards(data, colorMap) {
   var el = document.getElementById('info-cards');
   if (!el) return;
@@ -44,10 +50,41 @@ export function buildInfoCards(data, colorMap) {
   var worst = movies.filter(function(m) { return m.profit_td != null; })
     .sort(function(a, b) { return a.profit_td - b.profit_td; });
 
+  // ── Top Daily ────────────────────────────────────────────────────────────
+  var latestDate = data.latest_date || null;
+  var dailyRows  = [];
+  if (latestDate) {
+    var yDate = shiftIsoDate(latestDate, -1);
+    var wDate = shiftIsoDate(latestDate, -7);
+    dailyRows = movies.filter(function(m) {
+      return m.daily_gross && m.daily_gross[latestDate] != null;
+    }).map(function(m) {
+      var today    = m.daily_gross[latestDate];
+      var yest     = m.daily_gross[yDate];
+      var lastWeek = m.daily_gross[wDate];
+      return {
+        movie:  m,
+        gross:  today,
+        pctYd:  (yest != null && yest !== 0)     ? (today - yest)     / yest     * 100 : null,
+        pctLw:  (lastWeek != null && lastWeek !== 0) ? (today - lastWeek) / lastWeek * 100 : null,
+      };
+    }).sort(function(a, b) { return b.gross - a.gross; });
+  }
+
+  function dailyTabLabel() {
+    if (!latestDate) return 'Top Daily';
+    var parts = latestDate.split('-');       // YYYY-MM-DD
+    var dd    = parts[2];
+    var m     = String(parseInt(parts[1], 10));
+    return 'Top Daily (' + dd + '/' + m + ')';
+  }
+
   function buildPaneContent(tabId, tabData) {
     if (!tabData.length) {
       return '<p class="info-tab-empty">No data available</p>';
     }
+
+    if (tabId === 'daily') return buildDailyPane(tabData);
 
     var col3Header = tabId === 'upcoming' ? 'Date' : 'Profit (ROI)';
     var thead = '<thead><tr>'
@@ -80,10 +117,44 @@ export function buildInfoCards(data, colorMap) {
       + '</div>';
   }
 
+  function pctCell(v) {
+    if (v === null || v === undefined) return '<span class="text-neu">—</span>';
+    return '<span class="' + colorClass(v) + '">' + fmtPct(v) + '</span>';
+  }
+
+  function buildDailyPane(rows) {
+    var thead = '<thead><tr>'
+      + '<th>Movie</th>'
+      + '<th>Owner</th>'
+      + '<th class="text-end">Gross</th>'
+      + '<th class="text-end info-pct-col" title="Change vs yesterday’s daily gross">%YD</th>'
+      + '<th class="text-end info-pct-col" title="Change vs same weekday last week">%LW</th>'
+      + '</tr></thead>';
+
+    var body = rows.map(function(r) {
+      var m = r.movie;
+      return '<tr>'
+        + '<td>' + movieIcon(m) + m.movie_title + '</td>'
+        + '<td>' + ownerDot(m.owner) + '</td>'
+        + '<td class="text-end">' + fmt(r.gross) + '</td>'
+        + '<td class="text-end">' + pctCell(r.pctYd) + '</td>'
+        + '<td class="text-end">' + pctCell(r.pctLw) + '</td>'
+        + '</tr>';
+    }).join('');
+
+    return '<div class="info-card-table-wrap">'
+      + '<table class="scorecard-movie-table">'
+      + thead
+      + '<tbody>' + body + '</tbody>'
+      + '</table>'
+      + '</div>';
+  }
+
   var tabs = [
     { id: 'upcoming',   label: 'Upcoming',         data: upcoming,   row: 1 },
     { id: 'profitable', label: 'Most Profitable',  data: profitable, row: 1 },
-    { id: 'worst',      label: 'Least Profitable', data: worst,      row: 1 }
+    { id: 'worst',      label: 'Least Profitable', data: worst,      row: 1 },
+    { id: 'daily',      label: dailyTabLabel(),    data: dailyRows,  row: 2 }
   ];
 
   function btnHtml(t) {
