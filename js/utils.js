@@ -92,6 +92,37 @@ export function fmtTimestamp(d) {
   return yy + '-' + mo + '-' + dy + ' ' + hh + ':' + mn + ':' + ss;
 }
 
+export function fmtRelativeAgo(from) {
+  var dt;
+  if (from instanceof Date) {
+    dt = from;
+  } else if (typeof from === 'string') {
+    dt = new Date(from.replace(' ', 'T'));
+  } else {
+    return '';
+  }
+  if (isNaN(dt.getTime())) return '';
+
+  var diffMs = Date.now() - dt.getTime();
+  if (diffMs < 0) diffMs = 0;
+
+  var totalMins  = Math.floor(diffMs / 60000);
+  var totalHours = Math.floor(diffMs / 3600000);
+  var totalDays  = Math.floor(diffMs / 86400000);
+
+  if (totalMins < 1)  return 'just now';
+  if (totalMins < 60) return totalMins + 'mins ago';
+  if (totalHours < 24) {
+    var mins = totalMins - totalHours * 60;
+    return mins > 0
+      ? totalHours + 'hrs ' + mins + 'mins ago'
+      : totalHours + 'hrs ago';
+  }
+  var hrs = totalHours - totalDays * 24;
+  return hrs > 0
+    ? totalDays + 'days ' + hrs + 'hrs ago'
+    : totalDays + 'days ago';
+}
 
 export function grossAsOf(daily_gross, targetDate) {
   if (!daily_gross) return 0;
