@@ -81,15 +81,18 @@ export function buildInfoCards(data, colorMap) {
   }
 
   var tabs = [
-    { id: 'upcoming',   label: 'Upcoming', data: upcoming   },
-    { id: 'profitable', label: 'Most Profitable',    data: profitable },
-    { id: 'worst',      label: 'Least Profitable',   data: worst      }
+    { id: 'upcoming',   label: 'Upcoming',         data: upcoming,   row: 1 },
+    { id: 'profitable', label: 'Most Profitable',  data: profitable, row: 1 },
+    { id: 'worst',      label: 'Least Profitable', data: worst,      row: 1 }
   ];
 
-  var navHtml = tabs.map(function(t) {
+  function btnHtml(t) {
     return '<button class="info-tab-btn' + (t.id === activeTab ? ' active' : '') + '" data-tab="' + t.id + '">'
       + t.label + '</button>';
-  }).join('');
+  }
+
+  var row1Html = tabs.filter(function(t) { return t.row === 1; }).map(btnHtml).join('');
+  var row2Html = tabs.filter(function(t) { return t.row === 2; }).map(btnHtml).join('');
 
   var panesHtml = tabs.map(function(t) {
     return '<div class="info-tab-pane' + (t.id === activeTab ? ' active' : '') + '" data-tab="' + t.id + '">'
@@ -98,10 +101,10 @@ export function buildInfoCards(data, colorMap) {
   }).join('');
 
   el.innerHTML = '<div class="info-tab-card">'
-    + '<div class="info-tab-nav">' + navHtml + '</div>'
+    + '<div class="info-tab-nav">' + row1Html + '</div>'
+    + '<div class="info-tab-nav info-tab-nav-secondary">' + row2Html + '</div>'
     + '<div class="info-tab-body">' + panesHtml + '</div>'
     + '</div>';
-
   // ── Dynamic row count for profitable / worst ─────────────────────────────
   // Row height and header height are measured from the live DOM on first call;
   // after that the cached values are reused across ResizeObserver callbacks.

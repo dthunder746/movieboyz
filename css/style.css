@@ -702,3 +702,7 @@ body { font-size: 0.9rem; }
 .navbar-status-sep {
   opacity: 0.5;
 }
+
+.info-tab-nav-secondary {
+  border-bottom: 1px solid var(--bs-border-color);
+}
