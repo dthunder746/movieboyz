@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-24 05:21:31",
+  "fetched_at": "2026-04-24 13:22:18",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-04-23T21-21-21Z",
+  "last_processed_snapshot": "2026-04-24T05-22-01Z",
   "latest_date": "2026-04-22",
   "latest_profit_date": "2026-04-22",
   "movies": {
@@ -445,7 +445,37 @@
         "2026-04-22": 0
       },
       "profit_td": null,
-      "ratings": null,
+      "ratings": {
+        "fetched_at": "2026-04-24",
+        "imdb": {
+          "score": null,
+          "votes": null
+        },
+        "letterboxd": {
+          "score": 72,
+          "votes": 39350
+        },
+        "metacritic": {
+          "score": 40,
+          "votes": 39
+        },
+        "rt_audience": {
+          "score": null,
+          "votes": 0
+        },
+        "rt_critic": {
+          "score": 36,
+          "votes": 122
+        },
+        "tmdb": {
+          "score": 68,
+          "votes": 17
+        },
+        "trakt": {
+          "score": 77,
+          "votes": 75
+        }
+      },
       "release_date": "2026-04-24",
       "season": "WINTER",
       "weekly_gross": {},
@@ -1134,7 +1164,37 @@
         "2026-04-22": 0
       },
       "profit_td": null,
-      "ratings": null,
+      "ratings": {
+        "fetched_at": "2026-04-24",
+        "imdb": {
+          "score": 12,
+          "votes": 4669
+        },
+        "letterboxd": {
+          "score": null,
+          "votes": null
+        },
+        "metacritic": {
+          "score": null,
+          "votes": null
+        },
+        "rt_audience": {
+          "score": null,
+          "votes": 0
+        },
+        "rt_critic": {
+          "score": null,
+          "votes": null
+        },
+        "tmdb": {
+          "score": null,
+          "votes": null
+        },
+        "trakt": {
+          "score": 25,
+          "votes": 2
+        }
+      },
       "release_date": "2026-04-24",
       "season": "WINTER",
       "weekly_gross": {},
@@ -4252,7 +4312,37 @@
         "2026-04-22": 168063
       },
       "profit_td": null,
-      "ratings": null,
+      "ratings": {
+        "fetched_at": "2026-04-24",
+        "imdb": {
+          "score": 40,
+          "votes": 584
+        },
+        "letterboxd": {
+          "score": 62,
+          "votes": 6133
+        },
+        "metacritic": {
+          "score": 56,
+          "votes": 25
+        },
+        "rt_audience": {
+          "score": null,
+          "votes": 8
+        },
+        "rt_critic": {
+          "score": 73,
+          "votes": 55
+        },
+        "tmdb": {
+          "score": 35,
+          "votes": 2
+        },
+        "trakt": {
+          "score": 57,
+          "votes": 9
+        }
+      },
       "release_date": "2026-04-24",
       "season": "WINTER",
       "weekly_gross": {
@@ -7809,8 +7899,8 @@
       "year": 2026
     },
     "tt31195136": {
-      "breakeven": 32000000,
-      "budget": 16000000,
+      "breakeven": 34000000,
+      "budget": 17000000,
       "daily_change": {
         "2026-04-13": 0,
         "2026-04-14": 0,
@@ -7836,7 +7926,7 @@
         "2026-04-22": 2888753
       },
       "days_running": 5,
-      "estimated_budget": true,
+      "estimated_budget": false,
       "gross_td": 2888753,
       "movie_title": "Normal",
       "owner": "none",
@@ -7847,13 +7937,13 @@
         "2026-04-15": 0,
         "2026-04-16": 0,
         "2026-04-17": 0,
-        "2026-04-18": -29350000,
-        "2026-04-19": -29350000,
-        "2026-04-20": -29350000,
-        "2026-04-21": -29111247,
-        "2026-04-22": -29111247
+        "2026-04-18": -31350000,
+        "2026-04-19": -31350000,
+        "2026-04-20": -31350000,
+        "2026-04-21": -31111247,
+        "2026-04-22": -31111247
       },
-      "profit_td": -29111247,
+      "profit_td": -31111247,
       "ratings": {
         "fetched_at": "2026-04-17",
         "imdb": {
@@ -12731,7 +12821,37 @@
         "2026-04-22": 0
       },
       "profit_td": null,
-      "ratings": null,
+      "ratings": {
+        "fetched_at": "2026-04-24",
+        "imdb": {
+          "score": 73,
+          "votes": 366
+        },
+        "letterboxd": {
+          "score": null,
+          "votes": null
+        },
+        "metacritic": {
+          "score": null,
+          "votes": null
+        },
+        "rt_audience": {
+          "score": null,
+          "votes": null
+        },
+        "rt_critic": {
+          "score": null,
+          "votes": null
+        },
+        "tmdb": {
+          "score": null,
+          "votes": null
+        },
+        "trakt": {
+          "score": 65,
+          "votes": 18
+        }
+      },
       "release_date": "2026-04-24",
       "season": "WINTER",
       "weekly_gross": {},
