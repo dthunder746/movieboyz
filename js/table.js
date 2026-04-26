@@ -410,12 +410,18 @@ export function buildTable(data, colorMap) {
     columns.push({ title: 'Weekly Gross', columns: perWeekGroups });
   }
 
+  var initialSort = (anyReleased && allWeeks.length > 0)
+    ? [{ column: 'release_date', dir: 'asc' }].concat(
+        allWeeks.map(function(wk) { return { column: 'week_' + wk, dir: 'desc' }; })
+      )
+    : [{ column: 'release_date', dir: 'asc' }];
+
   var table = new Tabulator('#movie-table', {
     data:                  rows,
     columns:               columns,
     layout:                'fitDataFill',
     responsiveLayout:      false,
-    initialSort:           [{ column: 'release_date', dir: 'asc' }],
+    initialSort:           initialSort,
     columnHeaderVertAlign: 'bottom',
     resizableColumns:      false,
     selectableRows:        true,
