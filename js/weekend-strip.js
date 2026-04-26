@@ -4,22 +4,6 @@ import { fmt, fmtPct, colorClass, pickIcon } from './utils.js';
 // 9×9 bomb icon used inline in the ROI stat label
 var BOMB_ICON_SM = '<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="13" r="9"/><path d="m19.5 9.5 1.8-1.8a2.4 2.4 0 0 0 0-3.4l-1.6-1.6a2.4 2.4 0 0 0-3.4 0l-1.8 1.8"/><path d="m22 2-1.5 1.5"/></svg>';
 
-// ── Date helpers (mirrors unexported locals in leaderboard.js) ────────────
-function shiftDate(isoDate, deltaDays) {
-  var d = new Date(isoDate + 'T00:00:00Z');
-  d.setUTCDate(d.getUTCDate() + deltaDays);
-  return d.toISOString().split('T')[0];
-}
-
-function findFloorDate(sortedDates, target) {
-  var result = null;
-  for (var i = 0; i < sortedDates.length; i++) {
-    if (sortedDates[i] <= target) result = sortedDates[i];
-    else break;
-  }
-  return result;
-}
-
 // ── Cookie helpers ────────────────────────────────────────────────────────
 function readCollapsedCookie() {
   var match = document.cookie.match(/(?:^|;)\s*scorecard_collapsed=([^;]*)/);
@@ -94,9 +78,6 @@ export function buildWeekendStrip(data, owners, colorMap) {
   if (!sortedDates.length) { el.classList.add('d-none'); return; }
   var LATEST_DATE = sortedDates[sortedDates.length - 1];
 
-  // ── WEEK_START for Wk Δ (same calc as leaderboard: floor date 7 days back) ──
-  var WEEK_START = findFloorDate(sortedDates, shiftDate(LATEST_DATE, -7));
-
   // ── Today ────────────────────────────────────────────────────────────────
   var todayStr = new Date().toISOString().split('T')[0];
 
@@ -160,12 +141,15 @@ export function buildWeekendStrip(data, owners, colorMap) {
     picksTotal = picksTotal != null ? picksTotal : null;
     var bombImpact = (od.bomb_impact || {})[LATEST_DATE];
     bombImpact = bombImpact != null ? bombImpact : null;
-    var totalVal = (od.total || {})[LATEST_DATE];
-    totalVal = totalVal != null ? totalVal : null;
-    var weekStartVal = WEEK_START ? (od.total || {})[WEEK_START] : undefined;
-    var wkDelta = (totalVal !== null && weekStartVal !== undefined && weekStartVal !== null)
-      ? totalVal - weekStartVal
+    // Average Letterboxd rating across released movies that have a score
+    var letterboxdScores = ownerMovies
+      .filter(function(m) { return m.days_running != null; })
+      .map(function(m) { return m.ratings && m.ratings.letterboxd && m.ratings.letterboxd.score; })
+      .filter(function(s) { return s != null; });
+    var avgLetterboxd = letterboxdScores.length
+      ? letterboxdScores.reduce(function(a, b) { return a + b; }, 0) / letterboxdScores.length
       : null;
+
     // ROI excl. bombs: picks_profit / sum(non-bomb breakeven) * 100
     var totalBreakeven = 0;
     ownerMovies.forEach(function(m) {
@@ -196,10 +180,19 @@ export function buildWeekendStrip(data, owners, colorMap) {
       + '</div>';
 
     // ── Stat grid ────────────────────────────────────────────────────────────
+    var letterboxdLogo = '<img src="https://www.google.com/s2/favicons?domain=letterboxd.com&sz=32" width="14" height="14" style="vertical-align:middle;margin-left:2px" alt="Letterboxd">';
+    var ratingValueHtml = avgLetterboxd !== null
+      ? '<div class="scorecard-stat-value">' + (avgLetterboxd / 20).toFixed(1) + '/5' + letterboxdLogo + '</div>'
+      : '<div class="scorecard-stat-value text-neu">—</div>';
+    var ratingCellHtml = '<div class="scorecard-stat">'
+      + ratingValueHtml
+      + '<div class="scorecard-stat-label">Average Rating</div>'
+      + '</div>';
+
     var statGridHtml = '<div class="scorecard-stats">'
       + statCell(picksTotal,  'Picks Total',                     'plain')
       + statCell(bombImpact,  'Bomb Impact',                     'plain')
-      + statCell(wkDelta,     'Week &#916;',                     'signed')
+      + ratingCellHtml
       + statCell(roi,         'ROI excl. ' + BOMB_ICON_SM,       'pct')
       + '</div>';
 
