@@ -11,6 +11,36 @@ import { buildInfoCards } from './info-cards.js';
 var _chart = null;
 var _table = null;
 
+// ── Favicon (circle + leader's initial) ───────────────────────────────────
+// League is fixed at 5 known players, so we can build a color map synchronously
+// before data.json loads and paint the favicon from cache or a hardcoded default.
+
+var KNOWN_OWNERS = ['Chris', 'Connie', 'Emerson', 'Marcus', 'Matt'];
+var earlyColorMap = buildColorMap(KNOWN_OWNERS);
+
+function setFavicon(owner, color) {
+  var canvas = document.createElement('canvas');
+  canvas.width = 32; canvas.height = 32;
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(16, 16, 14, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(owner.charAt(0).toUpperCase(), 16, 17);
+  var link = document.querySelector('link[rel="icon"]') || document.createElement('link');
+  link.rel = 'icon';
+  link.type = 'image/png';
+  link.href = canvas.toDataURL('image/png');
+  if (!link.parentNode) document.head.appendChild(link);
+}
+
+var cachedLeader = localStorage.getItem('mbLeader') || 'Emerson';
+if (earlyColorMap[cachedLeader]) setFavicon(cachedLeader, earlyColorMap[cachedLeader]);
+
 // ── Theme ─────────────────────────────────────────────────────────────────
 
 var themeSwitch = document.getElementById('themeSwitch');
@@ -46,6 +76,18 @@ function init(data) {
 
   var owners   = Object.keys(data.owners || {}).sort();
   var colorMap = buildColorMap(owners);
+
+  // Reconcile favicon with the actual leader from data.json
+  var leader = null;
+  owners.forEach(function(o) {
+    var totals = data.owners[o] && data.owners[o].total;
+    var t = (totals && totals[data.latest_profit_date]) || 0;
+    if (leader === null || t > leader.total) leader = { owner: o, total: t };
+  });
+  if (leader && colorMap[leader.owner]) {
+    if (leader.owner !== cachedLeader) setFavicon(leader.owner, colorMap[leader.owner]);
+    localStorage.setItem('mbLeader', leader.owner);
+  }
 
   // Footer: data.json fetched_at
   if (data.fetched_at) {
