@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-28 05:29:44",
+  "fetched_at": "2026-04-28 09:30:03",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-04-27T21-29-34Z",
+  "last_processed_snapshot": "2026-04-28T01-29-54Z",
   "latest_date": "2026-04-26",
   "latest_profit_date": "2026-04-26",
   "movies": {
@@ -9235,14 +9235,14 @@
       },
       "profit_td": -21024475,
       "ratings": {
-        "fetched_at": "2026-04-20",
+        "fetched_at": "2026-04-28",
         "imdb": {
           "score": 65,
-          "votes": 8153
+          "votes": 8523
         },
         "letterboxd": {
           "score": 60,
-          "votes": 86757
+          "votes": 88558
         },
         "metacritic": {
           "score": 50,
@@ -9250,19 +9250,19 @@
         },
         "rt_audience": {
           "score": 77,
-          "votes": 459
+          "votes": 462
         },
         "rt_critic": {
           "score": 64,
-          "votes": 157
+          "votes": 160
         },
         "tmdb": {
           "score": 65,
-          "votes": 135
+          "votes": 140
         },
         "trakt": {
           "score": 68,
-          "votes": 380
+          "votes": 396
         }
       },
       "release_date": "2026-03-27",
@@ -12004,18 +12004,18 @@
       },
       "profit_td": -1305182,
       "ratings": {
-        "fetched_at": "2026-03-28",
+        "fetched_at": "2026-04-28",
         "imdb": {
           "score": 64,
-          "votes": 5184
+          "votes": 5766
         },
         "letterboxd": {
           "score": 72,
-          "votes": 36742
+          "votes": 39879
         },
         "metacritic": {
           "score": 79,
-          "votes": 20
+          "votes": 21
         },
         "rt_audience": {
           "score": 66,
@@ -12023,15 +12023,15 @@
         },
         "rt_critic": {
           "score": 97,
-          "votes": 108
+          "votes": 111
         },
         "tmdb": {
-          "score": 65,
-          "votes": 68
+          "score": 64,
+          "votes": 83
         },
         "trakt": {
-          "score": 61,
-          "votes": 371
+          "score": 62,
+          "votes": 419
         }
       },
       "release_date": "2026-01-02",
@@ -14079,7 +14079,7 @@
         "2026-04-23": 0,
         "2026-04-24": 0,
         "2026-04-25": 1425000,
-        "2026-04-26": 0
+        "2026-04-26": -31644
       },
       "daily_gross": {
         "2026-04-13": 0,
@@ -14095,11 +14095,11 @@
         "2026-04-23": 0,
         "2026-04-24": 0,
         "2026-04-25": 1425000,
-        "2026-04-26": 1425000
+        "2026-04-26": 1393356
       },
       "days_running": 2,
       "estimated_budget": false,
-      "gross_td": 1425000,
+      "gross_td": 1393356,
       "movie_title": "Over Your Dead Body",
       "owner": "none",
       "pick_type": null,
@@ -14117,9 +14117,9 @@
         "2026-04-23": 0,
         "2026-04-24": 0,
         "2026-04-25": 1425000,
-        "2026-04-26": 1425000
+        "2026-04-26": 1393356
       },
-      "profit_td": 1425000,
+      "profit_td": 1393356,
       "ratings": {
         "fetched_at": "2026-04-24",
         "imdb": {
@@ -14154,7 +14154,7 @@
       "release_date": "2026-04-24",
       "season": "WINTER",
       "weekly_gross": {
-        "2026-W17": 1425000
+        "2026-W17": 1393356
       },
       "year": 2026
     },
