@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-29 22:33:05",
+  "fetched_at": "2026-04-29 23:33:14",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-04-29T14-32-56Z",
+  "last_processed_snapshot": "2026-04-29T15-33-04Z",
   "latest_date": "2026-04-27",
   "latest_profit_date": "2026-04-27",
   "movies": {
@@ -13389,8 +13389,8 @@
       "year": 2026
     },
     "tt33612209": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 200000000,
+      "budget": 100000000,
       "daily_change": {
         "2026-04-13": 0,
         "2026-04-14": 0,
