@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-29 17:32:43",
+  "fetched_at": "2026-04-29 22:33:05",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-04-29T09-32-32Z",
+  "last_processed_snapshot": "2026-04-29T14-32-56Z",
   "latest_date": "2026-04-27",
   "latest_profit_date": "2026-04-27",
   "movies": {
@@ -11728,8 +11728,8 @@
       "year": 2026
     },
     "tt32565993": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 130000000,
+      "budget": 65000000,
       "daily_change": {
         "2026-04-13": 0,
         "2026-04-14": 0,
@@ -11765,7 +11765,7 @@
         "2026-04-27": 0
       },
       "days_running": null,
-      "estimated_budget": false,
+      "estimated_budget": true,
       "gross_td": null,
       "movie_title": "The Sheep Detectives",
       "owner": "none",
