@@ -691,6 +691,21 @@ body { font-size: 0.9rem; }
   margin: 0;
 }
 
+.info-section-header {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bs-secondary-color);
+  padding: 8px 0 4px;
+}
+
+.info-section-header:not(:first-child) {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--bs-border-color);
+}
+
 /* ── Header status cluster ──────────────────────────────────────────────── */
 .navbar-status {
   display: inline-flex;
@@ -708,7 +723,8 @@ body { font-size: 0.9rem; }
 }
 
 .info-tab-pane[data-tab="daily"].active,
-.info-tab-pane[data-tab="weekly"].active {
+.info-tab-pane[data-tab="weekly"].active,
+.info-tab-pane[data-tab="streaming"].active {
   overflow-y: auto;
 }
 

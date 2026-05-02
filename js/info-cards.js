@@ -40,6 +40,16 @@ export function buildInfoCards(data, colorMap) {
     return pickIcon(type, m.release_date);
   }
 
+  function formatWindow(theatrical, digital) {
+    if (!theatrical || theatrical === 'TBA' || !digital) return '—';
+    var t = new Date(theatrical + 'T00:00:00Z').getTime();
+    var d = new Date(digital   + 'T00:00:00Z').getTime();
+    if (isNaN(t) || isNaN(d)) return '—';
+    var days = Math.round((d - t) / 86400000);
+    var sign = days >= 0 ? '+' : '';
+    return sign + days + 'd';
+  }
+
   var movies = Object.values(data.movies);
 
   var upcoming = movies.filter(function(m) {
@@ -52,6 +62,16 @@ export function buildInfoCards(data, colorMap) {
 
   var worst = movies.filter(function(m) { return m.profit_td != null; })
     .sort(function(a, b) { return a.profit_td - b.profit_td; });
+
+  var streamingMovies = movies.filter(function(m) {
+    return m.released_digital;
+  });
+  var upcomingDigital = streamingMovies.filter(function(m) {
+    return m.released_digital > today;
+  }).sort(function(a, b) { return a.released_digital < b.released_digital ? -1 : 1; });
+  var availableNow = streamingMovies.filter(function(m) {
+    return m.released_digital <= today;
+  }).sort(function(a, b) { return a.released_digital > b.released_digital ? -1 : 1; });
 
   // ── Top Daily ────────────────────────────────────────────────────────────
   // Uses daily_change (incremental per-day gross) rather than daily_gross
@@ -134,8 +154,9 @@ export function buildInfoCards(data, colorMap) {
       return '<p class="info-tab-empty">No data available</p>';
     }
 
-    if (tabId === 'daily')  return buildDailyPane(tabData);
-    if (tabId === 'weekly') return buildWeeklyPane(tabData);
+    if (tabId === 'daily')     return buildDailyPane(tabData);
+    if (tabId === 'weekly')    return buildWeeklyPane(tabData);
+    if (tabId === 'streaming') return buildStreamingPane();
 
     var col3Header = tabId === 'upcoming' ? 'Date' : 'Profit (ROI)';
     var thead = '<thead><tr>'
@@ -230,12 +251,45 @@ export function buildInfoCards(data, colorMap) {
       + '</div>';
   }
 
+  function buildStreamingSection(title, rows) {
+    if (!rows.length) return '';
+    var thead = '<thead><tr>'
+      + '<th>Movie</th>'
+      + '<th>Owner</th>'
+      + '<th>Digital</th>'
+      + '<th class="text-end" title="Days from theatrical release to digital release.">Window</th>'
+      + '</tr></thead>';
+
+    var body = rows.map(function(m) {
+      return '<tr>'
+        + '<td>' + movieIcon(m) + m.movie_title + '</td>'
+        + '<td>' + ownerDot(m.owner) + '</td>'
+        + '<td>' + formatShortDate(m.released_digital) + '</td>'
+        + '<td class="text-end">' + formatWindow(m.release_date, m.released_digital) + '</td>'
+        + '</tr>';
+    }).join('');
+
+    return '<div class="info-section-header">' + title + '</div>'
+      + '<table class="scorecard-movie-table">'
+      + thead
+      + '<tbody>' + body + '</tbody>'
+      + '</table>';
+  }
+
+  function buildStreamingPane() {
+    return '<div class="info-card-table-wrap">'
+      + buildStreamingSection('Upcoming Digital Releases', upcomingDigital)
+      + buildStreamingSection('Available Now',           availableNow)
+      + '</div>';
+  }
+
   var tabs = [
-    { id: 'upcoming',   label: 'Upcoming',         data: upcoming,   row: 1 },
-    { id: 'profitable', label: 'Most Profitable',  data: profitable, row: 1 },
-    { id: 'worst',      label: 'Least Profitable', data: worst,      row: 1 },
-    { id: 'daily',      label: dailyTabLabel(),    data: dailyRows,  row: 2 },
-    { id: 'weekly',     label: weeklyTabLabel(),   data: weeklyRows, row: 2 }
+    { id: 'upcoming',   label: 'Upcoming',         data: upcoming,        row: 1 },
+    { id: 'profitable', label: 'Most Profitable',  data: profitable,      row: 1 },
+    { id: 'worst',      label: 'Least Profitable', data: worst,           row: 1 },
+    { id: 'streaming',  label: 'Streaming',        data: streamingMovies, row: 2 },
+    { id: 'daily',      label: dailyTabLabel(),    data: dailyRows,       row: 2 },
+    { id: 'weekly',     label: weeklyTabLabel(),   data: weeklyRows,      row: 2 }
   ];
 
   function btnHtml(t) {
