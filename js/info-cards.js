@@ -64,7 +64,12 @@ export function buildInfoCards(data, colorMap) {
     .sort(function(a, b) { return a.profit_td - b.profit_td; });
 
   var streamingMovies = movies.filter(function(m) {
-    return m.released_digital;
+    if (!m.released_digital) return false;
+    if (m.owner && m.owner !== 'none') return true;
+    if (!m.release_date || m.release_date === 'TBA') return false;
+    if (m.release_date.slice(0, 4) !== '2026') return false;
+    if (m.released_digital < m.release_date) return false;
+    return true;
   });
   var upcomingDigital = streamingMovies.filter(function(m) {
     return m.released_digital > today;
