@@ -78,9 +78,6 @@ export function buildWeekendStrip(data, owners, colorMap) {
   if (!sortedDates.length) { el.classList.add('d-none'); return; }
   var LATEST_DATE = sortedDates[sortedDates.length - 1];
 
-  // ── Today ────────────────────────────────────────────────────────────────
-  var todayStr = new Date().toISOString().split('T')[0];
-
   // ── Rank map — ordered by total[LATEST_DATE] descending ──────────────────
   var ranked = owners.slice().sort(function(a, b) {
     var av = ((data.owners[a] || {}).total || {})[LATEST_DATE];
@@ -197,8 +194,9 @@ export function buildWeekendStrip(data, owners, colorMap) {
       + '</div>';
 
     // ── Movie table (all released movies, sorted by release date) ─────────────
-    var releasedMovies = ownerMovies.filter(function(m) { return m.days_running != null; })
-      .sort(function(a, b) { return (a.release_date || '') < (b.release_date || '') ? -1 : 1; });
+    var releasedMovies = ownerMovies.filter(function(m) {
+      return m.release_date && m.release_date !== 'TBA' && m.release_date <= LATEST_DATE;
+    }).sort(function(a, b) { return a.release_date < b.release_date ? -1 : 1; });
 
     var movieTableHtml;
     if (!releasedMovies.length) {
@@ -235,11 +233,12 @@ export function buildWeekendStrip(data, owners, colorMap) {
 
     // ── Footer (next unreleased pick) ─────────────────────────────────────────
     var upcoming = ownerMovies.filter(function(m) {
-      return m.days_running == null && m.release_date && m.release_date > todayStr;
+      return m.release_date && m.release_date !== 'TBA' && m.release_date > LATEST_DATE;
     }).sort(function(a, b) { return a.release_date < b.release_date ? -1 : 1; });
     var nextMovie = upcoming.length ? upcoming[0] : null;
     var daysUntil = nextMovie
-      ? Math.ceil((new Date(nextMovie.release_date) - new Date(todayStr)) / 86400000)
+      ? Math.ceil((new Date(nextMovie.release_date + 'T00:00:00Z')
+                   - new Date(LATEST_DATE + 'T00:00:00Z')) / 86400000)
       : null;
 
     var nextTitleHtml = nextMovie

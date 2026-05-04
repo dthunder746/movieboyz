@@ -1,4 +1,4 @@
-import { fmtTimestamp, formatDayMonth, fmtRelativeAgo } from './utils.js';
+import { fmtTimestamp, formatDayMonth, fmtRelativeAgo, getWeekdayAbbr } from './utils.js';
 import { buildColorMap } from './palettes.js';
 import { createOwnerFilter } from './filter.js';
 import { buildLeaderboard } from './leaderboard.js';
@@ -113,7 +113,7 @@ function init(data) {
     var parts    = dayMonth.split('/');
     var dd       = parts[0];
     var m        = String(parseInt(parts[1], 10));  // strip leading zero on month only
-    var dateLabel = 'Latest Gross: ' + dd + '/' + m;
+    var dateLabel = 'Latest Gross: ' + getWeekdayAbbr(data.latest_date) + ' ' + dd + '/' + m;
 
     var updatedLabel = data.fetched_at
       ? 'Updated ' + fmtRelativeAgo(data.fetched_at)
