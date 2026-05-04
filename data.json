@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-04 17:19:33",
+  "fetched_at": "2026-05-05 01:09:49",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -59,6 +59,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 7,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Masters of the Universe",
@@ -298,6 +299,7 @@
         "2026-05-02": 2540927
       },
       "days_running": 99,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 2540927,
       "movie_title": "H Is for Hawk",
@@ -487,6 +489,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Weight",
@@ -600,6 +603,7 @@
         "2026-05-02": 423926000
       },
       "days_running": 8,
+      "draft_pick": 6,
       "estimated_budget": true,
       "gross_td": 423926000,
       "movie_title": "Michael",
@@ -716,6 +720,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "I Play Rocky",
@@ -879,6 +884,7 @@
         "2026-05-02": 638443000
       },
       "days_running": 43,
+      "draft_pick": 8,
       "estimated_budget": false,
       "gross_td": 638443000,
       "movie_title": "Project Hail Mary",
@@ -1067,6 +1073,7 @@
         "2026-05-02": 4611692
       },
       "days_running": 43,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 4611692,
       "movie_title": "The Pout-Pout Fish",
@@ -1206,6 +1213,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "4 Kids Walk Into a Bank",
@@ -1405,6 +1413,7 @@
         "2026-05-02": 9068735
       },
       "days_running": 78,
+      "draft_pick": 21,
       "estimated_budget": false,
       "gross_td": 9068735,
       "movie_title": "Good Luck, Have Fun, Don't Die",
@@ -1569,6 +1578,7 @@
         "2026-05-02": 487848
       },
       "days_running": 8,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 487848,
       "movie_title": "Desert Warrior",
@@ -1684,6 +1694,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 15,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Invite",
@@ -1797,6 +1808,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Klara and the Sun",
@@ -1910,6 +1922,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Cliffhanger",
@@ -2031,6 +2044,7 @@
         "2026-05-02": 2609598
       },
       "days_running": 22,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 2609598,
       "movie_title": "Faces of Death",
@@ -2309,6 +2323,7 @@
         "2026-05-02": 44856736
       },
       "days_running": 113,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 44856736,
       "movie_title": "Greenland 2: Migration",
@@ -2626,6 +2641,7 @@
         "2026-05-02": 5212843
       },
       "days_running": 92,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 5212843,
       "movie_title": "Arco",
@@ -2812,6 +2828,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 11,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Disclosure Day",
@@ -3069,6 +3086,7 @@
         "2026-05-02": 2981376
       },
       "days_running": 106,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 2981376,
       "movie_title": "Dead Man's Wire",
@@ -3261,6 +3279,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Wild Horse Nine",
@@ -3424,6 +3443,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 13,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Insidious: Out of the Further",
@@ -3495,6 +3515,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Hershey",
@@ -3587,6 +3608,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Mortal Kombat 2",
@@ -3700,6 +3722,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Coyote vs. Acme",
@@ -3885,6 +3908,7 @@
         "2026-05-02": 2555070
       },
       "days_running": 71,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 2555070,
       "movie_title": "Psycho Killer",
@@ -4243,6 +4267,7 @@
         "2026-05-02": 2120820
       },
       "days_running": 113,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 2120820,
       "movie_title": "I Was a Stranger",
@@ -4444,6 +4469,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Dog Stars",
@@ -4557,6 +4583,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Avengers: Doomsday",
@@ -4670,6 +4697,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 3,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Spider-Man: Brand New Day",
@@ -4909,6 +4937,7 @@
         "2026-05-02": 33478377
       },
       "days_running": 99,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 33478377,
       "movie_title": "Return to Silent Hill",
@@ -5091,6 +5120,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Dr. Seuss\u2019 The Cat in the Hat",
@@ -5204,6 +5234,7 @@
         "2026-05-02": 3400000
       },
       "days_running": 1,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 3400000,
       "movie_title": "Animal Farm",
@@ -5397,6 +5428,7 @@
         "2026-05-02": 376235052
       },
       "days_running": 57,
+      "draft_pick": 25,
       "estimated_budget": false,
       "gross_td": 376235052,
       "movie_title": "Hoppers",
@@ -5559,6 +5591,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 2,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Backrooms",
@@ -5672,6 +5705,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Jumanji 3",
@@ -5877,6 +5911,7 @@
         "2026-05-02": 213835967
       },
       "days_running": 64,
+      "draft_pick": 9,
       "estimated_budget": false,
       "gross_td": 213835967,
       "movie_title": "Scream 7",
@@ -6047,6 +6082,7 @@
         "2026-05-02": 2441227
       },
       "days_running": 8,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 2441227,
       "movie_title": "Mother Mary",
@@ -6164,6 +6200,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 22,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Street Fighter",
@@ -6277,6 +6314,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 4,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Moana",
@@ -6390,6 +6428,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Toxic",
@@ -6617,6 +6656,7 @@
         "2026-05-02": 51226173
       },
       "days_running": 92,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 51226173,
       "movie_title": "Iron Lung",
@@ -6915,6 +6955,7 @@
         "2026-05-02": 190416898
       },
       "days_running": 78,
+      "draft_pick": 12,
       "estimated_budget": false,
       "gross_td": 190416898,
       "movie_title": "GOAT",
@@ -7101,6 +7142,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "In the Grey",
@@ -7214,6 +7256,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Rivals of Amziah King",
@@ -7327,6 +7370,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Charlie Harper",
@@ -7596,6 +7640,7 @@
         "2026-05-02": 10081294
       },
       "days_running": 113,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 10081294,
       "movie_title": "Is This Thing On?",
@@ -7927,6 +7972,7 @@
         "2026-05-02": 2644377
       },
       "days_running": 99,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 2644377,
       "movie_title": "Clika",
@@ -8111,6 +8157,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Whalefall",
@@ -8250,6 +8297,7 @@
         "2026-05-02": 894224000
       },
       "days_running": 31,
+      "draft_pick": 1,
       "estimated_budget": false,
       "gross_td": 894224000,
       "movie_title": "The Super Mario Galaxy Movie",
@@ -8482,6 +8530,7 @@
         "2026-05-02": 10182876
       },
       "days_running": 85,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 10182876,
       "movie_title": "The Strangers: Chapter 3",
@@ -8653,6 +8702,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The End of Oak Street",
@@ -8766,6 +8816,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 2,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Toy Story 5",
@@ -8879,6 +8930,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 7,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "PAW Patrol: The Dino Movie",
@@ -9000,6 +9052,7 @@
         "2026-05-02": 600000
       },
       "days_running": 22,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 600000,
       "movie_title": "Hunting Matthew Nichols",
@@ -9119,6 +9172,7 @@
         "2026-05-02": 2152273
       },
       "days_running": 1,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 2152273,
       "movie_title": "Deep Water",
@@ -9332,6 +9386,7 @@
         "2026-05-02": 3634682
       },
       "days_running": 85,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 3634682,
       "movie_title": "Whistle",
@@ -9640,6 +9695,7 @@
         "2026-05-02": 3260969
       },
       "days_running": 106,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 3260969,
       "movie_title": "Charlie the Wonderdog",
@@ -9865,6 +9921,7 @@
         "2026-05-02": 2391402
       },
       "days_running": 36,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 2391402,
       "movie_title": "Forbidden Fruits",
@@ -10003,6 +10060,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 13,
       "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Star Wars: The Mandalorian & Grogu",
@@ -10116,6 +10174,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "I Love Boosters",
@@ -10307,6 +10366,7 @@
         "2026-05-02": 23844025
       },
       "days_running": 57,
+      "draft_pick": 10,
       "estimated_budget": false,
       "gross_td": 23844025,
       "movie_title": "The Bride!",
@@ -10595,6 +10655,7 @@
         "2026-05-02": 53690303
       },
       "days_running": 99,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 53690303,
       "movie_title": "Mercy",
@@ -10779,6 +10840,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 9,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Evil Dead Burn",
@@ -10892,6 +10954,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Fall 2",
@@ -11005,6 +11068,7 @@
         "2026-05-02": 5244708
       },
       "days_running": 15,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 5244708,
       "movie_title": "Normal",
@@ -11080,6 +11144,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Runner",
@@ -11172,6 +11237,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Dune: Part Three",
@@ -11365,6 +11431,7 @@
         "2026-05-02": 42414609
       },
       "days_running": 85,
+      "draft_pick": 18,
       "estimated_budget": false,
       "gross_td": 42414609,
       "movie_title": "Dracula",
@@ -11528,6 +11595,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Digger",
@@ -11679,6 +11747,7 @@
         "2026-05-02": 18982152
       },
       "days_running": 36,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 18982152,
       "movie_title": "They Will Kill You",
@@ -11818,6 +11887,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Poetic License",
@@ -11931,6 +12001,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 4,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Scary Movie 6",
@@ -12044,6 +12115,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Young Washington",
@@ -12299,6 +12371,7 @@
         "2026-05-02": 56947583
       },
       "days_running": 106,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 56947583,
       "movie_title": "28 Years Later: The Bone Temple",
@@ -12490,6 +12563,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Verity",
@@ -12603,6 +12677,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Power Ballad",
@@ -12716,6 +12791,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Death of Robin Hood",
@@ -12929,6 +13005,7 @@
         "2026-05-02": 25762737
       },
       "days_running": 85,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 25762737,
       "movie_title": "Solo Mio",
@@ -13177,6 +13254,7 @@
         "2026-05-02": 6500738
       },
       "days_running": 71,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 6500738,
       "movie_title": "Pillion",
@@ -13335,6 +13413,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Mutiny",
@@ -13562,6 +13641,7 @@
         "2026-05-02": 49305541
       },
       "days_running": 92,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 49305541,
       "movie_title": "Shelter",
@@ -13740,6 +13820,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Wife & Dog",
@@ -13943,6 +14024,7 @@
         "2026-05-02": 72824188
       },
       "days_running": 78,
+      "draft_pick": 23,
       "estimated_budget": false,
       "gross_td": 72824188,
       "movie_title": "Crime 101",
@@ -14112,6 +14194,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Violent Night 2",
@@ -14225,6 +14308,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Girls Like Girls",
@@ -14338,6 +14422,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Finding Emily",
@@ -14451,6 +14536,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Pressure",
@@ -14564,6 +14650,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Angry Birds Movie 3",
@@ -14677,6 +14764,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Hunger Games: Sunrise on the Reaping",
@@ -14790,6 +14878,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": null,
       "movie_title": "The Sheep Detectives",
@@ -14903,6 +14992,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Practical Magic 2",
@@ -15016,6 +15106,7 @@
         "2026-05-02": 80047000
       },
       "days_running": 15,
+      "draft_pick": 17,
       "estimated_budget": false,
       "gross_td": 80047000,
       "movie_title": "Lee Cronin's The Mummy",
@@ -15303,6 +15394,7 @@
         "2026-05-02": 694818
       },
       "days_running": 120,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 694818,
       "movie_title": "The Plague",
@@ -15507,6 +15599,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 5,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Minions and Monsters",
@@ -15738,6 +15831,7 @@
         "2026-05-02": 241701072
       },
       "days_running": 78,
+      "draft_pick": 14,
       "estimated_budget": false,
       "gross_td": 241701072,
       "movie_title": "Wuthering Heights",
@@ -15922,6 +16016,7 @@
         "2026-05-02": 15204888
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "MOBILE SUIT GUNDAM HATHAWAY The Sorcery of Nymph Circe",
@@ -16193,6 +16288,7 @@
         "2026-05-02": 41235665
       },
       "days_running": 113,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 41235665,
       "movie_title": "Primate",
@@ -16350,6 +16446,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Brink Of War",
@@ -16464,6 +16561,7 @@
         "2026-05-02": 114144796
       },
       "days_running": 29,
+      "draft_pick": 20,
       "estimated_budget": false,
       "gross_td": 114144796,
       "movie_title": "The Drama",
@@ -16552,6 +16650,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Great Beyond",
@@ -16644,6 +16743,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Tuner",
@@ -16757,6 +16857,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Spa Weekend",
@@ -16870,6 +16971,7 @@
         "2026-05-02": 233600000
       },
       "days_running": 1,
+      "draft_pick": 3,
       "estimated_budget": false,
       "gross_td": 233600000,
       "movie_title": "The Devil Wears Prada 2",
@@ -17049,6 +17151,7 @@
         "2026-05-02": 87451494
       },
       "days_running": 50,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 87451494,
       "movie_title": "Reminders of Him",
@@ -17161,6 +17264,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Passenger",
@@ -17253,6 +17357,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 1,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Odyssey",
@@ -17414,6 +17519,7 @@
         "2026-05-02": 41824686
       },
       "days_running": 43,
+      "draft_pick": 11,
       "estimated_budget": true,
       "gross_td": 41824686,
       "movie_title": "Ready or Not 2: Here I Come",
@@ -17559,6 +17665,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "By Any Means",
@@ -17672,6 +17779,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Is God Is",
@@ -17785,6 +17893,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Godzilla Minus Zero",
@@ -17898,6 +18007,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Breadwinner",
@@ -18061,6 +18171,7 @@
         "2026-05-02": 1933222
       },
       "days_running": 57,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 1933222,
       "movie_title": "Protector",
@@ -18257,6 +18368,7 @@
         "2026-05-02": 2055800
       },
       "days_running": 8,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 2055800,
       "movie_title": "Over Your Dead Body",
@@ -18501,6 +18613,7 @@
         "2026-05-02": 4211433
       },
       "days_running": 99,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 4211433,
       "movie_title": "The Testament of Ann Lee",
@@ -18795,6 +18908,7 @@
         "2026-05-02": 18740810
       },
       "days_running": 71,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 18740810,
       "movie_title": "I Can Only Imagine 2",
@@ -18971,6 +19085,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Clayface",
@@ -19084,6 +19199,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Focker-In-Law",
@@ -19285,6 +19401,7 @@
         "2026-05-02": 2264126
       },
       "days_running": 78,
+      "draft_pick": 19,
       "estimated_budget": true,
       "gross_td": 2264126,
       "movie_title": "Scarlet",
@@ -19451,6 +19568,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Teenage Sex and Death at Camp Miasma",
@@ -19564,6 +19682,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Werwulf",
@@ -19789,6 +19908,7 @@
         "2026-05-02": 4965912
       },
       "days_running": 92,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 4965912,
       "movie_title": "The Moment",
@@ -19969,6 +20089,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Resident Evil",
@@ -20146,6 +20267,7 @@
         "2026-05-02": 6412500
       },
       "days_running": 1,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 6412500,
       "movie_title": "Hokum",
@@ -20250,6 +20372,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "How to Rob a Bank",
@@ -20427,6 +20550,7 @@
         "2026-05-02": 21077154
       },
       "days_running": 50,
+      "draft_pick": 15,
       "estimated_budget": false,
       "gross_td": 21077154,
       "movie_title": "undertone",
@@ -20701,6 +20825,7 @@
         "2026-05-02": 21326000
       },
       "days_running": 22,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 21326000,
       "movie_title": "You, Me & Tuscany",
@@ -20824,6 +20949,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Forgotten Island",
@@ -20937,6 +21063,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Other Mommy",
@@ -21050,6 +21177,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Gail Daughtry and the Celebrity Sex Pass",
@@ -21163,6 +21291,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Shaun the Sheep: The Beast of Mossy Bottom",
@@ -21276,6 +21405,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Ice Cream Man",
@@ -21347,6 +21477,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "A Place in Hell",
@@ -21439,6 +21570,7 @@
         "2026-05-02": 4601348
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Tom and Jerry: Forbidden Compass",
@@ -21555,6 +21687,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 10,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Obsession",
@@ -21668,6 +21801,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Sense and Sensibility",
@@ -21781,6 +21915,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 16,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Social Reckoning",
@@ -21944,6 +22079,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "One Night Only",
@@ -22057,6 +22193,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Hexed",
@@ -22170,6 +22307,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 12,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "STOP! THAT! TRAIN!",
@@ -22283,6 +22421,7 @@
         "2026-05-02": 1055803
       },
       "days_running": 1,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 1055803,
       "movie_title": "That Time I Got Reincarnated as a Slime the Movie: Tears of the Azure Sea",
@@ -22399,6 +22538,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Archangel",
@@ -22470,6 +22610,7 @@
       "daily_change": {},
       "daily_gross": {},
       "days_running": null,
+      "draft_pick": 8,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "The Amazing Digital Circus: The Last Act",
@@ -22562,6 +22703,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Ebenezer: A Christmas Carol",
@@ -22675,6 +22817,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 14,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Billie Eilish - Hit Me Hard and Soft: The Tour (Live in 3D)",
@@ -22770,6 +22913,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Leviticus",
@@ -22846,6 +22990,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 6,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Jackass: Best and Last",
@@ -22993,6 +23138,7 @@
         "2026-05-02": 19501301
       },
       "days_running": 71,
+      "draft_pick": 24,
       "estimated_budget": false,
       "gross_td": 19501301,
       "movie_title": "How to Make a Killing",
@@ -23138,6 +23284,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Idiots",
@@ -23399,6 +23546,7 @@
         "2026-05-02": 94041481
       },
       "days_running": 92,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": 94041481,
       "movie_title": "Send Help",
@@ -23754,6 +23902,7 @@
         "2026-05-02": 505744
       },
       "days_running": 113,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 505744,
       "movie_title": "The Chronology of Water",
@@ -24009,6 +24158,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": 5,
       "estimated_budget": true,
       "gross_td": null,
       "movie_title": "Supergirl: Woman of Tomorrow",
@@ -24122,6 +24272,7 @@
         "2026-05-02": 0
       },
       "days_running": null,
+      "draft_pick": null,
       "estimated_budget": false,
       "gross_td": null,
       "movie_title": "Super Troopers 3: Winter Soldiers",
@@ -24297,6 +24448,7 @@
         "2026-05-02": 3947355
       },
       "days_running": 78,
+      "draft_pick": null,
       "estimated_budget": true,
       "gross_td": 3947355,
       "movie_title": "Cold Storage",
