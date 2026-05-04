@@ -13,7 +13,7 @@ export function buildInfoCards(data, colorMap) {
   var el = document.getElementById('info-cards');
   if (!el) return;
 
-  var today = new Date().toISOString().split('T')[0];
+  var today = data.latest_date || new Date().toISOString().split('T')[0];
   var COOKIE = 'info_active_tab';
 
   function readTabCookie() {

@@ -48,7 +48,9 @@ export function buildLeaderboard(data, owners, colorMap, LATEST_DATE, activeOwne
     var weekVal    = WEEK_START  && total[WEEK_START]  !== undefined ? profit - total[WEEK_START]  : null;
 
     var ownedMovies   = Object.values(data.movies).filter(function(m) { return m.owner === o; });
-    var releasedCount = ownedMovies.filter(function(m) { return m.days_running != null; }).length;
+    var releasedCount = ownedMovies.filter(function(m) {
+      return m.release_date && m.release_date !== 'TBA' && m.release_date <= LATEST_DATE;
+    }).length;
     var totalCount    = ownedMovies.length;
 
     return { owner: o, profit: profit, picksVal: picksVal, bombVal: bombVal, delta: delta, weekVal: weekVal, releasedCount: releasedCount, totalCount: totalCount };
