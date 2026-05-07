@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-08 05:26:48",
+  "fetched_at": "2026-05-08 06:26:56",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-05-07T21-26-31Z",
+  "last_processed_snapshot": "2026-05-07T22-26-46Z",
   "latest_date": "2026-05-06",
   "latest_profit_date": "2026-05-06",
   "movies": {
@@ -5922,8 +5922,8 @@
       "year": 2026
     },
     "tt26657236": {
-      "breakeven": null,
-      "budget": 0,
+      "breakeven": 20000000,
+      "budget": 10000000,
       "daily_change": {
         "2026-04-13": 0,
         "2026-04-14": 0,
@@ -17860,7 +17860,37 @@
       "pick_type": null,
       "profit": {},
       "profit_td": null,
-      "ratings": null,
+      "ratings": {
+        "fetched_at": "2026-05-08",
+        "imdb": {
+          "score": null,
+          "votes": null
+        },
+        "letterboxd": {
+          "score": null,
+          "votes": null
+        },
+        "metacritic": {
+          "score": null,
+          "votes": null
+        },
+        "rt_audience": {
+          "score": null,
+          "votes": null
+        },
+        "rt_critic": {
+          "score": null,
+          "votes": null
+        },
+        "tmdb": {
+          "score": null,
+          "votes": null
+        },
+        "trakt": {
+          "score": null,
+          "votes": null
+        }
+      },
       "release_date": "2026-08-07",
       "released_digital": null,
       "season": "SUMMER",
