@@ -740,3 +740,319 @@ body { font-size: 0.9rem; }
   width: 52px;
   min-width: 52px;
 }
+
+/* ── 2026 draft page ─────────────────────────────────────────────────── */
+
+/* Tabs (Style B: underline + larger type) */
+
+.draft-tab-nav {
+  display: flex;
+  border-bottom: 1px solid var(--bs-border-color);
+  margin-bottom: 0.9rem;
+}
+
+.draft-tab-btn {
+  flex: 1 1 0;
+  padding: 10px 12px 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--bs-secondary-color);
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+
+.draft-tab-btn:hover {
+  color: var(--bs-body-color);
+}
+
+.draft-tab-btn.active {
+  color: var(--bs-body-color);
+  border-bottom-color: var(--bs-primary);
+  font-weight: 600;
+}
+
+/* Body grid: full-width tabs/leaderboard above, then 2-col main + sidebar */
+
+.draft-body {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.draft-main {
+  flex: 1 1 580px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.draft-sidebar {
+  flex: 0 1 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 935px) {
+  .draft-sidebar { flex-basis: 100%; }
+}
+
+/* Leaderboard — owner cards */
+
+.draft-lb-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .draft-lb-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.4rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .draft-lb-card {
+    flex: 0 0 200px;
+    scroll-snap-align: start;
+  }
+}
+
+.draft-lb-card {
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 7px;
+  padding: 0.5rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.draft-lb-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 500;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.draft-lb-owner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.draft-lb-rank {
+  font-size: 0.7rem;
+  color: var(--bs-secondary-color);
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+.draft-lb-total {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.draft-lb-picks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.78rem;
+}
+
+.draft-lb-pick {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.draft-lb-pick-name {
+  color: var(--bs-secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.draft-lb-pick-profit {
+  flex: 0 0 auto;
+}
+
+/* Picks table */
+
+.draft-picks-wrap {
+  overflow-x: auto;
+}
+
+.draft-picks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: 600px;
+}
+
+.draft-picks-table th,
+.draft-picks-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--bs-border-color);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.draft-picks-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--bs-secondary-color);
+}
+
+.draft-picks-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.draft-row-dimmed {
+  opacity: 0.5;
+}
+
+/* Highlights — single-row horizontal scroller */
+
+.draft-hl-strip {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.4rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.draft-hl-tile {
+  flex: 1 0 220px;
+  min-width: 220px;
+  scroll-snap-align: start;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-left: 3px solid var(--bs-secondary-color);
+  border-radius: 6px;
+  padding: 0.55rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.draft-hl-pos { border-left-color: #75b798; }
+.draft-hl-neg { border-left-color: #ea868f; }
+
+[data-bs-theme="light"] .draft-hl-pos { border-left-color: #198754; }
+[data-bs-theme="light"] .draft-hl-neg { border-left-color: #dc3545; }
+
+.draft-hl-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+}
+
+.draft-hl-value {
+  font-size: 1rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.draft-hl-sub {
+  font-size: 0.74rem;
+  color: var(--bs-secondary-color);
+  word-break: break-word;
+}
+
+.draft-hl-tagline {
+  font-size: 0.68rem;
+  color: var(--bs-secondary-color);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Unpicked sidebar card */
+
+.draft-sidebar > .info-tab-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.draft-sidebar .info-card-table-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+@media (max-width: 935px) {
+  .draft-sidebar > .info-tab-card { max-height: 420px; }
+}
+
+.draft-unpicked-header {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bs-secondary-color);
+  padding: 8px 12px 6px;
+  border-bottom: 1px solid var(--bs-border-color);
+  flex-shrink: 0;
+}
+
+.draft-sidebar .scorecard-movie-table {
+  table-layout: fixed;
+}
+
+.draft-sidebar .scorecard-movie-table .col-title  { width: auto; }
+.draft-sidebar .scorecard-movie-table .col-profit { width: 6.8rem; }
+.draft-sidebar .scorecard-movie-table .col-rank   { width: 3rem; }
+
+.draft-sidebar .scorecard-movie-table .cell-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.draft-sidebar .scorecard-movie-table .cell-profit {
+  white-space: nowrap;
+}
+
+/* Empty states */
+
+.draft-empty {
+  font-size: 0.85rem;
+  color: var(--bs-secondary-color);
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.draft-leaderboard-empty {
+  margin: 0 0 1rem;
+  text-align: left;
+}
+
+.draft-unpicked-empty {
+  padding: 1rem;
+}
