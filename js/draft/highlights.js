@@ -35,8 +35,12 @@ export function buildHighlights(data, season, colorMap, mountEl) {
   if (!mountEl) return;
 
   var gatePicks = highlightsGatePicks(data, season);
-  if (!everyOwnerHasReleased(gatePicks)) {
+  if (!gatePicks.length) {
     mountEl.innerHTML = '';
+    return;
+  }
+  if (!everyOwnerHasReleased(gatePicks)) {
+    mountEl.innerHTML = '<div class="draft-hl-placeholder">Highlights unlock once every owner has at least one released movie.</div>';
     return;
   }
 

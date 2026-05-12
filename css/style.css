@@ -994,6 +994,21 @@ body { font-size: 0.9rem; }
 .draft-hl-pos { border-left-color: #75b798; }
 .draft-hl-neg { border-left-color: #ea868f; }
 
+.draft-hl-placeholder {
+  width: 100%;
+  min-height: 5.5rem;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--bs-secondary-color);
+  font-size: 0.85rem;
+}
+
 [data-bs-theme="light"] .draft-hl-pos { border-left-color: #198754; }
 [data-bs-theme="light"] .draft-hl-neg { border-left-color: #dc3545; }
 
