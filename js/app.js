@@ -6,6 +6,7 @@ import { buildChart } from './chart.js';
 import { buildTable, buildOwnerFilter } from './table.js';
 import { buildWeekendStrip } from './weekend-strip.js';
 import { buildInfoCards } from './info-cards.js';
+import { applyOverrides } from './overrides.js';
 
 // ── Module-level chart / table instances ─────────────────────────────────
 var _chart = null;
@@ -126,6 +127,19 @@ function init(data) {
 
     var statusEl = document.querySelector('.navbar-status');
     if (statusEl) statusEl.classList.remove('d-none');
+
+    var toggleBtn = document.getElementById('navbar-status-toggle');
+    if (toggleBtn) {
+      var popoverContent = dateLabel + (updatedLabel ? '<br>' + updatedLabel : '');
+      toggleBtn.setAttribute('data-bs-content', popoverContent);
+      toggleBtn.classList.remove('d-none');
+      new bootstrap.Popover(toggleBtn, {
+        html:      true,
+        trigger:   'click',
+        placement: 'bottom',
+        container: 'body'
+      });
+    }
   }
 
   // ── Unowned-movie visibility toggle state ────────────────────────────
@@ -176,7 +190,7 @@ function init(data) {
     if (_table) _table.deselectRow();
     _suppressMovieSelection = false;
 
-    if (_table) _table.setSort('release_date', 'asc');
+    if (_table) _table.setSort(_initialSort);
 
     var dateFromEl = document.getElementById('date-from');
     var dateToEl   = document.getElementById('date-to');
@@ -245,7 +259,9 @@ function init(data) {
   buildWeekendStrip(data, owners, colorMap);
   buildInfoCards(data, colorMap);
   _chart = buildChart(data, owners, colorMap, [], []);
-  _table = buildTable(data, colorMap);
+  var built = buildTable(data, colorMap);
+  _table = built.table;
+  var _initialSort = built.initialSort;
   buildOwnerFilter(owners, colorMap, [], _showUnowned);
   applyFilters();
 
@@ -329,12 +345,19 @@ function init(data) {
 
 // ── Load data ──────────────────────────────────────────────────────────────
 var DATA_URL = (import.meta.env.VITE_DATA_URL || 'https://raw.githubusercontent.com/dthunder746/movieboyz-site/data/data.json') + '?t=' + Date.now();
-fetch(DATA_URL)
-  .then(function(r) {
+var OVERRIDES_URL = '/overrides.json?t=' + Date.now();
+
+Promise.all([
+  fetch(DATA_URL).then(function(r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
+  }),
+  fetch(OVERRIDES_URL).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })
+])
+  .then(function(results) {
+    applyOverrides(results[0], results[1]);
+    init(results[0]);
   })
-  .then(init)
   .catch(function(err) {
     document.body.innerHTML += '<div class="alert alert-danger m-3">Failed to load data.json: ' + err.message + '</div>';
   });

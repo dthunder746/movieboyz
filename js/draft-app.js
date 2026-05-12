@@ -1,6 +1,7 @@
 import { fmtTimestamp } from './utils.js';
 import { buildColorMap } from './palettes.js';
 import { buildDraftPage } from './draft/page.js';
+import { applyOverrides } from './overrides.js';
 
 var KNOWN_OWNERS = ['Chris', 'Connie', 'Emerson', 'Marcus', 'Matt'];
 var earlyColorMap = buildColorMap(KNOWN_OWNERS);
@@ -75,12 +76,19 @@ function init(data) {
 }
 
 var DATA_URL = (import.meta.env.VITE_DATA_URL || 'https://raw.githubusercontent.com/dthunder746/movieboyz-site/data/data.json') + '?t=' + Date.now();
-fetch(DATA_URL)
-  .then(function(r) {
+var OVERRIDES_URL = '/overrides.json?t=' + Date.now();
+
+Promise.all([
+  fetch(DATA_URL).then(function(r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
+  }),
+  fetch(OVERRIDES_URL).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })
+])
+  .then(function(results) {
+    applyOverrides(results[0], results[1]);
+    init(results[0]);
   })
-  .then(init)
   .catch(function(err) {
     document.body.innerHTML += '<div class="alert alert-danger m-3">Failed to load data.json: ' + err.message + '</div>';
   });

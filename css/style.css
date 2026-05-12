@@ -708,7 +708,7 @@ body { font-size: 0.9rem; }
 
 /* ── Header status cluster ──────────────────────────────────────────────── */
 .navbar-status {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
@@ -718,18 +718,51 @@ body { font-size: 0.9rem; }
   opacity: 0.5;
 }
 
+.navbar-status-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--bs-secondary-color);
+  cursor: pointer;
+}
+
+.navbar-status-toggle:hover,
+.navbar-status-toggle:focus {
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+@media (min-width: 660px) {
+  .navbar-status {
+    display: inline-flex;
+  }
+  .navbar-status-toggle {
+    display: none;
+  }
+}
+
 .info-tab-nav-secondary {
   border-bottom: 1px solid var(--bs-border-color);
 }
 
 .info-tab-pane[data-tab="daily"].active,
 .info-tab-pane[data-tab="weekly"].active,
-.info-tab-pane[data-tab="streaming"].active {
+.info-tab-pane[data-tab="streaming"].active,
+.info-tab-pane[data-tab="profitable"].active,
+.info-tab-pane[data-tab="worst"].active {
   overflow-y: auto;
 }
 
 .info-tab-pane[data-tab="daily"] .scorecard-movie-table th,
-.info-tab-pane[data-tab="weekly"] .scorecard-movie-table th {
+.info-tab-pane[data-tab="weekly"] .scorecard-movie-table th,
+.info-tab-pane[data-tab="profitable"] .scorecard-movie-table th,
+.info-tab-pane[data-tab="worst"] .scorecard-movie-table th {
   position: sticky;
   top: 0;
   background: var(--bs-body-bg);
@@ -961,6 +994,21 @@ body { font-size: 0.9rem; }
 .draft-hl-pos { border-left-color: #75b798; }
 .draft-hl-neg { border-left-color: #ea868f; }
 
+.draft-hl-placeholder {
+  width: 100%;
+  min-height: 5.5rem;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--bs-secondary-color);
+  font-size: 0.85rem;
+}
+
 [data-bs-theme="light"] .draft-hl-pos { border-left-color: #198754; }
 [data-bs-theme="light"] .draft-hl-neg { border-left-color: #dc3545; }
 
@@ -1055,4 +1103,32 @@ body { font-size: 0.9rem; }
 
 .draft-unpicked-empty {
   padding: 1rem;
+}
+
+@media (max-width: 935px) {
+  .draft-sidebar .info-card-table-wrap {
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .draft-sidebar .info-card-table-wrap thead th {
+    position: sticky;
+    top: 0;
+    background: var(--bs-body-bg);
+    z-index: 1;
+  }
+}
+
+.draft-empty-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  min-height: 240px;
+  color: var(--bs-secondary-color);
+  text-align: center;
+}
+
+.draft-empty-page p {
+  margin: 0;
+  font-size: 0.95rem;
 }

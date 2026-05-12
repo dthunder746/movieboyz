@@ -146,6 +146,10 @@ export function highlightsForDraft(data, season) {
   };
 }
 
+export function highlightsGatePicks(data, season) {
+  return picksForDraft(data, season).filter(isSeasonalOrAlt);
+}
+
 export function seasonFromIsoDate(iso) {
   if (!iso) return 'WINTER';
   var month = parseInt(iso.split('-')[1], 10);
