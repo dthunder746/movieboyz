@@ -708,7 +708,7 @@ body { font-size: 0.9rem; }
 
 /* ── Header status cluster ──────────────────────────────────────────────── */
 .navbar-status {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
@@ -736,6 +736,15 @@ body { font-size: 0.9rem; }
 .navbar-status-toggle:focus {
   color: var(--bs-body-color);
   border-color: var(--bs-border-color);
+}
+
+@media (min-width: 660px) {
+  .navbar-status {
+    display: inline-flex;
+  }
+  .navbar-status-toggle {
+    display: none;
+  }
 }
 
 .info-tab-nav-secondary {
