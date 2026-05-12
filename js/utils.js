@@ -2,8 +2,9 @@
 
 export function fmt(v) {
   if (v === null || v === undefined) return '—';
-  var abs = Math.abs(v), M = 1e6, K = 1e3;
+  var abs = Math.abs(v), B = 1e9, M = 1e6, K = 1e3;
   var sign = v < 0 ? '-' : '';
+  if (abs >= B)  return sign + '$' + (abs / B).toFixed(2) + 'b';
   if (abs >= M)  return sign + '$' + (abs / M).toFixed(1) + 'm';
   if (abs >= K)  return sign + '$' + Math.round(abs / K) + 'k';
   return sign + '$' + Math.round(abs);
