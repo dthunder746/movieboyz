@@ -126,6 +126,19 @@ function init(data) {
 
     var statusEl = document.querySelector('.navbar-status');
     if (statusEl) statusEl.classList.remove('d-none');
+
+    var toggleBtn = document.getElementById('navbar-status-toggle');
+    if (toggleBtn) {
+      var popoverContent = dateLabel + (updatedLabel ? '<br>' + updatedLabel : '');
+      toggleBtn.setAttribute('data-bs-content', popoverContent);
+      toggleBtn.classList.remove('d-none');
+      new bootstrap.Popover(toggleBtn, {
+        html:      true,
+        trigger:   'click',
+        placement: 'bottom',
+        container: 'body'
+      });
+    }
   }
 
   // ── Unowned-movie visibility toggle state ────────────────────────────

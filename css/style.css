@@ -718,6 +718,26 @@ body { font-size: 0.9rem; }
   opacity: 0.5;
 }
 
+.navbar-status-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--bs-secondary-color);
+  cursor: pointer;
+}
+
+.navbar-status-toggle:hover,
+.navbar-status-toggle:focus {
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
 .info-tab-nav-secondary {
   border-bottom: 1px solid var(--bs-border-color);
 }
