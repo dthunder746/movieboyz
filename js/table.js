@@ -426,7 +426,7 @@ export function buildTable(data, colorMap) {
     resizableColumns:      false,
     selectableRows:        true,
     pagination:            true,
-    paginationSize:        25,
+    paginationSize:        50,
     paginationSizeSelector: [10, 25, 50, 100, true],
   });
 
