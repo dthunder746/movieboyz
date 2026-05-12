@@ -1093,3 +1093,18 @@ body { font-size: 0.9rem; }
     z-index: 1;
   }
 }
+
+.draft-empty-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  min-height: 240px;
+  color: var(--bs-secondary-color);
+  text-align: center;
+}
+
+.draft-empty-page p {
+  margin: 0;
+  font-size: 0.95rem;
+}

@@ -2,7 +2,7 @@ import { buildPicksTable } from './picks-table.js';
 import { buildLeaderboard } from './leaderboard.js';
 import { buildHighlights } from './highlights.js';
 import { buildUnpickedCard } from './unpicked-card.js';
-import { seasonFromIsoDate } from './season-helpers.js';
+import { seasonFromIsoDate, picksForDraft } from './season-helpers.js';
 
 var SEASON_ORDER = ['WINTER', 'SUMMER', 'FALL'];
 var SEASON_LABEL = { WINTER: 'Winter', SUMMER: 'Summer', FALL: 'Fall' };
@@ -52,6 +52,16 @@ export function buildDraftPage(data, colorMap) {
   var unpickedEl    = document.getElementById('draft-unpicked');
 
   function render(season) {
+    var picks = picksForDraft(data, season);
+    if (!picks.length) {
+      leaderboardEl.innerHTML = '';
+      highlightsEl.innerHTML  = '';
+      unpickedEl.innerHTML    = '';
+      picksEl.innerHTML = '<div class="draft-empty-page"><p>No picks yet for the '
+        + SEASON_LABEL[season]
+        + ' draft — check back later.</p></div>';
+      return;
+    }
     buildPicksTable(data, season, colorMap, picksEl);
     buildLeaderboard(data, season, colorMap, leaderboardEl);
     buildHighlights(data, season, colorMap, highlightsEl);
