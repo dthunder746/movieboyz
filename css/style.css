@@ -1080,3 +1080,16 @@ body { font-size: 0.9rem; }
 .draft-unpicked-empty {
   padding: 1rem;
 }
+
+@media (max-width: 935px) {
+  .draft-sidebar .info-card-table-wrap {
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .draft-sidebar .info-card-table-wrap thead th {
+    position: sticky;
+    top: 0;
+    background: var(--bs-body-bg);
+    z-index: 1;
+  }
+}
