@@ -176,7 +176,7 @@ function init(data) {
     if (_table) _table.deselectRow();
     _suppressMovieSelection = false;
 
-    if (_table) _table.setSort('release_date', 'asc');
+    if (_table) _table.setSort(_initialSort);
 
     var dateFromEl = document.getElementById('date-from');
     var dateToEl   = document.getElementById('date-to');
@@ -245,7 +245,9 @@ function init(data) {
   buildWeekendStrip(data, owners, colorMap);
   buildInfoCards(data, colorMap);
   _chart = buildChart(data, owners, colorMap, [], []);
-  _table = buildTable(data, colorMap);
+  var built = buildTable(data, colorMap);
+  _table = built.table;
+  var _initialSort = built.initialSort;
   buildOwnerFilter(owners, colorMap, [], _showUnowned);
   applyFilters();
 

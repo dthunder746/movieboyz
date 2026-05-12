@@ -432,7 +432,7 @@ export function buildTable(data, colorMap) {
 
   tableRef.current = table;
 
-  return table;
+  return { table: table, initialSort: initialSort };
 }
 
 // ── Owner filter ──────────────────────────────────────────────────────────
