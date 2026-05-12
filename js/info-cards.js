@@ -316,43 +316,6 @@ export function buildInfoCards(data, colorMap) {
     + '<div class="info-tab-nav info-tab-nav-secondary">' + row2Html + '</div>'
     + '<div class="info-tab-body">' + panesHtml + '</div>'
     + '</div>';
-  // ── Dynamic row count for profitable / worst ─────────────────────────────
-  // Row height and header height are measured from the live DOM on first call;
-  // after that the cached values are reused across ResizeObserver callbacks.
-  var ROW_PX = 0;
-  var HEADER_PX = 0;
-
-  function updateDynamicPanes() {
-    var body = el.querySelector('.info-tab-body');
-    if (!body) return;
-    var bodyH = body.clientHeight;
-    if (!bodyH) return;
-
-    // Measure once from a live thead/tbody row (any active pane will do).
-    if (!ROW_PX) {
-      var sampleRow = body.querySelector('tbody tr');
-      ROW_PX = sampleRow ? sampleRow.offsetHeight : 28;
-    }
-    if (!HEADER_PX) {
-      var sampleHead = body.querySelector('thead');
-      HEADER_PX = sampleHead ? sampleHead.offsetHeight : 24;
-    }
-
-    var BOTTOM_PAD = 6; // .info-card-table-wrap padding-bottom
-    var count = Math.max(1, Math.floor((bodyH - HEADER_PX - BOTTOM_PAD) / ROW_PX));
-    if (window.innerWidth < 936) count = Math.min(10, count);
-
-    ['profitable', 'worst'].forEach(function(id) {
-      var pane = el.querySelector('.info-tab-pane[data-tab="' + id + '"]');
-      if (!pane) return;
-      var arr = id === 'profitable' ? profitable : worst;
-      pane.innerHTML = buildPaneContent(id, arr.slice(0, count));
-    });
-  }
-
-  if (typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(updateDynamicPanes).observe(el.querySelector('.info-tab-body'));
-  }
 
   // ── Height sync: drive #info-cards height from the strip on desktop ───────
   // align-items: stretch is NOT used — it would let #info-cards content grow
@@ -376,8 +339,6 @@ export function buildInfoCards(data, colorMap) {
   syncHeight();
   window.addEventListener('resize', syncHeight);
 
-  updateDynamicPanes();
-
   // ── Tab click ────────────────────────────────────────────────────────────
   el.addEventListener('click', function(e) {
     var btn = e.target.closest('.info-tab-btn');
@@ -390,7 +351,5 @@ export function buildInfoCards(data, colorMap) {
       p.classList.toggle('active', p.dataset.tab === id);
     });
     writeTabCookie(id);
-    // Recalculate if switching to a profit tab (pane was hidden during last resize).
-    if (id === 'profitable' || id === 'worst') updateDynamicPanes();
   });
 }

@@ -724,12 +724,16 @@ body { font-size: 0.9rem; }
 
 .info-tab-pane[data-tab="daily"].active,
 .info-tab-pane[data-tab="weekly"].active,
-.info-tab-pane[data-tab="streaming"].active {
+.info-tab-pane[data-tab="streaming"].active,
+.info-tab-pane[data-tab="profitable"].active,
+.info-tab-pane[data-tab="worst"].active {
   overflow-y: auto;
 }
 
 .info-tab-pane[data-tab="daily"] .scorecard-movie-table th,
-.info-tab-pane[data-tab="weekly"] .scorecard-movie-table th {
+.info-tab-pane[data-tab="weekly"] .scorecard-movie-table th,
+.info-tab-pane[data-tab="profitable"] .scorecard-movie-table th,
+.info-tab-pane[data-tab="worst"] .scorecard-movie-table th {
   position: sticky;
   top: 0;
   background: var(--bs-body-bg);
