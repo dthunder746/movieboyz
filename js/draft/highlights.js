@@ -1,5 +1,16 @@
 import { fmt, fmtPct } from '../utils.js';
-import { highlightsForDraft } from './season-helpers.js';
+import { highlightsForDraft, highlightsGatePicks } from './season-helpers.js';
+
+function everyOwnerHasReleased(picks) {
+  var owners = {};
+  picks.forEach(function(p) {
+    if (!owners[p.owner]) owners[p.owner] = { has: false };
+    if (p.profit_td != null) owners[p.owner].has = true;
+  });
+  var ownerList = Object.values(owners);
+  if (!ownerList.length) return false;
+  return ownerList.every(function(o) { return o.has; });
+}
 
 function fmtSigned(v) {
   if (v == null) return '—';
@@ -22,6 +33,12 @@ function tile(tone, label, valueHtml, subHtml, tagline) {
 
 export function buildHighlights(data, season, colorMap, mountEl) {
   if (!mountEl) return;
+
+  var gatePicks = highlightsGatePicks(data, season);
+  if (!everyOwnerHasReleased(gatePicks)) {
+    mountEl.innerHTML = '';
+    return;
+  }
 
   var h = highlightsForDraft(data, season);
   var html = '';
