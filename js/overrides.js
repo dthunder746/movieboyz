@@ -55,15 +55,29 @@ export function applyOverrides(data, overrides) {
   if (!data || !data.movies || !overrides) return;
   Object.keys(overrides).forEach(function(id) {
     if (id.charAt(0) === '_') return;
-    if (!data.movies[id]) {
-      console.warn('overrides.json: no movie found for IMDB ID ' + id);
+    var movie = data.movies[id];
+    if (!movie) {
+      console.warn(
+        '[overrides] ' + id + ' not in data — override not applied. '
+        + 'Source may have changed; remove this entry from overrides.json if it is no longer needed.'
+      );
       return;
     }
+    var title = movie.movie_title || '(untitled)';
     var entry = overrides[id];
     if (entry && entry.exclude === true) {
+      console.log('[overrides] excluded "' + title + '" (' + id + ')');
       delete data.movies[id];
       return;
     }
-    data.movies[id] = Object.assign({}, data.movies[id], entry);
+    var fields = Object.keys(entry).filter(function(k) { return k !== 'exclude'; });
+    if (!fields.length) return;
+    var newTitle = entry.movie_title;
+    if (newTitle && newTitle !== title) {
+      console.log('[overrides] renamed "' + title + '" → "' + newTitle + '" (' + id + ')');
+    } else {
+      console.log('[overrides] updated "' + title + '" (' + id + '): ' + fields.join(', '));
+    }
+    data.movies[id] = Object.assign({}, movie, entry);
   });
 }
