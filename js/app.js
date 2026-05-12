@@ -6,6 +6,7 @@ import { buildChart } from './chart.js';
 import { buildTable, buildOwnerFilter } from './table.js';
 import { buildWeekendStrip } from './weekend-strip.js';
 import { buildInfoCards } from './info-cards.js';
+import { applyOverrides } from './overrides.js';
 
 // ── Module-level chart / table instances ─────────────────────────────────
 var _chart = null;
@@ -344,12 +345,19 @@ function init(data) {
 
 // ── Load data ──────────────────────────────────────────────────────────────
 var DATA_URL = (import.meta.env.VITE_DATA_URL || 'https://raw.githubusercontent.com/dthunder746/movieboyz-site/data/data.json') + '?t=' + Date.now();
-fetch(DATA_URL)
-  .then(function(r) {
+var OVERRIDES_URL = '/overrides.json?t=' + Date.now();
+
+Promise.all([
+  fetch(DATA_URL).then(function(r) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
+  }),
+  fetch(OVERRIDES_URL).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })
+])
+  .then(function(results) {
+    applyOverrides(results[0], results[1]);
+    init(results[0]);
   })
-  .then(init)
   .catch(function(err) {
     document.body.innerHTML += '<div class="alert alert-danger m-3">Failed to load data.json: ' + err.message + '</div>';
   });
