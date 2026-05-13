@@ -284,3 +284,48 @@ function maybeRunIntro() {
 }
 
 window.__whatifReplayIntro = function() { runIntroSequence(function() {}); };
+
+var hoverTip = null;
+
+function buildHoverLabel(slotTr, candTr) {
+  if (!slotTr || !candTr) return '';
+  var slotOwner = slotTr.dataset.owner || '';
+  var slotPickType = slotTr.dataset.pickType || '';
+  var slotPick = (slotTr.querySelector('td:first-child') || {}).textContent || '';
+  var slotTitle = (slotTr.querySelector('td:nth-child(2)') || {}).textContent || '';
+  var candTitle = (candTr.querySelector('td.cell-title') || {}).textContent || (candTr.querySelector('td:first-child') || {}).textContent || '';
+  return 'Click to swap ' + candTitle.trim() + ' in for ' + slotOwner + "'s " + slotPickType + ' pick #' + (slotPick || '').trim() + ' (currently ' + slotTitle.trim() + ')';
+}
+
+function disposeHoverTip() {
+  if (hoverTip) { try { hoverTip.dispose(); } catch (e) {} hoverTip = null; }
+}
+
+function onMouseOverHint(e) {
+  if (!store.getState().enabled || !selected) { disposeHoverTip(); return; }
+  var tr = e.target.closest('tr[data-imdb]');
+  if (!tr) { disposeHoverTip(); return; }
+  if (tr.classList.contains('draft-row-locked')) return;
+  if (tr.classList.contains('draft-row-selected')) return;
+  var counterpartKind = selected.kind === 'slot' ? 'candidate' : 'slot';
+  var hoveredKind = tr.closest('#draft-picks') ? 'slot' : (tr.closest('#draft-unpicked') ? 'candidate' : null);
+  if (hoveredKind !== counterpartKind) return;
+
+  var slotEl = selected.kind === 'slot'
+    ? document.querySelector('tr[data-imdb="' + selected.imdbId + '"]')
+    : tr;
+  var candEl = selected.kind === 'candidate'
+    ? document.querySelector('tr[data-imdb="' + selected.imdbId + '"]')
+    : tr;
+
+  disposeHoverTip();
+  if (!window.bootstrap || !window.bootstrap.Tooltip) return;
+  tr.setAttribute('title', buildHoverLabel(slotEl, candEl));
+  hoverTip = new window.bootstrap.Tooltip(tr, { trigger: 'manual', placement: 'top' });
+  hoverTip.show();
+}
+
+function onMouseOutHint() { disposeHoverTip(); }
+
+document.addEventListener('mouseover', onMouseOverHint);
+document.addEventListener('mouseout', onMouseOutHint);
