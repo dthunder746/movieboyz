@@ -80,3 +80,37 @@ export function subscribe(fn) {
     if (i !== -1) listeners.splice(i, 1);
   };
 }
+
+export function applyToData(rawData) {
+  if (!rawData || !rawData.movies) return rawData;
+  if (state.swaps.length === 0) return rawData;
+
+  var newMovies = {};
+  Object.keys(rawData.movies).forEach(function(id) {
+    newMovies[id] = rawData.movies[id];
+  });
+
+  state.swaps.forEach(function(swap) {
+    var a = newMovies[swap.slotImdbId];
+    var b = newMovies[swap.replacementImdbId];
+    if (!a || !b) {
+      console.warn('whatif-store: swap skipped, missing movie', swap);
+      return;
+    }
+    var aClone = Object.assign({}, a);
+    var bClone = Object.assign({}, b);
+    var tmpOwner = aClone.owner;
+    var tmpPickType = aClone.pick_type;
+    var tmpDraftPick = aClone.draft_pick;
+    aClone.owner = bClone.owner;
+    aClone.pick_type = bClone.pick_type;
+    aClone.draft_pick = bClone.draft_pick;
+    bClone.owner = tmpOwner;
+    bClone.pick_type = tmpPickType;
+    bClone.draft_pick = tmpDraftPick;
+    newMovies[swap.slotImdbId] = aClone;
+    newMovies[swap.replacementImdbId] = bClone;
+  });
+
+  return Object.assign({}, rawData, { movies: newMovies });
+}
