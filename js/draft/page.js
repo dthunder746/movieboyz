@@ -1,7 +1,7 @@
 import { buildPicksTable } from './picks-table.js';
 import { buildLeaderboard } from './leaderboard.js';
 import { buildHighlights } from './highlights.js';
-import { buildUnpickedCard } from './unpicked-card.js';
+import { buildUnpickedCards } from './unpicked-cards.js';
 import { seasonFromIsoDate, picksForDraft } from './season-helpers.js';
 
 var SEASON_ORDER = ['WINTER', 'SUMMER', 'FALL'];
@@ -65,7 +65,7 @@ export function buildDraftPage(data, colorMap) {
     buildPicksTable(data, season, colorMap, picksEl);
     buildLeaderboard(data, season, colorMap, leaderboardEl);
     buildHighlights(data, season, colorMap, highlightsEl);
-    buildUnpickedCard(data, season, colorMap, unpickedEl);
+    buildUnpickedCards(data, season, colorMap, unpickedEl);
   }
 
   root.addEventListener('click', function(e) {
