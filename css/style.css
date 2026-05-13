@@ -1183,9 +1183,9 @@ body { font-size: 0.9rem; }
 }
 .draft-whatif-banner[hidden] { display: none; }
 .draft-whatif-banner-info { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.draft-whatif-banner-icon { font-weight: bold; color: #1b1b1b; }
-.draft-whatif-banner-label { font-weight: 700; letter-spacing: 0.04em; color: #1b1b1b; }
-.draft-whatif-banner-counter { color: #1b1b1b; font-size: 0.9em; opacity: 0.8; }
+.draft-whatif-banner-icon { font-weight: bold; color: #fff; }
+.draft-whatif-banner-label { font-weight: 700; letter-spacing: 0.04em; color: #fff; }
+.draft-whatif-banner-counter { color: #fff; font-size: 0.9em; opacity: 0.9; }
 .draft-whatif-banner-actions { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
 
 .draft-whatif-banner-actions .btn-whatif-secondary {
