@@ -40,7 +40,7 @@ export function buildLeaderboard(data, season, colorMap, mountEl) {
   var rows = leaderboardForDraft(data, season);
   var cards = rows.map(function(r, i) {
     var totalHtml = '<span class="' + colorClass(r.total) + '">' + fmt(r.total) + '</span>';
-    return '<div class="draft-lb-card">'
+    return '<div class="draft-lb-card" data-owner="' + r.owner + '">'
       +    '<div class="draft-lb-head">'
       +      '<span class="draft-lb-owner">'
       +        '<span class="owner-dot" style="background:' + (colorMap[r.owner] || '#ccc') + '"></span>'
