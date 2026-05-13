@@ -157,3 +157,51 @@ export function seasonFromIsoDate(iso) {
   if (month <= 8) return 'SUMMER';
   return 'FALL';
 }
+
+function todayIso() {
+  return new Date().toISOString().split('T')[0];
+}
+
+export function unpickedReleasedForDraft(data, season) {
+  var today = todayIso();
+  return Object.entries(data.movies)
+    .filter(function(entry) {
+      var m = entry[1];
+      if (m.season !== season) return false;
+      if (m.owner !== 'none') return false;
+      if (!m.release_date || m.release_date === 'TBA') return false;
+      if (m.release_date > today) return false;
+      return m.profit_td != null;
+    })
+    .map(function(entry) {
+      var movie = Object.assign({}, entry[1]);
+      movie.imdb_id = entry[0];
+      return movie;
+    })
+    .sort(function(a, b) { return b.profit_td - a.profit_td; });
+}
+
+export function unpickedUnreleasedForDraft(data, season) {
+  var today = todayIso();
+  return Object.entries(data.movies)
+    .filter(function(entry) {
+      var m = entry[1];
+      if (m.season !== season) return false;
+      if (m.owner !== 'none') return false;
+      if (!m.release_date || m.release_date === 'TBA') return true;
+      if (m.release_date > today) return true;
+      return m.profit_td == null;
+    })
+    .map(function(entry) {
+      var movie = Object.assign({}, entry[1]);
+      movie.imdb_id = entry[0];
+      return movie;
+    })
+    .sort(function(a, b) {
+      var ar = a.release_date || 'zzzz';
+      var br = b.release_date || 'zzzz';
+      if (ar === 'TBA') ar = 'zzzz';
+      if (br === 'TBA') br = 'zzzz';
+      return ar < br ? -1 : (ar > br ? 1 : 0);
+    });
+}
