@@ -7,7 +7,8 @@ import {
   mountWhatifMode,
   attachSelectionHandlers,
   repaintSelectionAfterRender,
-  clearSelectionOnTabChange
+  clearSelectionOnTabChange,
+  refreshLockedTooltips
 } from './whatif-mode.js';
 import * as whatifStore from './whatif-store.js';
 
@@ -87,6 +88,7 @@ export function buildDraftPage(data, colorMap) {
     buildHighlights(view, season, colorMap, highlightsEl);
     buildUnpickedCards(view, season, colorMap, unpickedEl);
     repaintSelectionAfterRender();
+    refreshLockedTooltips();
   }
 
   root.addEventListener('click', function(e) {

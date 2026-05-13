@@ -191,3 +191,23 @@ export function repaintSelectionAfterRender() {
 export function clearSelectionOnTabChange() {
   clearSelection();
 }
+
+var lockedTooltipInstances = [];
+
+function clearLockedTooltips() {
+  lockedTooltipInstances.forEach(function(t) { try { t.dispose(); } catch (e) {} });
+  lockedTooltipInstances = [];
+}
+
+export function refreshLockedTooltips() {
+  clearLockedTooltips();
+  if (!window.bootstrap || !window.bootstrap.Tooltip) return;
+  document.querySelectorAll('#draft-picks tr.draft-row-locked').forEach(function(tr) {
+    var pt = tr.dataset.pickType;
+    var title = pt === 'hit' ? 'Hit picks are locked' : (pt === 'bomb' ? 'Bomb picks are locked' : 'Locked');
+    tr.setAttribute('data-bs-toggle', 'tooltip');
+    tr.setAttribute('title', title);
+    var t = new window.bootstrap.Tooltip(tr, { trigger: 'hover', placement: 'top' });
+    lockedTooltipInstances.push(t);
+  });
+}
