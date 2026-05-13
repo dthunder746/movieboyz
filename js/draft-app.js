@@ -2,6 +2,7 @@ import { fmtTimestamp } from './utils.js';
 import { buildColorMap } from './palettes.js';
 import { buildDraftPage } from './draft/page.js';
 import { applyOverrides } from './overrides.js';
+import { hydrate as hydrateWhatif } from './draft/whatif-store.js';
 
 var KNOWN_OWNERS = ['Chris', 'Connie', 'Emerson', 'Marcus', 'Matt'];
 var earlyColorMap = buildColorMap(KNOWN_OWNERS);
@@ -87,6 +88,7 @@ Promise.all([
 ])
   .then(function(results) {
     applyOverrides(results[0], results[1]);
+    hydrateWhatif();
     init(results[0]);
   })
   .catch(function(err) {
