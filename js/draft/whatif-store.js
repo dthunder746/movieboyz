@@ -81,6 +81,15 @@ export function subscribe(fn) {
   };
 }
 
+export function getAffectedImdbIds() {
+  var ids = {};
+  state.swaps.forEach(function(s) {
+    ids[s.slotImdbId] = true;
+    ids[s.replacementImdbId] = true;
+  });
+  return ids;
+}
+
 export function applyToData(rawData) {
   if (!rawData || !rawData.movies) return rawData;
   if (state.swaps.length === 0) return rawData;

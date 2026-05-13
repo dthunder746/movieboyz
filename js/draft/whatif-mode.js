@@ -85,16 +85,12 @@ function clearSelectionUI() {
 
 function paintCandidates() {
   if (!selected) return;
-  var counterpartKind = selected.kind === 'slot' ? 'candidate' : 'slot';
-  if (counterpartKind === 'candidate') {
-    document.querySelectorAll('#draft-unpicked tbody tr[data-kind="candidate"]').forEach(function(tr) {
-      tr.classList.add('draft-row-candidate');
-    });
-  } else {
-    document.querySelectorAll('#draft-picks tbody tr.draft-row-swappable').forEach(function(tr) {
-      if (tr.dataset.imdb !== selected.imdbId) tr.classList.add('draft-row-candidate');
-    });
-  }
+  document.querySelectorAll('#draft-picks tbody tr.draft-row-swappable').forEach(function(tr) {
+    if (tr.dataset.imdb !== selected.imdbId) tr.classList.add('draft-row-candidate');
+  });
+  document.querySelectorAll('#draft-unpicked tbody tr[data-kind="candidate"]').forEach(function(tr) {
+    if (tr.dataset.imdb !== selected.imdbId) tr.classList.add('draft-row-candidate');
+  });
   var selEl = document.querySelector('tr[data-imdb="' + selected.imdbId + '"]');
   if (selEl) selEl.classList.add('draft-row-selected');
 }
@@ -130,8 +126,9 @@ function isLocked(row) {
 }
 
 function fireSwap(slotRow, candidateRow) {
-  store.pushSwap(slotRow.imdbId, candidateRow.imdbId, currentSeasonRef());
   selected = null;
+  clearSelectionUI();
+  store.pushSwap(slotRow.imdbId, candidateRow.imdbId, currentSeasonRef());
 }
 
 function onAppClick(e) {
@@ -187,6 +184,18 @@ export function attachSelectionHandlers(getCurrentSeason) {
 export function repaintSelectionAfterRender() {
   clearSelectionUI();
   paintCandidates();
+  paintSwappedRows();
+}
+
+function paintSwappedRows() {
+  var affected = store.getAffectedImdbIds();
+  document.querySelectorAll('#draft-picks tr[data-imdb], #draft-unpicked tr[data-imdb]').forEach(function(tr) {
+    if (affected[tr.dataset.imdb]) {
+      tr.setAttribute('data-swapped', '1');
+    } else {
+      tr.removeAttribute('data-swapped');
+    }
+  });
 }
 
 export function clearSelectionOnTabChange() {

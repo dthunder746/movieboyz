@@ -1200,18 +1200,44 @@ body { font-size: 0.9rem; }
   border-radius: 4px;
 }
 
+tr[data-swapped="1"] td { background-color: rgba(212, 160, 23, 0.10); }
+tr[data-swapped="1"] td:first-child { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+tr[data-swapped="1"] td:last-child { border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
+
+.draft-lb-pick[data-swapped="1"] .draft-lb-pick-name { font-style: italic; }
+
 .draft-row-locked { cursor: not-allowed; }
 .draft-row-swappable { cursor: default; }
 #draft-app.is-whatif .draft-row-swappable { cursor: pointer; }
 #draft-app.is-whatif tbody tr[data-kind="candidate"] { cursor: pointer; }
 
-.draft-row-selected, .draft-row-selected td {
-  outline: 2px solid #d4a017 !important;
-  outline-offset: -2px;
+.draft-row-selected td {
+  background-color: rgba(212, 160, 23, 0.18);
+  box-shadow: inset 0 2px 0 0 #d4a017, inset 0 -2px 0 0 #d4a017;
 }
-.draft-row-candidate, .draft-row-candidate td {
-  outline: 1px dashed rgba(212, 160, 23, 0.55) !important;
-  outline-offset: -2px;
+.draft-row-selected td:first-child {
+  box-shadow: inset 0 2px 0 0 #d4a017, inset 0 -2px 0 0 #d4a017, inset 2px 0 0 0 #d4a017;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.draft-row-selected td:last-child {
+  box-shadow: inset 0 2px 0 0 #d4a017, inset 0 -2px 0 0 #d4a017, inset -2px 0 0 0 #d4a017;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.draft-row-candidate td {
+  box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 0.55), inset 0 -1px 0 0 rgba(212, 160, 23, 0.55);
+}
+.draft-row-candidate td:first-child {
+  box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 0.55), inset 0 -1px 0 0 rgba(212, 160, 23, 0.55), inset 1px 0 0 0 rgba(212, 160, 23, 0.55);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.draft-row-candidate td:last-child {
+  box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 0.55), inset 0 -1px 0 0 rgba(212, 160, 23, 0.55), inset -1px 0 0 0 rgba(212, 160, 23, 0.55);
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 @keyframes draftFlashPos {

@@ -68,10 +68,21 @@ export function snapshotNumbers() {
   return snap;
 }
 
-export function tweenNumber(el, from, to, ms, formatter) {
-  if (from == null || to == null || from === to) return;
+function applyColor(el, cls) {
+  if (!el) return;
+  el.classList.remove('text-pos', 'text-neg', 'text-neu');
+  if (cls) el.classList.add(cls);
+}
+
+export function tweenNumber(el, from, to, ms, formatter, colorFor) {
+  if (!el) return;
+  if (from == null || to == null || from === to) {
+    if (colorFor) applyColor(el, colorFor(to == null ? from : to));
+    return;
+  }
   if (prefersReducedMotion()) {
     el.textContent = formatter(to);
+    if (colorFor) applyColor(el, colorFor(to));
     return;
   }
   var start = performance.now();
@@ -80,7 +91,12 @@ export function tweenNumber(el, from, to, ms, formatter) {
     var eased = 1 - Math.pow(1 - t, 3);
     var value = from + (to - from) * eased;
     el.textContent = formatter(value);
-    if (t < 1) requestAnimationFrame(frame); else el.textContent = formatter(to);
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      el.textContent = formatter(to);
+      if (colorFor) applyColor(el, colorFor(to));
+    }
   }
   requestAnimationFrame(frame);
 }

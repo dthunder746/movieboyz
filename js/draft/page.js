@@ -2,7 +2,7 @@ import { buildPicksTable } from './picks-table.js';
 import { buildLeaderboard } from './leaderboard.js';
 import { buildHighlights } from './highlights.js';
 import { buildUnpickedCards } from './unpicked-cards.js';
-import { seasonFromIsoDate, picksForDraft } from './season-helpers.js';
+import { seasonFromIsoDate, picksForDraft, leaderboardForDraft } from './season-helpers.js';
 import {
   mountWhatifMode,
   attachSelectionHandlers,
@@ -14,13 +14,12 @@ import * as whatifStore from './whatif-store.js';
 import {
   snapshotLeaderboardPositions,
   playLeaderboardFlip,
-  snapshotNumbers,
   tweenNumber,
   flashCellDirection,
   amberOutlineRows,
   fadeResetEnvelope
 } from './whatif-animate.js';
-import { fmt, fmtPct } from '../utils.js';
+import { fmt, fmtPct, colorClass } from '../utils.js';
 
 var SEASON_ORDER = ['WINTER', 'SUMMER', 'FALL'];
 var SEASON_LABEL = { WINTER: 'Winter', SUMMER: 'Summer', FALL: 'Fall' };
@@ -79,11 +78,12 @@ export function buildDraftPage(data, colorMap) {
   var unpickedEl    = document.getElementById('draft-unpicked');
 
   var currentSeason = initial;
+  var currentView = data;
 
   function render(season) {
     currentSeason = season;
-    var view = whatifStore.applyToData(data);
-    var picks = picksForDraft(view, season);
+    currentView = whatifStore.applyToData(data);
+    var picks = picksForDraft(currentView, season);
     if (!picks.length) {
       leaderboardEl.innerHTML = '';
       highlightsEl.innerHTML  = '';
@@ -93,12 +93,28 @@ export function buildDraftPage(data, colorMap) {
         + ' draft — check back later.</p></div>';
       return;
     }
-    buildPicksTable(view, season, colorMap, picksEl);
-    buildLeaderboard(view, season, colorMap, leaderboardEl);
-    buildHighlights(view, season, colorMap, highlightsEl);
-    buildUnpickedCards(view, season, colorMap, unpickedEl);
+    buildPicksTable(currentView, season, colorMap, picksEl);
+    buildLeaderboard(currentView, season, colorMap, leaderboardEl);
+    buildHighlights(currentView, season, colorMap, highlightsEl);
+    buildUnpickedCards(currentView, season, colorMap, unpickedEl);
     repaintSelectionAfterRender();
     refreshLockedTooltips();
+  }
+
+  function snapshotFromView(view, season) {
+    var snap = { totals: {}, profits: {}, rois: {} };
+    leaderboardForDraft(view, season).forEach(function(r) {
+      snap.totals[r.owner] = r.total;
+    });
+    picksForDraft(view, season).forEach(function(m) {
+      snap.profits[m.imdb_id] = m.profit_td;
+      if (m.profit_td != null && m.breakeven) {
+        snap.rois[m.imdb_id] = (m.profit_td / m.breakeven) * 100;
+      } else {
+        snap.rois[m.imdb_id] = null;
+      }
+    });
+    return snap;
   }
 
   root.addEventListener('click', function(e) {
@@ -126,13 +142,14 @@ export function buildDraftPage(data, colorMap) {
       fadeResetEnvelope(function() { render(currentSeason); }, function() {});
       return;
     }
+    var prevSnap = snapshotFromView(currentView, currentSeason);
     var prevPos = snapshotLeaderboardPositions();
-    var prevNums = snapshotNumbers();
     var prevRows = collectCurrentRowImdbs();
     render(currentSeason);
+    var newSnap = snapshotFromView(currentView, currentSeason);
     playLeaderboardFlip(prevPos);
-    runNumberTweens(prevNums);
-    flashDirectionalCells(prevNums);
+    runNumberTweens(prevSnap, newSnap);
+    flashDirectionalCells(prevSnap, newSnap);
     flashNewRows(prevRows);
   });
 
@@ -144,42 +161,48 @@ export function buildDraftPage(data, colorMap) {
     return ids;
   }
 
-  function runNumberTweens(prevNums) {
+  function runNumberTweens(prev, next) {
     document.querySelectorAll('#draft-leaderboard .draft-lb-card').forEach(function(card) {
       var owner = card.dataset.owner;
       var totalEl = card.querySelector('.draft-lb-total');
       if (!totalEl || !owner) return;
-      var to = parseFloat(totalEl.textContent.replace(/[\$,]/g, '')) || 0;
-      var from = prevNums['lb:' + owner];
-      if (from == null) return;
-      tweenNumber(totalEl, from, to, 250, fmt);
+      var span = totalEl.querySelector('span') || totalEl;
+      var from = prev.totals[owner];
+      var to = next.totals[owner];
+      if (from == null || to == null) return;
+      tweenNumber(span, from, to, 250, fmt, colorClass);
     });
     document.querySelectorAll('#draft-picks tbody tr').forEach(function(tr) {
       var imdb = tr.dataset.imdb;
       if (!imdb) return;
       var cells = tr.querySelectorAll('td');
       if (cells[4]) {
-        var to = parseFloat(cells[4].textContent.replace(/[\$,]/g, '')) || 0;
-        var from = prevNums['pick:profit:' + imdb];
-        if (from != null && from !== to) tweenNumber(cells[4], from, to, 250, fmt);
+        var span = cells[4].querySelector('span') || cells[4];
+        var from = prev.profits[imdb];
+        var to = next.profits[imdb];
+        if (from != null && to != null && from !== to) tweenNumber(span, from, to, 250, fmt, colorClass);
       }
       if (cells[5]) {
-        var toR = parseFloat(cells[5].textContent.replace(/[%,]/g, '')) || 0;
-        var fromR = prevNums['pick:roi:' + imdb];
-        if (fromR != null && fromR !== toR) tweenNumber(cells[5], fromR, toR, 250, fmtPct);
+        var spanR = cells[5].querySelector('span') || cells[5];
+        var fromR = prev.rois[imdb];
+        var toR = next.rois[imdb];
+        if (fromR != null && toR != null && fromR !== toR) tweenNumber(spanR, fromR, toR, 250, fmtPct, colorClass);
       }
     });
   }
 
-  function flashDirectionalCells(prevNums) {
+  function flashDirectionalCells(prev, next) {
     document.querySelectorAll('#draft-picks tbody tr').forEach(function(tr) {
       var imdb = tr.dataset.imdb;
       if (!imdb) return;
       var cells = tr.querySelectorAll('td');
-      if (cells[4]) {
-        var to = parseFloat(cells[4].textContent.replace(/[\$,]/g, '')) || 0;
-        flashCellDirection(cells[4], prevNums['pick:profit:' + imdb], to);
-      }
+      if (cells[4]) flashCellDirection(cells[4], prev.profits[imdb], next.profits[imdb]);
+    });
+    document.querySelectorAll('#draft-leaderboard .draft-lb-card').forEach(function(card) {
+      var owner = card.dataset.owner;
+      if (!owner) return;
+      var totalEl = card.querySelector('.draft-lb-total');
+      flashCellDirection(totalEl, prev.totals[owner], next.totals[owner]);
     });
   }
 
