@@ -43,9 +43,18 @@ export function buildPicksTable(data, season, colorMap, mountEl) {
 
   var rows = picks.map(function(m) {
     var pt = (m.pick_type || '').toLowerCase();
-    var dimmed = (pt === 'hit' || pt === 'bomb') ? ' class="draft-row-dimmed"' : '';
+    var isLocked = (pt === 'hit' || pt === 'bomb');
+    var trClasses = [];
+    if (isLocked) trClasses.push('draft-row-dimmed');
+    if (isLocked) trClasses.push('draft-row-locked');
+    if (!isLocked) trClasses.push('draft-row-swappable');
+    var classAttr = trClasses.length ? ' class="' + trClasses.join(' ') + '"' : '';
+    var dataAttrs = ' data-imdb="' + m.imdb_id + '"'
+      + ' data-owner="' + (m.owner || '') + '"'
+      + ' data-pick-type="' + (m.pick_type || '') + '"'
+      + ' data-kind="slot"';
     var rankPool = ranksBySeason[m.season] || {};
-    return '<tr' + dimmed + '>'
+    return '<tr' + classAttr + dataAttrs + '>'
       + '<td class="text-end">' + m.draft_pick + '</td>'
       + '<td>' + pickIcon(m.pick_type, m.release_date) + m.movie_title + '</td>'
       + '<td>' + ownerCell(m.owner, colorMap) + '</td>'
