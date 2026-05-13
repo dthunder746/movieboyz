@@ -3,6 +3,7 @@ import { buildLeaderboard } from './leaderboard.js';
 import { buildHighlights } from './highlights.js';
 import { buildUnpickedCards } from './unpicked-cards.js';
 import { seasonFromIsoDate, picksForDraft } from './season-helpers.js';
+import { mountWhatifMode } from './whatif-mode.js';
 
 var SEASON_ORDER = ['WINTER', 'SUMMER', 'FALL'];
 var SEASON_LABEL = { WINTER: 'Winter', SUMMER: 'Summer', FALL: 'Fall' };
@@ -90,4 +91,5 @@ export function buildDraftPage(data, colorMap) {
   });
 
   render(initial);
+  mountWhatifMode();
 }
