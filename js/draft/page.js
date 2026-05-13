@@ -11,6 +11,16 @@ import {
   refreshLockedTooltips
 } from './whatif-mode.js';
 import * as whatifStore from './whatif-store.js';
+import {
+  snapshotLeaderboardPositions,
+  playLeaderboardFlip,
+  snapshotNumbers,
+  tweenNumber,
+  flashCellDirection,
+  amberOutlineRows,
+  fadeResetEnvelope
+} from './whatif-animate.js';
+import { fmt, fmtPct } from '../utils.js';
 
 var SEASON_ORDER = ['WINTER', 'SUMMER', 'FALL'];
 var SEASON_LABEL = { WINTER: 'Winter', SUMMER: 'Summer', FALL: 'Fall' };
@@ -104,7 +114,82 @@ export function buildDraftPage(data, colorMap) {
     clearSelectionOnTabChange();
   });
 
-  whatifStore.subscribe(function() { render(currentSeason); });
+  var lastSwapCount = whatifStore.getState().swaps.length;
+  var resetIntent = false;
+  whatifStore.subscribe(function() {
+    var s = whatifStore.getState();
+    if (!s.enabled) { render(currentSeason); lastSwapCount = 0; return; }
+    var delta = s.swaps.length - lastSwapCount;
+    lastSwapCount = s.swaps.length;
+    if (delta < -1 || resetIntent) {
+      resetIntent = false;
+      fadeResetEnvelope(function() { render(currentSeason); }, function() {});
+      return;
+    }
+    var prevPos = snapshotLeaderboardPositions();
+    var prevNums = snapshotNumbers();
+    var prevRows = collectCurrentRowImdbs();
+    render(currentSeason);
+    playLeaderboardFlip(prevPos);
+    runNumberTweens(prevNums);
+    flashDirectionalCells(prevNums);
+    flashNewRows(prevRows);
+  });
+
+  function collectCurrentRowImdbs() {
+    var ids = [];
+    document.querySelectorAll('#draft-picks tbody tr[data-imdb], #draft-unpicked tbody tr[data-imdb]').forEach(function(tr) {
+      ids.push(tr.dataset.imdb);
+    });
+    return ids;
+  }
+
+  function runNumberTweens(prevNums) {
+    document.querySelectorAll('#draft-leaderboard .draft-lb-card').forEach(function(card) {
+      var owner = card.dataset.owner;
+      var totalEl = card.querySelector('.draft-lb-total');
+      if (!totalEl || !owner) return;
+      var to = parseFloat(totalEl.textContent.replace(/[\$,]/g, '')) || 0;
+      var from = prevNums['lb:' + owner];
+      if (from == null) return;
+      tweenNumber(totalEl, from, to, 250, fmt);
+    });
+    document.querySelectorAll('#draft-picks tbody tr').forEach(function(tr) {
+      var imdb = tr.dataset.imdb;
+      if (!imdb) return;
+      var cells = tr.querySelectorAll('td');
+      if (cells[4]) {
+        var to = parseFloat(cells[4].textContent.replace(/[\$,]/g, '')) || 0;
+        var from = prevNums['pick:profit:' + imdb];
+        if (from != null && from !== to) tweenNumber(cells[4], from, to, 250, fmt);
+      }
+      if (cells[5]) {
+        var toR = parseFloat(cells[5].textContent.replace(/[%,]/g, '')) || 0;
+        var fromR = prevNums['pick:roi:' + imdb];
+        if (fromR != null && fromR !== toR) tweenNumber(cells[5], fromR, toR, 250, fmtPct);
+      }
+    });
+  }
+
+  function flashDirectionalCells(prevNums) {
+    document.querySelectorAll('#draft-picks tbody tr').forEach(function(tr) {
+      var imdb = tr.dataset.imdb;
+      if (!imdb) return;
+      var cells = tr.querySelectorAll('td');
+      if (cells[4]) {
+        var to = parseFloat(cells[4].textContent.replace(/[\$,]/g, '')) || 0;
+        flashCellDirection(cells[4], prevNums['pick:profit:' + imdb], to);
+      }
+    });
+  }
+
+  function flashNewRows(prevIds) {
+    var newIds = [];
+    document.querySelectorAll('#draft-picks tbody tr[data-imdb], #draft-unpicked tbody tr[data-imdb]').forEach(function(tr) {
+      if (prevIds.indexOf(tr.dataset.imdb) === -1) newIds.push(tr.dataset.imdb);
+    });
+    amberOutlineRows(newIds);
+  }
 
   render(initial);
   mountWhatifMode();
