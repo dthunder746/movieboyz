@@ -50,6 +50,7 @@ function syncFromState() {
     }
     if (undoBtn) undoBtn.disabled = (n === 0);
     if (resetBtn) resetBtn.disabled = (n === 0);
+    maybeRunIntro();
   }
 }
 
@@ -211,3 +212,75 @@ export function refreshLockedTooltips() {
     lockedTooltipInstances.push(t);
   });
 }
+
+var INTRO_KEY = 'mb_whatif_seen_intro';
+
+function reducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function scrollAnchorIntoView(el) {
+  if (!el) return;
+  el.scrollIntoView({ block: 'center', behavior: reducedMotion() ? 'auto' : 'smooth' });
+}
+
+function showStep(anchor, title, body, onDismiss) {
+  if (!anchor || !window.bootstrap || !window.bootstrap.Popover) { onDismiss(); return; }
+  scrollAnchorIntoView(anchor);
+  setTimeout(function() {
+    var content = '<div class="draft-whatif-popover-body">' + body
+      + '<div class="text-end mt-2"><button class="btn btn-sm btn-warning draft-whatif-gotit" type="button">Got it</button></div></div>';
+    var pop = new window.bootstrap.Popover(anchor, {
+      title: title,
+      content: content,
+      html: true,
+      trigger: 'manual',
+      placement: 'auto',
+      sanitize: false
+    });
+    pop.show();
+    function onClick(e) {
+      if (e.target.classList.contains('draft-whatif-gotit')) {
+        pop.dispose();
+        document.removeEventListener('click', onClick, true);
+        onDismiss();
+      } else if (!anchor.contains(e.target) && !e.target.closest('.popover')) {
+        pop.dispose();
+        document.removeEventListener('click', onClick, true);
+        onDismiss();
+      }
+    }
+    setTimeout(function() { document.addEventListener('click', onClick, true); }, 50);
+  }, reducedMotion() ? 0 : 350);
+}
+
+function runIntroSequence(onComplete) {
+  var step1Anchor = document.getElementById('draft-whatif-banner');
+  var step2Anchor = document.querySelector('#draft-picks tr.draft-row-swappable');
+  var step3Anchor = document.querySelector('#draft-unpicked .draft-unpicked-released');
+  showStep(step1Anchor,
+    'What-if mode',
+    "You're in what-if mode. Numbers and standings will update as you swap picks. Toggle off any time.",
+    function() {
+      showStep(step2Anchor,
+        'Start a swap',
+        'Click any drafted pick (seasonal or alt) or an unpicked movie to start a swap.',
+        function() {
+          showStep(step3Anchor,
+            'Pick a target',
+            'Then click a target. Both Released and Unreleased movies are valid swap targets.',
+            onComplete);
+        });
+    });
+}
+
+function maybeRunIntro() {
+  var seen = false;
+  try { seen = localStorage.getItem(INTRO_KEY) === '1'; } catch (e) {}
+  if (seen) return;
+  runIntroSequence(function() {
+    try { localStorage.setItem(INTRO_KEY, '1'); } catch (e) {}
+  });
+}
+
+window.__whatifReplayIntro = function() { runIntroSequence(function() {}); };
