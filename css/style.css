@@ -1132,3 +1132,9 @@ body { font-size: 0.9rem; }
   margin: 0;
   font-size: 0.95rem;
 }
+
+.draft-unpicked-card + .draft-unpicked-card { margin-top: 0.75rem; }
+.draft-unpicked-scroll { max-height: 18rem; overflow-y: auto; }
+@media (max-width: 768px) {
+  .draft-unpicked-scroll { max-height: 14rem; }
+}
