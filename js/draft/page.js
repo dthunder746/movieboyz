@@ -3,7 +3,12 @@ import { buildLeaderboard } from './leaderboard.js';
 import { buildHighlights } from './highlights.js';
 import { buildUnpickedCards } from './unpicked-cards.js';
 import { seasonFromIsoDate, picksForDraft } from './season-helpers.js';
-import { mountWhatifMode } from './whatif-mode.js';
+import {
+  mountWhatifMode,
+  attachSelectionHandlers,
+  repaintSelectionAfterRender,
+  clearSelectionOnTabChange
+} from './whatif-mode.js';
 import * as whatifStore from './whatif-store.js';
 
 var SEASON_ORDER = ['WINTER', 'SUMMER', 'FALL'];
@@ -81,6 +86,7 @@ export function buildDraftPage(data, colorMap) {
     buildLeaderboard(view, season, colorMap, leaderboardEl);
     buildHighlights(view, season, colorMap, highlightsEl);
     buildUnpickedCards(view, season, colorMap, unpickedEl);
+    repaintSelectionAfterRender();
   }
 
   root.addEventListener('click', function(e) {
@@ -93,10 +99,12 @@ export function buildDraftPage(data, colorMap) {
     });
     writeCookie(s);
     render(s);
+    clearSelectionOnTabChange();
   });
 
   whatifStore.subscribe(function() { render(currentSeason); });
 
   render(initial);
   mountWhatifMode();
+  attachSelectionHandlers(function() { return currentSeason; });
 }
