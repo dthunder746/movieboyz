@@ -1138,3 +1138,100 @@ body { font-size: 0.9rem; }
 @media (max-width: 768px) {
   .draft-unpicked-scroll { max-height: 14rem; }
 }
+
+.draft-tab-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.draft-tab-nav-seasons { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+.draft-tab-nav-actions { display: flex; align-items: center; gap: 0.5rem; }
+
+.draft-whatif-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--bs-body-color);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 120ms, border-color 120ms, color 120ms;
+}
+.draft-whatif-pill:hover { border-color: #d4a017; }
+.draft-whatif-pill[aria-pressed="true"] {
+  background: #d4a017;
+  border-color: #d4a017;
+  color: #1b1b1b;
+}
+@media (max-width: 540px) {
+  .draft-whatif-pill-label { display: none; }
+}
+
+.draft-whatif-banner {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.85rem;
+  margin: 0 0 0.75rem 0;
+  background: rgba(212, 160, 23, 0.12);
+  border-left: 4px solid #d4a017;
+  border-radius: 4px;
+  flex-wrap: wrap;
+}
+.draft-whatif-banner[hidden] { display: none; }
+.draft-whatif-banner-info { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.draft-whatif-banner-icon { font-weight: bold; color: #d4a017; }
+.draft-whatif-banner-label { font-weight: 700; letter-spacing: 0.04em; }
+.draft-whatif-banner-counter { color: var(--bs-secondary-color); font-size: 0.9em; }
+.draft-whatif-banner-actions { display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap; }
+
+#draft-app.is-whatif {
+  outline: 2px solid #d4a017;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+#draft-app.is-whatif #draft-leaderboard,
+#draft-app.is-whatif #draft-picks,
+#draft-app.is-whatif #draft-unpicked {
+  background: rgba(212, 160, 23, 0.04);
+  border-radius: 4px;
+}
+
+.draft-row-locked { cursor: not-allowed; }
+.draft-row-swappable { cursor: default; }
+#draft-app.is-whatif .draft-row-swappable { cursor: pointer; }
+#draft-app.is-whatif tbody tr[data-kind="candidate"] { cursor: pointer; }
+
+.draft-row-selected, .draft-row-selected td {
+  outline: 2px solid #d4a017 !important;
+  outline-offset: -2px;
+}
+.draft-row-candidate, .draft-row-candidate td {
+  outline: 1px dashed rgba(212, 160, 23, 0.55) !important;
+  outline-offset: -2px;
+}
+
+@keyframes draftFlashPos {
+  0% { background-color: rgba(46, 160, 67, 0.45); }
+  100% { background-color: transparent; }
+}
+@keyframes draftFlashNeg {
+  0% { background-color: rgba(231, 76, 60, 0.45); }
+  100% { background-color: transparent; }
+}
+@keyframes draftAmberOutline {
+  0% { box-shadow: inset 0 0 0 2px rgba(212, 160, 23, 0.85); }
+  100% { box-shadow: inset 0 0 0 2px rgba(212, 160, 23, 0); }
+}
+.draft-flash-pos { animation: draftFlashPos 1200ms ease-out 1; }
+.draft-flash-neg { animation: draftFlashNeg 1200ms ease-out 1; }
+.draft-amber-outline { animation: draftAmberOutline 1200ms ease-out 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .draft-flash-pos, .draft-flash-neg, .draft-amber-outline {
+    animation-duration: 200ms;
+  }
+}
