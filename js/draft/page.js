@@ -4,6 +4,7 @@ import { buildHighlights } from './highlights.js';
 import { buildUnpickedCards } from './unpicked-cards.js';
 import { seasonFromIsoDate, picksForDraft } from './season-helpers.js';
 import { mountWhatifMode } from './whatif-mode.js';
+import * as whatifStore from './whatif-store.js';
 
 var SEASON_ORDER = ['WINTER', 'SUMMER', 'FALL'];
 var SEASON_LABEL = { WINTER: 'Winter', SUMMER: 'Summer', FALL: 'Fall' };
@@ -61,8 +62,12 @@ export function buildDraftPage(data, colorMap) {
   var highlightsEl  = document.getElementById('draft-highlights');
   var unpickedEl    = document.getElementById('draft-unpicked');
 
+  var currentSeason = initial;
+
   function render(season) {
-    var picks = picksForDraft(data, season);
+    currentSeason = season;
+    var view = whatifStore.applyToData(data);
+    var picks = picksForDraft(view, season);
     if (!picks.length) {
       leaderboardEl.innerHTML = '';
       highlightsEl.innerHTML  = '';
@@ -72,10 +77,10 @@ export function buildDraftPage(data, colorMap) {
         + ' draft — check back later.</p></div>';
       return;
     }
-    buildPicksTable(data, season, colorMap, picksEl);
-    buildLeaderboard(data, season, colorMap, leaderboardEl);
-    buildHighlights(data, season, colorMap, highlightsEl);
-    buildUnpickedCards(data, season, colorMap, unpickedEl);
+    buildPicksTable(view, season, colorMap, picksEl);
+    buildLeaderboard(view, season, colorMap, leaderboardEl);
+    buildHighlights(view, season, colorMap, highlightsEl);
+    buildUnpickedCards(view, season, colorMap, unpickedEl);
   }
 
   root.addEventListener('click', function(e) {
@@ -89,6 +94,8 @@ export function buildDraftPage(data, colorMap) {
     writeCookie(s);
     render(s);
   });
+
+  whatifStore.subscribe(function() { render(currentSeason); });
 
   render(initial);
   mountWhatifMode();
