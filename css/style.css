@@ -1235,3 +1235,10 @@ body { font-size: 0.9rem; }
     animation-duration: 200ms;
   }
 }
+
+@media (max-width: 540px) {
+  .draft-whatif-banner { flex-direction: column; align-items: stretch; }
+  .draft-whatif-banner-info { justify-content: flex-start; }
+  .draft-whatif-banner-actions { justify-content: flex-end; }
+  .draft-tab-nav { flex-wrap: wrap; }
+}
