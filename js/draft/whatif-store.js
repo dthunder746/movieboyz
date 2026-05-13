@@ -6,6 +6,8 @@ var state = {
   swaps: []
 };
 
+var lastOp = null;
+
 var listeners = [];
 
 function notify() {
@@ -40,6 +42,7 @@ export function getState() {
 export function enable() {
   if (state.enabled) return;
   state.enabled = true;
+  lastOp = 'enable';
   persist();
   notify();
 }
@@ -48,6 +51,7 @@ export function disable() {
   if (!state.enabled && state.swaps.length === 0) return;
   state.enabled = false;
   state.swaps = [];
+  lastOp = 'disable';
   persist();
   notify();
 }
@@ -55,6 +59,7 @@ export function disable() {
 export function pushSwap(slotImdbId, replacementImdbId, season) {
   if (!slotImdbId || !replacementImdbId || slotImdbId === replacementImdbId) return;
   state.swaps.push({ slotImdbId: slotImdbId, replacementImdbId: replacementImdbId, season: season });
+  lastOp = 'swap';
   persist();
   notify();
 }
@@ -62,6 +67,7 @@ export function pushSwap(slotImdbId, replacementImdbId, season) {
 export function undo() {
   if (state.swaps.length === 0) return;
   state.swaps.pop();
+  lastOp = 'undo';
   persist();
   notify();
 }
@@ -69,9 +75,12 @@ export function undo() {
 export function reset() {
   if (state.swaps.length === 0) return;
   state.swaps = [];
+  lastOp = 'reset';
   persist();
   notify();
 }
+
+export function getLastOp() { return lastOp; }
 
 export function subscribe(fn) {
   listeners.push(fn);

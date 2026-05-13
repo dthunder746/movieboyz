@@ -131,14 +131,12 @@ export function buildDraftPage(data, colorMap) {
   });
 
   var lastSwapCount = whatifStore.getState().swaps.length;
-  var resetIntent = false;
   whatifStore.subscribe(function() {
     var s = whatifStore.getState();
     if (!s.enabled) { render(currentSeason); lastSwapCount = 0; return; }
-    var delta = s.swaps.length - lastSwapCount;
     lastSwapCount = s.swaps.length;
-    if (delta < -1 || resetIntent) {
-      resetIntent = false;
+    var op = whatifStore.getLastOp();
+    if (op === 'reset') {
       fadeResetEnvelope(function() { render(currentSeason); }, function() {});
       return;
     }

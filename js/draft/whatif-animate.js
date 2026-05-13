@@ -133,13 +133,33 @@ export function fadeResetEnvelope(beforeRender, afterRender) {
     return;
   }
 
-  targets.forEach(function(el) { el.style.transition = 'opacity 150ms ease-out'; el.style.opacity = '0.3'; });
-  setTimeout(function() {
+  var primary = targets[0];
+  if (!primary) {
     beforeRender();
-    targets.forEach(function(el) { el.style.transition = 'opacity 200ms ease-out'; el.style.opacity = '1'; });
+    afterRender();
+    return;
+  }
+
+  targets.forEach(function(el) {
+    el.style.transition = 'opacity 180ms ease-out';
+    el.style.opacity = '0';
+  });
+
+  var fired = false;
+  function onFadeOut() {
+    if (fired) return;
+    fired = true;
+    primary.removeEventListener('transitionend', onFadeOut);
+    beforeRender();
+    targets.forEach(function(el) {
+      el.style.transition = 'opacity 220ms ease-out';
+      el.style.opacity = '1';
+    });
     afterRender();
     setTimeout(function() {
       targets.forEach(function(el) { el.style.transition = ''; el.style.opacity = ''; });
-    }, 220);
-  }, 160);
+    }, 240);
+  }
+  primary.addEventListener('transitionend', onFadeOut);
+  setTimeout(onFadeOut, 220);
 }
