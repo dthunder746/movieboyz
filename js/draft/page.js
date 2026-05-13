@@ -31,10 +31,19 @@ export function buildDraftPage(data, colorMap) {
 
   root.innerHTML = ''
     + '<div class="draft-tab-nav" role="tablist">'
-    +   SEASON_ORDER.map(function(s) {
-          return '<button class="draft-tab-btn' + (s === initial ? ' active' : '') + '" data-season="' + s + '">' + SEASON_LABEL[s] + '</button>';
-        }).join('')
+    +   '<div class="draft-tab-nav-seasons">'
+    +     SEASON_ORDER.map(function(s) {
+            return '<button class="draft-tab-btn' + (s === initial ? ' active' : '') + '" data-season="' + s + '">' + SEASON_LABEL[s] + '</button>';
+          }).join('')
+    +   '</div>'
+    +   '<div class="draft-tab-nav-actions">'
+    +     '<button class="draft-whatif-pill" id="draft-whatif-pill" type="button" aria-pressed="false">'
+    +       '<span class="draft-whatif-pill-icon" aria-hidden="true">🔁</span>'
+    +       '<span class="draft-whatif-pill-label">What-if</span>'
+    +     '</button>'
+    +   '</div>'
     + '</div>'
+    + '<div id="draft-whatif-banner" class="draft-whatif-banner" hidden></div>'
     + '<div id="draft-leaderboard"></div>'
     + '<div class="draft-body">'
     +   '<section class="draft-main">'
