@@ -17,10 +17,10 @@ function renderBannerContent() {
     +   '<span class="draft-whatif-banner-counter" id="draft-whatif-counter"></span>'
     + '</div>'
     + '<div class="draft-whatif-banner-actions">'
-    +   '<button id="draft-whatif-help" class="btn btn-sm draft-whatif-help-btn" type="button" aria-label="Help">?</button>'
-    +   '<button id="draft-whatif-undo" class="btn btn-sm" type="button">Undo</button>'
-    +   '<button id="draft-whatif-reset" class="btn btn-sm" type="button">Reset</button>'
-    +   '<button id="draft-whatif-exit" class="btn btn-sm" type="button">Exit</button>'
+    +   '<button id="draft-whatif-help" class="btn btn-sm btn-link" type="button" aria-label="Help">?</button>'
+    +   '<button id="draft-whatif-undo" class="btn btn-sm btn-outline-secondary" type="button">Undo</button>'
+    +   '<button id="draft-whatif-reset" class="btn btn-sm btn-outline-secondary" type="button">Reset</button>'
+    +   '<button id="draft-whatif-exit" class="btn btn-sm btn-warning" type="button">Exit</button>'
     + '</div>';
 
   counterEl = document.getElementById('draft-whatif-counter');
