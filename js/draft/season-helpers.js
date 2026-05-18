@@ -7,7 +7,7 @@ function effectiveDraftSeason(m) {
 }
 
 export function picksForDraft(data, season) {
-  return Object.entries(data.movies)
+  var real = Object.entries(data.movies)
     .filter(function(entry) {
       var m = entry[1];
       if (m.draft_pick == null) return false;
@@ -17,8 +17,30 @@ export function picksForDraft(data, season) {
       var pick = Object.assign({}, entry[1]);
       pick.imdb_id = entry[0];
       return pick;
+    });
+  var ghosts = (data.ghostSlots || [])
+    .filter(function(g) {
+      var pt = (g.pick_type || '').toLowerCase();
+      var s = (pt === 'hit' || pt === 'bomb') ? 'WINTER' : g.season;
+      return s === season;
     })
-    .sort(function(a, b) { return a.draft_pick - b.draft_pick; });
+    .map(function(g) {
+      return {
+        imdb_id: null,
+        ghost: true,
+        owner: g.owner,
+        pick_type: g.pick_type,
+        draft_pick: g.draft_pick,
+        season: g.season,
+        movie_title: '',
+        release_date: null,
+        profit_td: null,
+        breakeven: null,
+        clearedImdbId: g.clearedImdbId,
+        clearedTitle: g.clearedTitle
+      };
+    });
+  return real.concat(ghosts).sort(function(a, b) { return a.draft_pick - b.draft_pick; });
 }
 
 function isSeasonalOrAlt(m) {

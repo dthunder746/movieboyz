@@ -20,6 +20,12 @@ function pickRow(pick, affected) {
       +    '<span class="draft-lb-pick-profit text-neu">—</span>'
       +  '</div>';
   }
+  if (pick.ghost) {
+    return '<div class="draft-lb-pick draft-lb-pick-ghost">'
+      +    '<span class="draft-lb-pick-name text-neu">(cleared)</span>'
+      +    '<span class="draft-lb-pick-profit text-neu">—</span>'
+      +  '</div>';
+  }
   var profitHtml = pick.profit_td == null
     ? '<span class="text-neu">—</span>'
     : '<span class="' + colorClass(pick.profit_td) + '">' + fmtSigned(pick.profit_td) + '</span>';

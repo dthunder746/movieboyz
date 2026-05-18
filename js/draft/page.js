@@ -1,14 +1,16 @@
 import { buildPicksTable } from './picks-table.js';
 import { buildLeaderboard } from './leaderboard.js';
 import { buildHighlights } from './highlights.js';
-import { buildUnpickedCards } from './unpicked-cards.js';
+import { buildUnpickedCards, installSidebarResizeListener } from './unpicked-cards.js';
 import { seasonFromIsoDate, picksForDraft, leaderboardForDraft } from './season-helpers.js';
 import {
   mountWhatifMode,
   attachSelectionHandlers,
   repaintSelectionAfterRender,
   clearSelectionOnTabChange,
-  refreshLockedTooltips
+  refreshLockedTooltips,
+  refreshPreDraftTooltips,
+  updateBannerForSeason
 } from './whatif-mode.js';
 import * as whatifStore from './whatif-store.js';
 import {
@@ -55,12 +57,11 @@ export function buildDraftPage(data, colorMap) {
     +   '</div>'
     +   '<div class="draft-tab-nav-actions">'
     +     '<button class="draft-whatif-pill" id="draft-whatif-pill" type="button" aria-pressed="false">'
-    +       '<span class="draft-whatif-pill-icon" aria-hidden="true">🔁</span>'
-    +       '<span class="draft-whatif-pill-label">What-if</span>'
+    +       '<span class="draft-whatif-pill-label">what-if mode</span>'
     +     '</button>'
     +   '</div>'
     + '</div>'
-    + '<div id="draft-whatif-banner" class="draft-whatif-banner" hidden></div>'
+    + '<div id="draft-whatif-banner" class="draft-whatif-banner"></div>'
     + '<div id="draft-leaderboard"></div>'
     + '<div class="draft-body">'
     +   '<section class="draft-main">'
@@ -76,6 +77,8 @@ export function buildDraftPage(data, colorMap) {
   var leaderboardEl = document.getElementById('draft-leaderboard');
   var highlightsEl  = document.getElementById('draft-highlights');
   var unpickedEl    = document.getElementById('draft-unpicked');
+
+  mountWhatifMode();
 
   var currentSeason = initial;
   var currentView = data;
@@ -99,6 +102,8 @@ export function buildDraftPage(data, colorMap) {
     buildUnpickedCards(currentView, season, colorMap, unpickedEl);
     repaintSelectionAfterRender();
     refreshLockedTooltips();
+    refreshPreDraftTooltips();
+    updateBannerForSeason(season);
   }
 
   function snapshotFromView(view, season) {
@@ -213,6 +218,7 @@ export function buildDraftPage(data, colorMap) {
   }
 
   render(initial);
-  mountWhatifMode();
+  updateBannerForSeason(currentSeason);
   attachSelectionHandlers(function() { return currentSeason; });
+  installSidebarResizeListener();
 }

@@ -1,6 +1,8 @@
 import { fmt, fmtPct, colorClass, pickIcon } from '../utils.js';
 import { picksForDraft, profitRanksForSeason } from './season-helpers.js';
 
+var SEASON_LABEL = { WINTER: 'Winter', SUMMER: 'Summer', FALL: 'Fall' };
+
 function ownerCell(owner, colorMap) {
   if (!owner || owner === 'none') return '<span class="text-neu">—</span>';
   return '<span class="owner-dot" style="background:' + (colorMap[owner] || '#ccc') + '"></span>' + owner;
@@ -42,6 +44,24 @@ export function buildPicksTable(data, season, colorMap, mountEl) {
   var rankTip = "Profit rank within the movie's release season";
 
   var rows = picks.map(function(m) {
+    if (m.ghost) {
+      var ghostTitleAttr = m.clearedTitle ? ' title="Cleared: ' + m.clearedTitle.replace(/"/g, '&quot;') + '"' : '';
+      return '<tr class="draft-row-ghost draft-row-swappable" data-kind="slot-ghost"'
+        + ' data-owner="' + (m.owner || '') + '"'
+        + ' data-pick-type="' + (m.pick_type || '') + '"'
+        + ' data-draft-pick="' + (m.draft_pick || '') + '"'
+        + ' data-cleared-imdb="' + (m.clearedImdbId || '') + '"'
+        + ghostTitleAttr + '>'
+        + '<td class="text-end">' + m.draft_pick + '</td>'
+        + '<td><span class="draft-row-ghost-label">— cleared —</span></td>'
+        + '<td>' + ownerCell(m.owner, colorMap) + '</td>'
+        + '<td class="text-end"><span class="text-neu">—</span></td>'
+        + '<td class="text-end"><span class="text-neu">—</span></td>'
+        + '<td class="text-end"><span class="text-neu">—</span></td>'
+        + '<td class="text-end"><span class="text-neu">—</span></td>'
+        + '<td class="cell-clear"></td>'
+        + '</tr>';
+    }
     var pt = (m.pick_type || '').toLowerCase();
     var isLocked = (pt === 'hit' || pt === 'bomb');
     var trClasses = [];
@@ -54,6 +74,9 @@ export function buildPicksTable(data, season, colorMap, mountEl) {
       + ' data-pick-type="' + (m.pick_type || '') + '"'
       + ' data-kind="slot"';
     var rankPool = ranksBySeason[m.season] || {};
+    var clearCell = isLocked
+      ? '<td class="cell-clear"></td>'
+      : '<td class="cell-clear"><button type="button" class="draft-clear-pick" aria-label="Clear pick">×</button></td>';
     return '<tr' + classAttr + dataAttrs + '>'
       + '<td class="text-end">' + m.draft_pick + '</td>'
       + '<td>' + pickIcon(m.pick_type, m.release_date) + m.movie_title + '</td>'
@@ -62,10 +85,14 @@ export function buildPicksTable(data, season, colorMap, mountEl) {
       + '<td class="text-end">' + profitCell(m.profit_td) + '</td>'
       + '<td class="text-end">' + roiCell(m.profit_td, m.breakeven) + '</td>'
       + '<td class="text-end" title="' + rankTip + '">' + rankCell(rankPool[m.imdb_id]) + '</td>'
+      + clearCell
       + '</tr>';
   }).join('');
 
-  mountEl.innerHTML = '<div class="draft-picks-wrap">'
+  var label = SEASON_LABEL[season] || season;
+  mountEl.innerHTML = '<div class="info-tab-card draft-picks-card">'
+    + '<div class="draft-unpicked-header">' + label + ' Draft Order</div>'
+    + '<div class="draft-picks-wrap">'
     + '<table class="draft-picks-table">'
     + '<thead><tr>'
     +   '<th class="text-end">#</th>'
@@ -75,8 +102,10 @@ export function buildPicksTable(data, season, colorMap, mountEl) {
     +   '<th class="text-end">Profit</th>'
     +   '<th class="text-end">ROI</th>'
     +   '<th class="text-end" title="' + rankTip + '">Rank</th>'
+    +   '<th class="cell-clear" aria-hidden="true"></th>'
     + '</tr></thead>'
     + '<tbody>' + rows + '</tbody>'
     + '</table>'
+    + '</div>'
     + '</div>';
 }

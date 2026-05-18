@@ -8,19 +8,25 @@ var undoBtn = null;
 var resetBtn = null;
 var exitBtn = null;
 var helpBtn = null;
+var hideLockedBtn = null;
+var dateInputEl = null;
 
 function renderBannerContent() {
   bannerEl.innerHTML = ''
     + '<div class="draft-whatif-banner-info">'
-    +   '<span class="draft-whatif-banner-icon" aria-hidden="true">⚠</span>'
     +   '<span class="draft-whatif-banner-label">WHAT-IF MODE</span>'
     +   '<span class="draft-whatif-banner-counter" id="draft-whatif-counter"></span>'
     + '</div>'
+    + '<label class="draft-whatif-date-group" for="draft-whatif-date-input">'
+    +   '<span class="draft-whatif-date-label">Draft date</span>'
+    +   '<input type="date" id="draft-whatif-date-input" class="draft-whatif-date-input" />'
+    + '</label>'
     + '<div class="draft-whatif-banner-actions">'
     +   '<button id="draft-whatif-help" class="btn btn-sm btn-whatif-secondary draft-whatif-help-btn" type="button" aria-label="Help">?</button>'
+    +   '<button id="draft-whatif-hide-locked" class="btn btn-sm btn-whatif-secondary" type="button" aria-pressed="false">Hide locked</button>'
     +   '<button id="draft-whatif-undo" class="btn btn-sm btn-whatif-secondary" type="button">Undo</button>'
     +   '<button id="draft-whatif-reset" class="btn btn-sm btn-whatif-secondary" type="button">Reset</button>'
-    +   '<button id="draft-whatif-exit" class="btn btn-sm btn-warning" type="button">Exit</button>'
+    +   '<button id="draft-whatif-exit" class="btn btn-sm btn-whatif-exit" type="button">Exit</button>'
     + '</div>';
 
   counterEl = document.getElementById('draft-whatif-counter');
@@ -28,6 +34,8 @@ function renderBannerContent() {
   resetBtn = document.getElementById('draft-whatif-reset');
   exitBtn = document.getElementById('draft-whatif-exit');
   helpBtn = document.getElementById('draft-whatif-help');
+  hideLockedBtn = document.getElementById('draft-whatif-hide-locked');
+  dateInputEl = document.getElementById('draft-whatif-date-input');
 
   undoBtn.addEventListener('click', function() { store.undo(); });
   resetBtn.addEventListener('click', function() { store.reset(); });
@@ -35,22 +43,44 @@ function renderBannerContent() {
   helpBtn.addEventListener('click', function() {
     if (typeof window.__whatifReplayIntro === 'function') window.__whatifReplayIntro();
   });
+  hideLockedBtn.addEventListener('click', function() {
+    store.setHideLocked(!store.getState().hideLocked);
+  });
+  dateInputEl.addEventListener('change', function() {
+    var season = currentSeasonRef ? currentSeasonRef() : null;
+    if (!season) return;
+    store.setDraftDate(season, dateInputEl.value || null);
+  });
+}
+
+export function updateBannerForSeason(season) {
+  if (!dateInputEl) return;
+  dateInputEl.value = store.getDraftDate(season) || '';
 }
 
 function syncFromState() {
   var s = store.getState();
   pillEl.setAttribute('aria-pressed', s.enabled ? 'true' : 'false');
-  bannerEl.hidden = !s.enabled;
+  bannerEl.classList.toggle('is-shown', s.enabled);
   appEl.classList.toggle('is-whatif', s.enabled);
+  appEl.classList.toggle('hide-locked', s.enabled && s.hideLocked);
+  if (hideLockedBtn) {
+    hideLockedBtn.setAttribute('aria-pressed', s.hideLocked ? 'true' : 'false');
+    hideLockedBtn.textContent = s.hideLocked ? 'Show locked' : 'Hide locked';
+  }
 
   if (s.enabled) {
     var n = s.swaps.length;
     if (counterEl) {
-      counterEl.textContent = n === 0 ? '' : (n === 1 ? '1 swap active' : n + ' swaps active');
+      counterEl.textContent = n === 0 ? '' : (n === 1 ? '1 action active' : n + ' actions active');
     }
     if (undoBtn) undoBtn.disabled = (n === 0);
     if (resetBtn) resetBtn.disabled = (n === 0);
     maybeRunIntro();
+  } else {
+    clearLockedTooltips();
+    clearPreDraftTooltips();
+    clearSelection();
   }
 }
 
@@ -85,14 +115,49 @@ function clearSelectionUI() {
 
 function paintCandidates() {
   if (!selected) return;
-  document.querySelectorAll('#draft-picks tbody tr.draft-row-swappable').forEach(function(tr) {
-    if (tr.dataset.imdb !== selected.imdbId) tr.classList.add('draft-row-candidate');
-  });
-  document.querySelectorAll('#draft-unpicked tbody tr[data-kind="candidate"]').forEach(function(tr) {
-    if (tr.dataset.imdb !== selected.imdbId) tr.classList.add('draft-row-candidate');
-  });
-  var selEl = document.querySelector('tr[data-imdb="' + selected.imdbId + '"]');
+  if (selected.kind === 'slot-ghost') {
+    document.querySelectorAll('#draft-unpicked tbody tr[data-kind="candidate"]').forEach(function(tr) {
+      if (tr.dataset.preDraft !== '1') tr.classList.add('draft-row-candidate');
+    });
+  } else {
+    document.querySelectorAll('#draft-picks tbody tr.draft-row-swappable:not(.draft-row-ghost)').forEach(function(tr) {
+      if (tr.dataset.imdb !== selected.imdbId && tr.dataset.preDraft !== '1') tr.classList.add('draft-row-candidate');
+    });
+    document.querySelectorAll('#draft-unpicked tbody tr[data-kind="candidate"]').forEach(function(tr) {
+      if (tr.dataset.imdb !== selected.imdbId && tr.dataset.preDraft !== '1') tr.classList.add('draft-row-candidate');
+    });
+    if (selected.kind === 'candidate') {
+      document.querySelectorAll('#draft-picks tbody tr.draft-row-ghost').forEach(function(tr) {
+        tr.classList.add('draft-row-candidate');
+      });
+    }
+  }
+  var selEl = null;
+  if (selected.kind === 'slot-ghost') {
+    if (selected.clearedImdbId) {
+      selEl = document.querySelector('tr.draft-row-ghost[data-cleared-imdb="' + selected.clearedImdbId + '"]');
+    }
+  } else if (selected.imdbId) {
+    selEl = document.querySelector('tr[data-imdb="' + selected.imdbId + '"]');
+  }
   if (selEl) selEl.classList.add('draft-row-selected');
+}
+
+function setSelectionFromRow(row) {
+  if (row.kind === 'slot-ghost') {
+    selected = {
+      kind: 'slot-ghost',
+      imdbId: null,
+      clearedImdbId: row.clearedImdbId,
+      ghostOwner: row.owner,
+      ghostPickType: row.pickType,
+      ghostDraftPick: row.draftPick
+    };
+  } else {
+    selected = { kind: row.kind, imdbId: row.imdbId };
+  }
+  clearSelectionUI();
+  paintCandidates();
 }
 
 function setSelection(kind, imdbId) {
@@ -107,11 +172,22 @@ function clearSelection() {
 }
 
 function rowFromEvent(e) {
-  var tr = e.target.closest('tr[data-imdb]');
+  var tr = e.target.closest('tr[data-imdb], tr[data-kind="slot-ghost"]');
   if (!tr) return null;
   var inPicks = !!tr.closest('#draft-picks');
   var inUnpicked = !!tr.closest('#draft-unpicked');
   if (!inPicks && !inUnpicked) return null;
+  if (tr.dataset.kind === 'slot-ghost') {
+    return {
+      el: tr,
+      kind: 'slot-ghost',
+      imdbId: null,
+      clearedImdbId: tr.dataset.clearedImdb || null,
+      owner: tr.dataset.owner || '',
+      pickType: tr.dataset.pickType || '',
+      draftPick: parseInt(tr.dataset.draftPick, 10) || null
+    };
+  }
   return {
     el: tr,
     imdbId: tr.dataset.imdb,
@@ -125,14 +201,41 @@ function isLocked(row) {
   return row.kind === 'slot' && (row.pickType === 'hit' || row.pickType === 'bomb');
 }
 
+function isPreDraft(row) {
+  return row.el && row.el.dataset && row.el.dataset.preDraft === '1';
+}
+
 function fireSwap(slotRow, candidateRow) {
   selected = null;
   clearSelectionUI();
   store.pushSwap(slotRow.imdbId, candidateRow.imdbId, currentSeasonRef());
 }
 
+function fireFill(ghostSel, candidateImdbId) {
+  selected = null;
+  clearSelectionUI();
+  store.pushFill(
+    ghostSel.clearedImdbId,
+    { owner: ghostSel.ghostOwner, pick_type: ghostSel.ghostPickType, draft_pick: ghostSel.ghostDraftPick },
+    candidateImdbId,
+    currentSeasonRef ? currentSeasonRef() : null
+  );
+}
+
 function onAppClick(e) {
   if (!store.getState().enabled) return;
+  var clearBtn = e.target.closest('.draft-clear-pick');
+  if (clearBtn) {
+    var clearRow = clearBtn.closest('tr[data-imdb]');
+    if (clearRow && clearRow.dataset.imdb) {
+      e.preventDefault();
+      e.stopPropagation();
+      selected = null;
+      clearSelectionUI();
+      store.pushClear(clearRow.dataset.imdb, currentSeasonRef ? currentSeasonRef() : null);
+    }
+    return;
+  }
   var row = rowFromEvent(e);
   if (!row) {
     if (!e.target.closest('.draft-whatif-banner') && !e.target.closest('.draft-whatif-pill')) {
@@ -141,11 +244,39 @@ function onAppClick(e) {
     return;
   }
   if (isLocked(row)) return;
+  if (isPreDraft(row)) return;
 
   if (!selected) {
-    setSelection(row.kind, row.imdbId);
+    setSelectionFromRow(row);
     return;
   }
+
+  if (selected.kind === 'slot-ghost') {
+    if (row.kind === 'candidate') {
+      fireFill(selected, row.imdbId);
+      return;
+    }
+    setSelectionFromRow(row);
+    return;
+  }
+
+  if (row.kind === 'slot-ghost') {
+    if (selected.kind === 'candidate') {
+      fireFill(
+        {
+          clearedImdbId: row.clearedImdbId,
+          ghostOwner: row.owner,
+          ghostPickType: row.pickType,
+          ghostDraftPick: row.draftPick
+        },
+        selected.imdbId
+      );
+      return;
+    }
+    setSelectionFromRow(row);
+    return;
+  }
+
   if (selected.imdbId === row.imdbId) {
     clearSelection();
     return;
@@ -172,7 +303,19 @@ function onAppClick(e) {
 
 function onKeydown(e) {
   if (!store.getState().enabled) return;
-  if (e.key === 'Escape') clearSelection();
+  if (e.key === 'Escape') { clearSelection(); return; }
+  if (e.key === 'Delete' || e.key === 'Backspace') {
+    if (!selected || selected.kind !== 'slot') return;
+    var tag = (e.target && e.target.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    var tr = document.querySelector('tr[data-imdb="' + selected.imdbId + '"]');
+    if (!tr || tr.classList.contains('draft-row-locked')) return;
+    e.preventDefault();
+    var imdb = selected.imdbId;
+    selected = null;
+    clearSelectionUI();
+    store.pushClear(imdb, currentSeasonRef ? currentSeasonRef() : null);
+  }
 }
 
 export function attachSelectionHandlers(getCurrentSeason) {
@@ -182,6 +325,12 @@ export function attachSelectionHandlers(getCurrentSeason) {
 }
 
 export function repaintSelectionAfterRender() {
+  if (!store.getState().enabled) {
+    selected = null;
+    clearSelectionUI();
+    paintSwappedRows();
+    return;
+  }
   clearSelectionUI();
   paintCandidates();
   paintSwappedRows();
@@ -203,14 +352,23 @@ export function clearSelectionOnTabChange() {
 }
 
 var lockedTooltipInstances = [];
+var preDraftTooltipInstances = [];
+
+var SEASON_LABEL = { WINTER: 'Winter', SUMMER: 'Summer', FALL: 'Fall' };
 
 function clearLockedTooltips() {
   lockedTooltipInstances.forEach(function(t) { try { t.dispose(); } catch (e) {} });
   lockedTooltipInstances = [];
 }
 
+function clearPreDraftTooltips() {
+  preDraftTooltipInstances.forEach(function(t) { try { t.dispose(); } catch (e) {} });
+  preDraftTooltipInstances = [];
+}
+
 export function refreshLockedTooltips() {
   clearLockedTooltips();
+  if (!store.getState().enabled) return;
   if (!window.bootstrap || !window.bootstrap.Tooltip) return;
   document.querySelectorAll('#draft-picks tr.draft-row-locked').forEach(function(tr) {
     var pt = tr.dataset.pickType;
@@ -219,6 +377,21 @@ export function refreshLockedTooltips() {
     tr.setAttribute('title', title);
     var t = new window.bootstrap.Tooltip(tr, { trigger: 'hover', placement: 'top' });
     lockedTooltipInstances.push(t);
+  });
+}
+
+export function refreshPreDraftTooltips() {
+  clearPreDraftTooltips();
+  if (!store.getState().enabled) return;
+  if (!window.bootstrap || !window.bootstrap.Tooltip) return;
+  var season = currentSeasonRef ? currentSeasonRef() : null;
+  var seasonLabel = (season && SEASON_LABEL[season]) || 'this season';
+  var title = 'Movie was released before ' + seasonLabel + ' draft day, unavailable for selection.';
+  document.querySelectorAll('#draft-unpicked tr.draft-row-pre-draft').forEach(function(tr) {
+    tr.setAttribute('data-bs-toggle', 'tooltip');
+    tr.setAttribute('title', title);
+    var t = new window.bootstrap.Tooltip(tr, { trigger: 'hover', placement: 'top' });
+    preDraftTooltipInstances.push(t);
   });
 }
 
@@ -294,47 +467,3 @@ function maybeRunIntro() {
 
 window.__whatifReplayIntro = function() { runIntroSequence(function() {}); };
 
-var hoverTip = null;
-
-function buildHoverLabel(slotTr, candTr) {
-  if (!slotTr || !candTr) return '';
-  var slotOwner = slotTr.dataset.owner || '';
-  var slotPickType = slotTr.dataset.pickType || '';
-  var slotPick = (slotTr.querySelector('td:first-child') || {}).textContent || '';
-  var slotTitle = (slotTr.querySelector('td:nth-child(2)') || {}).textContent || '';
-  var candTitle = (candTr.querySelector('td.cell-title') || {}).textContent || (candTr.querySelector('td:first-child') || {}).textContent || '';
-  return 'Click to swap ' + candTitle.trim() + ' in for ' + slotOwner + "'s " + slotPickType + ' pick #' + (slotPick || '').trim() + ' (currently ' + slotTitle.trim() + ')';
-}
-
-function disposeHoverTip() {
-  if (hoverTip) { try { hoverTip.dispose(); } catch (e) {} hoverTip = null; }
-}
-
-function onMouseOverHint(e) {
-  if (!store.getState().enabled || !selected) { disposeHoverTip(); return; }
-  var tr = e.target.closest('tr[data-imdb]');
-  if (!tr) { disposeHoverTip(); return; }
-  if (tr.classList.contains('draft-row-locked')) return;
-  if (tr.classList.contains('draft-row-selected')) return;
-  var counterpartKind = selected.kind === 'slot' ? 'candidate' : 'slot';
-  var hoveredKind = tr.closest('#draft-picks') ? 'slot' : (tr.closest('#draft-unpicked') ? 'candidate' : null);
-  if (hoveredKind !== counterpartKind) return;
-
-  var slotEl = selected.kind === 'slot'
-    ? document.querySelector('tr[data-imdb="' + selected.imdbId + '"]')
-    : tr;
-  var candEl = selected.kind === 'candidate'
-    ? document.querySelector('tr[data-imdb="' + selected.imdbId + '"]')
-    : tr;
-
-  disposeHoverTip();
-  if (!window.bootstrap || !window.bootstrap.Tooltip) return;
-  tr.setAttribute('title', buildHoverLabel(slotEl, candEl));
-  hoverTip = new window.bootstrap.Tooltip(tr, { trigger: 'manual', placement: 'top' });
-  hoverTip.show();
-}
-
-function onMouseOutHint() { disposeHoverTip(); }
-
-document.addEventListener('mouseover', onMouseOverHint);
-document.addEventListener('mouseout', onMouseOutHint);
