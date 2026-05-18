@@ -10,6 +10,8 @@ var exitBtn = null;
 var helpBtn = null;
 var hideLockedBtn = null;
 var dateInputEl = null;
+var settingsBtn = null;
+var settingsPanelEl = null;
 
 function renderBannerContent() {
   bannerEl.innerHTML = ''
@@ -17,16 +19,35 @@ function renderBannerContent() {
     +   '<span class="draft-whatif-banner-label">WHAT-IF MODE</span>'
     +   '<span class="draft-whatif-banner-counter" id="draft-whatif-counter"></span>'
     + '</div>'
-    + '<label class="draft-whatif-date-group" for="draft-whatif-date-input">'
-    +   '<span class="draft-whatif-date-label">Draft date</span>'
-    +   '<input type="date" id="draft-whatif-date-input" class="draft-whatif-date-input" />'
-    + '</label>'
     + '<div class="draft-whatif-banner-actions">'
-    +   '<button id="draft-whatif-help" class="btn btn-sm btn-whatif-secondary draft-whatif-help-btn" type="button" aria-label="Help">?</button>'
-    +   '<button id="draft-whatif-hide-locked" class="btn btn-sm btn-whatif-secondary" type="button" aria-pressed="false">Hide locked</button>'
-    +   '<button id="draft-whatif-undo" class="btn btn-sm btn-whatif-secondary" type="button">Undo</button>'
-    +   '<button id="draft-whatif-reset" class="btn btn-sm btn-whatif-secondary" type="button">Reset</button>'
+    +   '<button id="draft-whatif-settings" class="btn btn-sm btn-whatif-secondary draft-whatif-icon-btn" type="button" aria-label="What-if settings" aria-expanded="false" aria-controls="draft-whatif-settings-panel" title="Settings">'
+    +     '<span aria-hidden="true">⚙</span>'
+    +   '</button>'
     +   '<button id="draft-whatif-exit" class="btn btn-sm btn-whatif-exit" type="button">Exit</button>'
+    + '</div>'
+    + '<div id="draft-whatif-settings-panel" class="draft-whatif-settings-panel" role="menu" hidden>'
+    +   '<label class="draft-whatif-settings-row draft-whatif-date-group" for="draft-whatif-date-input">'
+    +     '<span class="draft-whatif-date-label">Draft date</span>'
+    +     '<input type="date" id="draft-whatif-date-input" class="draft-whatif-date-input" />'
+    +   '</label>'
+    +   '<div class="draft-whatif-settings-divider" role="separator"></div>'
+    +   '<button id="draft-whatif-undo" class="draft-whatif-settings-item" type="button">'
+    +     '<span class="draft-whatif-settings-icon" aria-hidden="true">↶</span>'
+    +     '<span>Undo last swap</span>'
+    +   '</button>'
+    +   '<button id="draft-whatif-reset" class="draft-whatif-settings-item" type="button">'
+    +     '<span class="draft-whatif-settings-icon" aria-hidden="true">↻</span>'
+    +     '<span>Reset all swaps</span>'
+    +   '</button>'
+    +   '<button id="draft-whatif-hide-locked" class="draft-whatif-settings-item" type="button" aria-pressed="false">'
+    +     '<span class="draft-whatif-settings-icon" aria-hidden="true">👁</span>'
+    +     '<span class="draft-whatif-hide-locked-label">Hide locked picks</span>'
+    +   '</button>'
+    +   '<div class="draft-whatif-settings-divider" role="separator"></div>'
+    +   '<button id="draft-whatif-help" class="draft-whatif-settings-item" type="button">'
+    +     '<span class="draft-whatif-settings-icon" aria-hidden="true">?</span>'
+    +     '<span>Show intro</span>'
+    +   '</button>'
     + '</div>';
 
   counterEl = document.getElementById('draft-whatif-counter');
@@ -36,11 +57,14 @@ function renderBannerContent() {
   helpBtn = document.getElementById('draft-whatif-help');
   hideLockedBtn = document.getElementById('draft-whatif-hide-locked');
   dateInputEl = document.getElementById('draft-whatif-date-input');
+  settingsBtn = document.getElementById('draft-whatif-settings');
+  settingsPanelEl = document.getElementById('draft-whatif-settings-panel');
 
-  undoBtn.addEventListener('click', function() { store.undo(); });
-  resetBtn.addEventListener('click', function() { store.reset(); });
+  undoBtn.addEventListener('click', function() { store.undo(); closeSettingsPanel(); });
+  resetBtn.addEventListener('click', function() { store.reset(); closeSettingsPanel(); });
   exitBtn.addEventListener('click', function() { store.disable(); });
   helpBtn.addEventListener('click', function() {
+    closeSettingsPanel();
     if (typeof window.__whatifReplayIntro === 'function') window.__whatifReplayIntro();
   });
   hideLockedBtn.addEventListener('click', function() {
@@ -51,6 +75,49 @@ function renderBannerContent() {
     if (!season) return;
     store.setDraftDate(season, dateInputEl.value || null);
   });
+  settingsBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleSettingsPanel();
+  });
+  settingsPanelEl.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+}
+
+function openSettingsPanel() {
+  if (!settingsPanelEl || !settingsBtn) return;
+  settingsPanelEl.hidden = false;
+  settingsBtn.setAttribute('aria-expanded', 'true');
+  document.addEventListener('click', onDocumentClickForPanel, true);
+  document.addEventListener('keydown', onKeydownForPanel, true);
+}
+
+function closeSettingsPanel() {
+  if (!settingsPanelEl || !settingsBtn) return;
+  if (settingsPanelEl.hidden) return;
+  settingsPanelEl.hidden = true;
+  settingsBtn.setAttribute('aria-expanded', 'false');
+  document.removeEventListener('click', onDocumentClickForPanel, true);
+  document.removeEventListener('keydown', onKeydownForPanel, true);
+}
+
+function toggleSettingsPanel() {
+  if (!settingsPanelEl) return;
+  if (settingsPanelEl.hidden) openSettingsPanel(); else closeSettingsPanel();
+}
+
+function onDocumentClickForPanel(e) {
+  if (!settingsPanelEl || settingsPanelEl.hidden) return;
+  if (settingsPanelEl.contains(e.target)) return;
+  if (settingsBtn && settingsBtn.contains(e.target)) return;
+  closeSettingsPanel();
+}
+
+function onKeydownForPanel(e) {
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    closeSettingsPanel();
+    if (settingsBtn) settingsBtn.focus();
+  }
 }
 
 export function updateBannerForSeason(season) {
@@ -66,18 +133,22 @@ function syncFromState() {
   appEl.classList.toggle('hide-locked', s.enabled && s.hideLocked);
   if (hideLockedBtn) {
     hideLockedBtn.setAttribute('aria-pressed', s.hideLocked ? 'true' : 'false');
-    hideLockedBtn.textContent = s.hideLocked ? 'Show locked' : 'Hide locked';
+    var hideLockedLabel = hideLockedBtn.querySelector('.draft-whatif-hide-locked-label');
+    if (hideLockedLabel) {
+      hideLockedLabel.textContent = s.hideLocked ? 'Show locked picks' : 'Hide locked picks';
+    }
   }
 
   if (s.enabled) {
     var n = s.swaps.length;
     if (counterEl) {
-      counterEl.textContent = n === 0 ? '' : (n === 1 ? '1 action active' : n + ' actions active');
+      counterEl.textContent = n === 0 ? '' : n + ' active';
     }
     if (undoBtn) undoBtn.disabled = (n === 0);
     if (resetBtn) resetBtn.disabled = (n === 0);
     maybeRunIntro();
   } else {
+    closeSettingsPanel();
     clearLockedTooltips();
     clearPreDraftTooltips();
     clearSelection();

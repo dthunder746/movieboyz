@@ -56,7 +56,8 @@ export function buildDraftPage(data, colorMap) {
           }).join('')
     +   '</div>'
     +   '<div class="draft-tab-nav-actions">'
-    +     '<button class="draft-whatif-pill" id="draft-whatif-pill" type="button" aria-pressed="false">'
+    +     '<button class="draft-whatif-pill" id="draft-whatif-pill" type="button" aria-pressed="false" aria-label="Toggle what-if mode">'
+    +       '<span class="draft-whatif-pill-icon" aria-hidden="true">⇄</span>'
     +       '<span class="draft-whatif-pill-label">what-if mode</span>'
     +     '</button>'
     +   '</div>'

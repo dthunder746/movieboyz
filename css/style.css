@@ -1209,8 +1209,16 @@ body { font-size: 0.9rem; }
   border-color: #d4a017;
   color: var(--bs-body-color);
 }
+.draft-whatif-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  line-height: 1;
+}
 @media (max-width: 540px) {
   .draft-whatif-pill-label { display: none; }
+  .draft-whatif-pill { padding: 0.3rem 0.55rem; }
 }
 
 .draft-whatif-banner {
@@ -1220,51 +1228,74 @@ body { font-size: 0.9rem; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.5rem;
   padding-left: 0.85rem;
-  padding-right: 0.85rem;
+  padding-right: 0.5rem;
   padding-top: 0;
   padding-bottom: 0;
   margin: 0 0 0 0;
   background: rgba(212, 160, 23, 0.8);
   border-left: 4px solid #d4a017;
   border-radius: 4px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   opacity: 0;
   max-height: 0;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
   transition: opacity 220ms ease, max-height 260ms ease, margin-bottom 260ms ease, padding-top 260ms ease, padding-bottom 260ms ease;
 }
 .draft-whatif-banner.is-shown {
   opacity: 1;
-  max-height: 6rem;
+  max-height: 4rem;
   margin-bottom: 0.75rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
   pointer-events: auto;
 }
 .draft-whatif-banner[hidden] { display: flex; }
-.draft-whatif-banner-info { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.draft-whatif-banner-icon { font-weight: bold; color: #8b2a1a; font-size: 1.05em; }
-.draft-whatif-banner-label { font-weight: 700; letter-spacing: 0.04em; color: var(--bs-body-color); }
-.draft-whatif-banner-counter { color: var(--bs-body-color); font-size: 0.9em; opacity: 0.8; }
-.draft-whatif-banner-actions { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+.draft-whatif-banner-info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow: hidden;
+}
+.draft-whatif-banner-label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--bs-body-color);
+  white-space: nowrap;
+}
+.draft-whatif-banner-counter {
+  color: var(--bs-body-color);
+  font-size: 0.9em;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+.draft-whatif-banner-actions {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  position: relative;
+}
 
 .draft-whatif-banner-actions .btn-whatif-secondary {
   background: rgba(73, 80, 87, 0.55);
   border-color: rgba(73, 80, 87, 0.55);
-  color: var(--bs-body-color);
+  color: #fff;
 }
 .draft-whatif-banner-actions .btn-whatif-secondary:hover {
   background: rgba(73, 80, 87, 0.8);
   border-color: rgba(73, 80, 87, 0.8);
-  color: var(--bs-body-color);
+  color: #fff;
 }
 .draft-whatif-banner-actions .btn-whatif-secondary:disabled {
   background: rgba(73, 80, 87, 0.25);
   border-color: transparent;
-  color: var(--bs-body-color);
+  color: #fff;
   opacity: 0.55;
 }
 .draft-whatif-banner-actions .btn-whatif-secondary[aria-pressed="true"] {
@@ -1272,33 +1303,14 @@ body { font-size: 0.9rem; }
   border-color: rgba(27, 27, 27, 0.65);
 }
 
-.draft-whatif-date-group {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: var(--bs-body-color);
-  font-size: 0.85rem;
-  margin: 0;
-}
-.draft-whatif-date-input {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 4px;
-  padding: 0.15rem 0.4rem;
-  font-size: 0.8rem;
-  color: #1b1b1b;
-  color-scheme: light;
-}
-
-.draft-whatif-banner-actions .draft-whatif-help-btn {
-  width: 1.8rem;
-  height: 1.8rem;
+.draft-whatif-banner-actions .draft-whatif-icon-btn {
+  width: 2rem;
+  height: 2rem;
   padding: 0;
-  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -1311,6 +1323,94 @@ body { font-size: 0.9rem; }
 .draft-whatif-banner-actions .btn-whatif-exit:hover {
   background: #d4a017;
   border-color: #d4a017;
+  color: var(--bs-body-color);
+}
+
+.draft-whatif-settings-panel {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  min-width: 14rem;
+  padding: 0.4rem;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid #d4a017;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.draft-whatif-settings-panel[hidden] { display: none; }
+
+.draft-whatif-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  color: var(--bs-body-color);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.draft-whatif-settings-divider {
+  height: 1px;
+  background: rgba(212, 160, 23, 0.25);
+  margin: 0.25rem 0;
+}
+.draft-whatif-settings-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--bs-body-color);
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+.draft-whatif-settings-item:hover:not(:disabled) {
+  background: rgba(212, 160, 23, 0.18);
+}
+.draft-whatif-settings-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.draft-whatif-settings-item[aria-pressed="true"] {
+  background: rgba(212, 160, 23, 0.25);
+}
+.draft-whatif-settings-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.draft-whatif-date-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.draft-whatif-date-label {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+.draft-whatif-date-input {
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.85rem;
   color: var(--bs-body-color);
 }
 
@@ -1402,8 +1502,11 @@ tr[data-swapped="1"] td:last-child { border-top-right-radius: 6px; border-bottom
 }
 
 @media (max-width: 540px) {
-  .draft-whatif-banner { flex-direction: column; align-items: stretch; }
-  .draft-whatif-banner-info { justify-content: flex-start; }
-  .draft-whatif-banner-actions { justify-content: flex-end; }
   .draft-tab-nav { flex-wrap: wrap; }
+  .draft-whatif-banner { padding-left: 0.6rem; padding-right: 0.35rem; }
+  .draft-whatif-banner-actions .btn-whatif-exit { padding-left: 0.55rem; padding-right: 0.55rem; }
+  .draft-whatif-settings-panel { min-width: 12.5rem; right: 0.25rem; }
+}
+@media (max-width: 380px) {
+  .draft-whatif-banner-label { display: none; }
 }
