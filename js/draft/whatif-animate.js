@@ -77,7 +77,7 @@ function applyColor(el, cls) {
 export function tweenNumber(el, from, to, ms, formatter, colorFor) {
   if (!el) return;
   if (from == null || to == null || from === to) {
-    if (colorFor) applyColor(el, colorFor(to == null ? from : to));
+    if (colorFor && to != null) applyColor(el, colorFor(to));
     return;
   }
   if (prefersReducedMotion()) {
