@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-18 05:47:28",
+  "fetched_at": "2026-05-18 10:47:54",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-05-17T21-47-18Z",
+  "last_processed_snapshot": "2026-05-18T02-47-44Z",
   "latest_date": "2026-05-16",
   "latest_profit_date": "2026-05-16",
   "movies": {
@@ -29430,6 +29430,27 @@
         }
       },
       "release_date": "2026-08-28",
+      "released_digital": null,
+      "season": "SUMMER",
+      "weekly_gross": {},
+      "year": 2026
+    },
+    "tt7734244": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {},
+      "daily_gross": {},
+      "days_running": null,
+      "draft_pick": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "The Magic Faraway Tree",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-08-21",
       "released_digital": null,
       "season": "SUMMER",
       "weekly_gross": {},
