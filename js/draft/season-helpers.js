@@ -7,7 +7,7 @@ function effectiveDraftSeason(m) {
 }
 
 export function picksForDraft(data, season) {
-  return Object.entries(data.movies)
+  var real = Object.entries(data.movies)
     .filter(function(entry) {
       var m = entry[1];
       if (m.draft_pick == null) return false;
@@ -17,8 +17,30 @@ export function picksForDraft(data, season) {
       var pick = Object.assign({}, entry[1]);
       pick.imdb_id = entry[0];
       return pick;
+    });
+  var ghosts = (data.ghostSlots || [])
+    .filter(function(g) {
+      var pt = (g.pick_type || '').toLowerCase();
+      var s = (pt === 'hit' || pt === 'bomb') ? 'WINTER' : g.season;
+      return s === season;
     })
-    .sort(function(a, b) { return a.draft_pick - b.draft_pick; });
+    .map(function(g) {
+      return {
+        imdb_id: null,
+        ghost: true,
+        owner: g.owner,
+        pick_type: g.pick_type,
+        draft_pick: g.draft_pick,
+        season: g.season,
+        movie_title: '',
+        release_date: null,
+        profit_td: null,
+        breakeven: null,
+        clearedImdbId: g.clearedImdbId,
+        clearedTitle: g.clearedTitle
+      };
+    });
+  return real.concat(ghosts).sort(function(a, b) { return a.draft_pick - b.draft_pick; });
 }
 
 function isSeasonalOrAlt(m) {
@@ -156,4 +178,52 @@ export function seasonFromIsoDate(iso) {
   if (month <= 4) return 'WINTER';
   if (month <= 8) return 'SUMMER';
   return 'FALL';
+}
+
+function todayIso() {
+  return new Date().toISOString().split('T')[0];
+}
+
+export function unpickedReleasedForDraft(data, season) {
+  var today = todayIso();
+  return Object.entries(data.movies)
+    .filter(function(entry) {
+      var m = entry[1];
+      if (m.season !== season) return false;
+      if (m.owner !== 'none') return false;
+      if (!m.release_date || m.release_date === 'TBA') return false;
+      if (m.release_date > today) return false;
+      return m.profit_td != null;
+    })
+    .map(function(entry) {
+      var movie = Object.assign({}, entry[1]);
+      movie.imdb_id = entry[0];
+      return movie;
+    })
+    .sort(function(a, b) { return b.profit_td - a.profit_td; });
+}
+
+export function unpickedUnreleasedForDraft(data, season) {
+  var today = todayIso();
+  return Object.entries(data.movies)
+    .filter(function(entry) {
+      var m = entry[1];
+      if (m.season !== season) return false;
+      if (m.owner !== 'none') return false;
+      if (!m.release_date || m.release_date === 'TBA') return true;
+      if (m.release_date > today) return true;
+      return m.profit_td == null;
+    })
+    .map(function(entry) {
+      var movie = Object.assign({}, entry[1]);
+      movie.imdb_id = entry[0];
+      return movie;
+    })
+    .sort(function(a, b) {
+      var ar = a.release_date || 'zzzz';
+      var br = b.release_date || 'zzzz';
+      if (ar === 'TBA') ar = 'zzzz';
+      if (br === 'TBA') br = 'zzzz';
+      return ar < br ? -1 : (ar > br ? 1 : 0);
+    });
 }

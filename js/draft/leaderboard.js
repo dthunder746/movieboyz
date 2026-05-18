@@ -1,5 +1,6 @@
 import { fmt, colorClass } from '../utils.js';
 import { leaderboardForDraft, picksForDraft } from './season-helpers.js';
+import { getAffectedImdbIds } from './whatif-store.js';
 
 function isSeasonalOrAlt(m) {
   var pt = (m.pick_type || '').toLowerCase();
@@ -12,17 +13,24 @@ function fmtSigned(v) {
   return (v > 0 ? '+' : '-') + fmt(Math.abs(v));
 }
 
-function pickRow(pick) {
+function pickRow(pick, affected) {
   if (!pick) {
     return '<div class="draft-lb-pick">'
       +    '<span class="draft-lb-pick-name text-neu">—</span>'
       +    '<span class="draft-lb-pick-profit text-neu">—</span>'
       +  '</div>';
   }
+  if (pick.ghost) {
+    return '<div class="draft-lb-pick draft-lb-pick-ghost">'
+      +    '<span class="draft-lb-pick-name text-neu">(cleared)</span>'
+      +    '<span class="draft-lb-pick-profit text-neu">—</span>'
+      +  '</div>';
+  }
   var profitHtml = pick.profit_td == null
     ? '<span class="text-neu">—</span>'
     : '<span class="' + colorClass(pick.profit_td) + '">' + fmtSigned(pick.profit_td) + '</span>';
-  return '<div class="draft-lb-pick" title="' + pick.movie_title.replace(/"/g, '&quot;') + '">'
+  var swappedAttr = (affected && affected[pick.imdb_id]) ? ' data-swapped="1"' : '';
+  return '<div class="draft-lb-pick"' + swappedAttr + ' title="' + pick.movie_title.replace(/"/g, '&quot;') + '">'
     +    '<span class="draft-lb-pick-name">' + pick.movie_title + '</span>'
     +    '<span class="draft-lb-pick-profit">' + profitHtml + '</span>'
     +  '</div>';
@@ -38,9 +46,12 @@ export function buildLeaderboard(data, season, colorMap, mountEl) {
   }
 
   var rows = leaderboardForDraft(data, season);
+  var affected = getAffectedImdbIds();
   var cards = rows.map(function(r, i) {
     var totalHtml = '<span class="' + colorClass(r.total) + '">' + fmt(r.total) + '</span>';
-    return '<div class="draft-lb-card">'
+    var hasSwap = r.picks.some(function(p) { return p && affected[p.imdb_id]; });
+    var changedAttr = hasSwap ? ' data-changed="1"' : '';
+    return '<div class="draft-lb-card" data-owner="' + r.owner + '"' + changedAttr + '>'
       +    '<div class="draft-lb-head">'
       +      '<span class="draft-lb-owner">'
       +        '<span class="owner-dot" style="background:' + (colorMap[r.owner] || '#ccc') + '"></span>'
@@ -50,9 +61,9 @@ export function buildLeaderboard(data, season, colorMap, mountEl) {
       +    '</div>'
       +    '<div class="draft-lb-total">' + totalHtml + '</div>'
       +    '<div class="draft-lb-picks">'
-      +      pickRow(r.picks[0])
-      +      pickRow(r.picks[1])
-      +      pickRow(r.picks[2])
+      +      pickRow(r.picks[0], affected)
+      +      pickRow(r.picks[1], affected)
+      +      pickRow(r.picks[2], affected)
       +    '</div>'
       +  '</div>';
   }).join('');
