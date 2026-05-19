@@ -148,6 +148,7 @@ function syncFromState() {
     if (resetBtn) resetBtn.disabled = (n === 0);
     maybeRunIntro();
   } else {
+    cancelIntro();
     closeSettingsPanel();
     clearLockedTooltips();
     clearPreDraftTooltips();
@@ -182,6 +183,11 @@ function clearSelectionUI() {
   document.querySelectorAll('.draft-row-candidate').forEach(function(el) {
     el.classList.remove('draft-row-candidate');
   });
+}
+
+function dispatchSelectionChanged() {
+  if (!appEl) return;
+  appEl.dispatchEvent(new CustomEvent('whatif:selection-changed', { detail: { selected: selected } }));
 }
 
 function paintCandidates() {
@@ -229,17 +235,20 @@ function setSelectionFromRow(row) {
   }
   clearSelectionUI();
   paintCandidates();
+  dispatchSelectionChanged();
 }
 
 function setSelection(kind, imdbId) {
   selected = { kind: kind, imdbId: imdbId };
   clearSelectionUI();
   paintCandidates();
+  dispatchSelectionChanged();
 }
 
 function clearSelection() {
   selected = null;
   clearSelectionUI();
+  dispatchSelectionChanged();
 }
 
 function rowFromEvent(e) {
@@ -466,7 +475,18 @@ export function refreshPreDraftTooltips() {
   });
 }
 
+// === Intro (first-time guided tour) ===
 var INTRO_KEY = 'mb_whatif_seen_intro';
+
+var currentIntroStep = 0;            // 0 = idle, 1..4 = step number
+var currentIntroPopover = null;
+var currentIntroDocClick = null;
+var currentIntroSelectionHandler = null;
+var currentIntroStoreUnsub = null;
+var currentIntroBaselineSwapCount = 0;
+var currentStep4Anchor = null;
+var currentIntroSettingsBtn = null;
+var currentIntroSettingsHandler = null;
 
 function reducedMotion() {
   return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -477,64 +497,345 @@ function scrollAnchorIntoView(el) {
   el.scrollIntoView({ block: 'center', behavior: reducedMotion() ? 'auto' : 'smooth' });
 }
 
-function showStep(anchor, title, body, onDismiss) {
-  if (!anchor || !window.bootstrap || !window.bootstrap.Popover) { onDismiss(); return; }
+function clearIntroPulses() {
+  document.querySelectorAll('.draft-row-intro-pulse').forEach(function(el) {
+    el.classList.remove('draft-row-intro-pulse');
+  });
+  document.querySelectorAll('.draft-intro-pulse-btn').forEach(function(el) {
+    el.classList.remove('draft-intro-pulse-btn');
+  });
+}
+
+function applyStep2Pulses() {
+  document.querySelectorAll('#draft-picks tbody tr.draft-row-swappable:not(.draft-row-ghost):not(.draft-row-pre-draft)').forEach(function(tr) {
+    tr.classList.add('draft-row-intro-pulse');
+  });
+  document.querySelectorAll('#draft-unpicked tbody tr[data-kind="candidate"]:not(.draft-row-pre-draft)').forEach(function(tr) {
+    tr.classList.add('draft-row-intro-pulse');
+  });
+}
+
+function applyStep3Pulses() {
+  document.querySelectorAll('.draft-row-candidate').forEach(function(tr) {
+    tr.classList.add('draft-row-intro-pulse');
+  });
+}
+
+function disposeCurrentPopover() {
+  if (currentIntroPopover) {
+    try { currentIntroPopover.dispose(); } catch (e) {}
+    currentIntroPopover = null;
+  }
+  if (currentIntroDocClick) {
+    document.removeEventListener('click', currentIntroDocClick, true);
+    currentIntroDocClick = null;
+  }
+}
+
+function teardownStepHandlers() {
+  if (currentIntroSelectionHandler && appEl) {
+    appEl.removeEventListener('whatif:selection-changed', currentIntroSelectionHandler);
+    currentIntroSelectionHandler = null;
+  }
+  if (currentIntroStoreUnsub) {
+    try { currentIntroStoreUnsub(); } catch (e) {}
+    currentIntroStoreUnsub = null;
+  }
+  if (currentIntroSettingsBtn && currentIntroSettingsHandler) {
+    currentIntroSettingsBtn.removeEventListener('click', currentIntroSettingsHandler, true);
+    currentIntroSettingsBtn = null;
+    currentIntroSettingsHandler = null;
+  }
+}
+
+export function cancelIntro() {
+  if (currentIntroStep === 0) return;
+  disposeCurrentPopover();
+  teardownStepHandlers();
+  clearIntroPulses();
+  if (currentStep4Anchor) {
+    currentStep4Anchor.classList.remove('draft-intro-pulse-btn');
+    currentStep4Anchor = null;
+  }
+  if (currentIntroStep === 5) closeSettingsPanel();
+  currentIntroStep = 0;
+}
+
+function finishIntro() {
+  disposeCurrentPopover();
+  teardownStepHandlers();
+  clearIntroPulses();
+  if (currentStep4Anchor) {
+    currentStep4Anchor.classList.remove('draft-intro-pulse-btn');
+    currentStep4Anchor = null;
+  }
+  closeSettingsPanel();
+  currentIntroStep = 0;
+  try { localStorage.setItem(INTRO_KEY, '1'); } catch (e) {}
+}
+
+function skipIntro() {
+  finishIntro();
+}
+
+// showStep — options-object signature.
+// opts: { anchor, title, body, skip, gotIt, gotItLabel, onSkip, onAdvance, placement, step, total }
+function showStep(opts) {
+  var anchor = opts.anchor;
+  if (!anchor || !window.bootstrap || !window.bootstrap.Popover) {
+    // Bootstrap missing or no anchor — silently complete the intro.
+    finishIntro();
+    return;
+  }
   scrollAnchorIntoView(anchor);
   setTimeout(function() {
-    var content = '<div class="draft-whatif-popover-body">' + body
-      + '<div class="text-end mt-2"><button class="btn btn-sm btn-warning draft-whatif-gotit" type="button">Got it</button></div></div>';
+    var footerHtml = '<div class="draft-whatif-popover-footer">';
+    footerHtml += opts.skip
+      ? '<button class="draft-whatif-skip btn btn-sm btn-link" type="button">Skip intro</button>'
+      : '<span></span>';
+    footerHtml += opts.gotIt
+      ? '<button class="draft-whatif-gotit btn btn-sm btn-warning" type="button">' + (opts.gotItLabel || 'Got it') + '</button>'
+      : '<span></span>';
+    footerHtml += '</div>';
+
+    var content = '<div class="draft-whatif-popover-body"><p class="mb-0">'
+      + opts.body + '</p>' + footerHtml + '</div>';
+
+    var titleHtml = (opts.step && opts.total)
+      ? '<span class="draft-whatif-step-counter">Step ' + opts.step + ' of ' + opts.total + '</span>'
+        + '<span class="draft-whatif-step-title">' + opts.title + '</span>'
+      : opts.title;
+
     var pop = new window.bootstrap.Popover(anchor, {
-      title: title,
+      title: titleHtml,
       content: content,
       html: true,
       trigger: 'manual',
-      placement: 'auto',
-      sanitize: false
+      placement: opts.placement || 'auto',
+      sanitize: false,
+      customClass: 'draft-whatif-popover'
     });
     pop.show();
+    currentIntroPopover = pop;
+
     function onClick(e) {
       if (e.target.classList.contains('draft-whatif-gotit')) {
-        pop.dispose();
-        document.removeEventListener('click', onClick, true);
-        onDismiss();
-      } else if (!anchor.contains(e.target) && !e.target.closest('.popover')) {
-        pop.dispose();
-        document.removeEventListener('click', onClick, true);
-        onDismiss();
+        if (opts.onAdvance) opts.onAdvance();
+      } else if (e.target.classList.contains('draft-whatif-skip')) {
+        if (opts.onSkip) opts.onSkip();
       }
+      // Outside clicks (anywhere else) do not dismiss during the guided flow.
     }
+    currentIntroDocClick = onClick;
     setTimeout(function() { document.addEventListener('click', onClick, true); }, 50);
   }, reducedMotion() ? 0 : 350);
 }
 
-function runIntroSequence(onComplete) {
-  var step1Anchor = document.getElementById('draft-whatif-banner');
-  var step2Anchor = document.querySelector('#draft-picks tr.draft-row-swappable');
-  var step3Anchor = document.querySelector('#draft-unpicked .draft-unpicked-released');
-  showStep(step1Anchor,
-    'What-if mode',
-    "You're in what-if mode. Numbers and standings will update as you swap picks. Toggle off any time.",
-    function() {
-      showStep(step2Anchor,
-        'Start a swap',
-        'Click any drafted pick (seasonal or alt) or an unpicked movie to start a swap.',
-        function() {
-          showStep(step3Anchor,
-            'Pick a target',
-            'Then click a target. Both Released and Unreleased movies are valid swap targets.',
-            onComplete);
-        });
+function startStep1() {
+  currentIntroStep = 1;
+  var anchor = document.getElementById('draft-whatif-banner');
+  showStep({
+    anchor: anchor,
+    title: 'What-if mode',
+    body: 'Numbers and standings update as you swap picks. Toggle off any time.',
+    skip: true,
+    gotIt: true,
+    placement: 'bottom',
+    step: 1,
+    total: 5,
+    onAdvance: function() { disposeCurrentPopover(); startStep2(); },
+    onSkip: skipIntro
+  });
+}
+
+function startStep2() {
+  currentIntroStep = 2;
+  applyStep2Pulses();
+
+  var anchor = document.querySelector('#draft-picks tbody tr.draft-row-swappable:not(.draft-row-ghost):not(.draft-row-pre-draft)')
+            || document.querySelector('#draft-unpicked tbody tr[data-kind="candidate"]:not(.draft-row-pre-draft)');
+
+  if (!anchor) { finishIntro(); return; }
+
+  function handleSelection(e) {
+    if (!e.detail || !e.detail.selected) return;
+    appEl.removeEventListener('whatif:selection-changed', handleSelection);
+    currentIntroSelectionHandler = null;
+    disposeCurrentPopover();
+    clearIntroPulses();
+    startStep3();
+  }
+  currentIntroSelectionHandler = handleSelection;
+  appEl.addEventListener('whatif:selection-changed', handleSelection);
+
+  showStep({
+    anchor: anchor,
+    title: 'Try a swap',
+    body: 'Click any of the highlighted picks to start a swap.',
+    skip: true,
+    gotIt: false,
+    step: 2,
+    total: 5,
+    onSkip: skipIntro
+  });
+}
+
+function startStep3() {
+  currentIntroStep = 3;
+  currentIntroBaselineSwapCount = store.getState().swaps.length;
+
+  function showStep3Popover() {
+    applyStep3Pulses();
+    var anchor = document.querySelector('tr.draft-row-candidate');
+    if (!anchor) return; // no candidates rendered — wait for next selection
+    showStep({
+      anchor: anchor,
+      title: 'Pick a target',
+      body: 'Now pick a target — any highlighted row works.',
+      skip: true,
+      gotIt: false,
+      step: 3,
+      total: 5,
+      onSkip: skipIntro
     });
+  }
+
+  function handleSelection(e) {
+    // Selection changed during step 3: the anchored candidate row may be gone.
+    // Dispose, then re-show if there's a new selection (candidates re-painted).
+    disposeCurrentPopover();
+    clearIntroPulses();
+    if (e.detail && e.detail.selected) {
+      showStep3Popover();
+    }
+    // If selection is null, leave popover hidden until user re-selects.
+  }
+  currentIntroSelectionHandler = handleSelection;
+  appEl.addEventListener('whatif:selection-changed', handleSelection);
+
+  function handleStore() {
+    var s = store.getState();
+    var op = store.getLastOp();
+    if ((op === 'swap' || op === 'fill') && s.swaps.length > currentIntroBaselineSwapCount) {
+      teardownStepHandlers();
+      disposeCurrentPopover();
+      clearIntroPulses();
+      // page.js's store subscriber re-renders picks/unpicked synchronously after us;
+      // defer step 4 to the next tick so the post-swap DOM is in place.
+      setTimeout(startStep4, 0);
+    }
+  }
+  currentIntroStoreUnsub = store.subscribe(handleStore);
+
+  showStep3Popover();
+}
+
+function startStep4() {
+  currentIntroStep = 4;
+  // If the user already opened the settings panel during an earlier step, skip the prompt.
+  if (settingsPanelEl && !settingsPanelEl.hidden) {
+    startStep5();
+    return;
+  }
+  var anchor = document.getElementById('draft-whatif-settings');
+  if (!anchor) { finishIntro(); return; }
+  currentStep4Anchor = anchor;
+  anchor.classList.add('draft-intro-pulse-btn');
+
+  function onSettingsClick() {
+    anchor.removeEventListener('click', onSettingsClick, true);
+    currentIntroSettingsBtn = null;
+    currentIntroSettingsHandler = null;
+    anchor.classList.remove('draft-intro-pulse-btn');
+    currentStep4Anchor = null;
+    disposeCurrentPopover();
+    // The settings button's own bubble-phase handler opens the panel on this same click;
+    // defer step 5 so the Undo button is visible before we anchor on it.
+    setTimeout(startStep5, 0);
+  }
+  currentIntroSettingsBtn = anchor;
+  currentIntroSettingsHandler = onSettingsClick;
+  anchor.addEventListener('click', onSettingsClick, true);
+
+  showStep({
+    anchor: anchor,
+    title: 'Find Undo and Reset',
+    body: 'Open the settings menu to recover any swap.',
+    skip: false,
+    gotIt: false,
+    placement: 'left',
+    step: 4,
+    total: 5
+  });
+}
+
+function startStep5() {
+  currentIntroStep = 5;
+  var anchor = document.getElementById('draft-whatif-undo');
+  if (!anchor) { finishIntro(); return; }
+  currentStep4Anchor = anchor;
+  anchor.classList.add('draft-intro-pulse-btn');
+
+  function handleStore() {
+    var op = store.getLastOp();
+    if (op === 'undo' || op === 'reset') {
+      teardownStepHandlers();
+      disposeCurrentPopover();
+      if (currentStep4Anchor) {
+        currentStep4Anchor.classList.remove('draft-intro-pulse-btn');
+        currentStep4Anchor = null;
+      }
+      // The undo/reset click handler also calls closeSettingsPanel() right after store.undo();
+      // defer so the panel close runs before we re-anchor on the gear.
+      setTimeout(startClosure, 0);
+    }
+  }
+  currentIntroStoreUnsub = store.subscribe(handleStore);
+
+  showStep({
+    anchor: anchor,
+    title: 'Recover any time',
+    body: 'Undo reverts this swap. Reset clears them all.',
+    skip: false,
+    gotIt: true,
+    placement: 'left',
+    step: 5,
+    total: 5,
+    onAdvance: finishIntro
+  });
+}
+
+function startClosure() {
+  currentIntroStep = 6;
+  var anchor = document.getElementById('draft-whatif-settings');
+  if (!anchor) { finishIntro(); return; }
+  showStep({
+    anchor: anchor,
+    title: "You're all set",
+    body: "That's the tour. Happy swapping.",
+    skip: false,
+    gotIt: true,
+    gotItLabel: 'Done',
+    placement: 'left',
+    onAdvance: finishIntro
+  });
+}
+
+function runIntroSequence() {
+  if (currentIntroStep !== 0) cancelIntro();
+  startStep1();
 }
 
 function maybeRunIntro() {
   var seen = false;
   try { seen = localStorage.getItem(INTRO_KEY) === '1'; } catch (e) {}
   if (seen) return;
-  runIntroSequence(function() {
-    try { localStorage.setItem(INTRO_KEY, '1'); } catch (e) {}
-  });
+  if (currentIntroStep !== 0) return; // already running
+  runIntroSequence();
 }
 
-window.__whatifReplayIntro = function() { runIntroSequence(function() {}); };
+window.__whatifReplayIntro = function() {
+  // Replay always runs, regardless of the localStorage flag.
+  runIntroSequence();
+};
 
