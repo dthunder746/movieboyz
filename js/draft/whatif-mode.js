@@ -148,6 +148,7 @@ function syncFromState() {
     if (resetBtn) resetBtn.disabled = (n === 0);
     maybeRunIntro();
   } else {
+    cancelIntro();
     closeSettingsPanel();
     clearLockedTooltips();
     clearPreDraftTooltips();

@@ -10,7 +10,8 @@ import {
   clearSelectionOnTabChange,
   refreshLockedTooltips,
   refreshPreDraftTooltips,
-  updateBannerForSeason
+  updateBannerForSeason,
+  cancelIntro
 } from './whatif-mode.js';
 import * as whatifStore from './whatif-store.js';
 import {
@@ -132,6 +133,7 @@ export function buildDraftPage(data, colorMap) {
       b.classList.toggle('active', b.dataset.season === s);
     });
     writeCookie(s);
+    cancelIntro();
     render(s);
     clearSelectionOnTabChange();
   });
