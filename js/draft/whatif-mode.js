@@ -184,6 +184,11 @@ function clearSelectionUI() {
   });
 }
 
+function dispatchSelectionChanged() {
+  if (!appEl) return;
+  appEl.dispatchEvent(new CustomEvent('whatif:selection-changed', { detail: { selected: selected } }));
+}
+
 function paintCandidates() {
   if (!selected) return;
   if (selected.kind === 'slot-ghost') {
@@ -229,17 +234,20 @@ function setSelectionFromRow(row) {
   }
   clearSelectionUI();
   paintCandidates();
+  dispatchSelectionChanged();
 }
 
 function setSelection(kind, imdbId) {
   selected = { kind: kind, imdbId: imdbId };
   clearSelectionUI();
   paintCandidates();
+  dispatchSelectionChanged();
 }
 
 function clearSelection() {
   selected = null;
   clearSelectionUI();
+  dispatchSelectionChanged();
 }
 
 function rowFromEvent(e) {
