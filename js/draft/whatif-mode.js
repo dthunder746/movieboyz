@@ -485,6 +485,8 @@ var currentIntroSelectionHandler = null;
 var currentIntroStoreUnsub = null;
 var currentIntroBaselineSwapCount = 0;
 var currentStep4Anchor = null;
+var currentIntroSettingsBtn = null;
+var currentIntroSettingsHandler = null;
 
 function reducedMotion() {
   return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -539,6 +541,11 @@ function teardownStepHandlers() {
     try { currentIntroStoreUnsub(); } catch (e) {}
     currentIntroStoreUnsub = null;
   }
+  if (currentIntroSettingsBtn && currentIntroSettingsHandler) {
+    currentIntroSettingsBtn.removeEventListener('click', currentIntroSettingsHandler, true);
+    currentIntroSettingsBtn = null;
+    currentIntroSettingsHandler = null;
+  }
 }
 
 export function cancelIntro() {
@@ -550,7 +557,7 @@ export function cancelIntro() {
     currentStep4Anchor.classList.remove('draft-intro-pulse-btn');
     currentStep4Anchor = null;
   }
-  if (currentIntroStep === 4) closeSettingsPanel();
+  if (currentIntroStep === 5) closeSettingsPanel();
   currentIntroStep = 0;
 }
 
@@ -572,7 +579,7 @@ function skipIntro() {
 }
 
 // showStep — options-object signature.
-// opts: { anchor, title, body, skip, gotIt, onSkip, onAdvance, placement }
+// opts: { anchor, title, body, skip, gotIt, gotItLabel, onSkip, onAdvance, placement, step, total }
 function showStep(opts) {
   var anchor = opts.anchor;
   if (!anchor || !window.bootstrap || !window.bootstrap.Popover) {
@@ -587,20 +594,26 @@ function showStep(opts) {
       ? '<button class="draft-whatif-skip btn btn-sm btn-link" type="button">Skip intro</button>'
       : '<span></span>';
     footerHtml += opts.gotIt
-      ? '<button class="draft-whatif-gotit btn btn-sm btn-warning" type="button">Got it</button>'
+      ? '<button class="draft-whatif-gotit btn btn-sm btn-warning" type="button">' + (opts.gotItLabel || 'Got it') + '</button>'
       : '<span></span>';
     footerHtml += '</div>';
 
     var content = '<div class="draft-whatif-popover-body"><p class="mb-0">'
       + opts.body + '</p>' + footerHtml + '</div>';
 
+    var titleHtml = (opts.step && opts.total)
+      ? '<span class="draft-whatif-step-counter">Step ' + opts.step + ' of ' + opts.total + '</span>'
+        + '<span class="draft-whatif-step-title">' + opts.title + '</span>'
+      : opts.title;
+
     var pop = new window.bootstrap.Popover(anchor, {
-      title: opts.title,
+      title: titleHtml,
       content: content,
       html: true,
       trigger: 'manual',
       placement: opts.placement || 'auto',
-      sanitize: false
+      sanitize: false,
+      customClass: 'draft-whatif-popover'
     });
     pop.show();
     currentIntroPopover = pop;
@@ -628,6 +641,8 @@ function startStep1() {
     skip: true,
     gotIt: true,
     placement: 'bottom',
+    step: 1,
+    total: 5,
     onAdvance: function() { disposeCurrentPopover(); startStep2(); },
     onSkip: skipIntro
   });
@@ -659,6 +674,8 @@ function startStep2() {
     body: 'Click any of the highlighted picks to start a swap.',
     skip: true,
     gotIt: false,
+    step: 2,
+    total: 5,
     onSkip: skipIntro
   });
 }
@@ -677,6 +694,8 @@ function startStep3() {
       body: 'Now pick a target — any highlighted row works.',
       skip: true,
       gotIt: false,
+      step: 3,
+      total: 5,
       onSkip: skipIntro
     });
   }
@@ -702,7 +721,7 @@ function startStep3() {
       disposeCurrentPopover();
       clearIntroPulses();
       // page.js's store subscriber re-renders picks/unpicked synchronously after us;
-      // defer step 4 to the next tick so the banner's undo button is in its post-render state.
+      // defer step 4 to the next tick so the post-swap DOM is in place.
       setTimeout(startStep4, 0);
     }
   }
@@ -713,17 +732,90 @@ function startStep3() {
 
 function startStep4() {
   currentIntroStep = 4;
-  openSettingsPanel();
+  // If the user already opened the settings panel during an earlier step, skip the prompt.
+  if (settingsPanelEl && !settingsPanelEl.hidden) {
+    startStep5();
+    return;
+  }
+  var anchor = document.getElementById('draft-whatif-settings');
+  if (!anchor) { finishIntro(); return; }
+  currentStep4Anchor = anchor;
+  anchor.classList.add('draft-intro-pulse-btn');
+
+  function onSettingsClick() {
+    anchor.removeEventListener('click', onSettingsClick, true);
+    currentIntroSettingsBtn = null;
+    currentIntroSettingsHandler = null;
+    anchor.classList.remove('draft-intro-pulse-btn');
+    currentStep4Anchor = null;
+    disposeCurrentPopover();
+    // The settings button's own bubble-phase handler opens the panel on this same click;
+    // defer step 5 so the Undo button is visible before we anchor on it.
+    setTimeout(startStep5, 0);
+  }
+  currentIntroSettingsBtn = anchor;
+  currentIntroSettingsHandler = onSettingsClick;
+  anchor.addEventListener('click', onSettingsClick, true);
+
+  showStep({
+    anchor: anchor,
+    title: 'Find Undo and Reset',
+    body: 'Open the settings menu to recover any swap.',
+    skip: false,
+    gotIt: false,
+    placement: 'left',
+    step: 4,
+    total: 5
+  });
+}
+
+function startStep5() {
+  currentIntroStep = 5;
   var anchor = document.getElementById('draft-whatif-undo');
   if (!anchor) { finishIntro(); return; }
   currentStep4Anchor = anchor;
   anchor.classList.add('draft-intro-pulse-btn');
+
+  function handleStore() {
+    var op = store.getLastOp();
+    if (op === 'undo' || op === 'reset') {
+      teardownStepHandlers();
+      disposeCurrentPopover();
+      if (currentStep4Anchor) {
+        currentStep4Anchor.classList.remove('draft-intro-pulse-btn');
+        currentStep4Anchor = null;
+      }
+      // The undo/reset click handler also calls closeSettingsPanel() right after store.undo();
+      // defer so the panel close runs before we re-anchor on the gear.
+      setTimeout(startClosure, 0);
+    }
+  }
+  currentIntroStoreUnsub = store.subscribe(handleStore);
+
   showStep({
     anchor: anchor,
     title: 'Recover any time',
     body: 'Undo reverts this swap. Reset clears them all.',
     skip: false,
     gotIt: true,
+    placement: 'left',
+    step: 5,
+    total: 5,
+    onAdvance: finishIntro
+  });
+}
+
+function startClosure() {
+  currentIntroStep = 6;
+  var anchor = document.getElementById('draft-whatif-settings');
+  if (!anchor) { finishIntro(); return; }
+  showStep({
+    anchor: anchor,
+    title: "You're all set",
+    body: "That's the tour. Happy swapping.",
+    skip: false,
+    gotIt: true,
+    gotItLabel: 'Done',
     placement: 'left',
     onAdvance: finishIntro
   });

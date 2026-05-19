@@ -1491,12 +1491,30 @@ tr[data-swapped="1"] td:last-child { border-top-right-radius: 6px; border-bottom
   0% { box-shadow: inset 0 0 0 2px rgba(212, 160, 23, 0.85); }
   100% { box-shadow: inset 0 0 0 2px rgba(212, 160, 23, 0); }
 }
-@keyframes draftIntroPulse {
-  0%, 100% { box-shadow: inset 0 0 0 2px rgba(212, 160, 23, 0.45); }
-  50%      { box-shadow: inset 0 0 0 2px rgba(212, 160, 23, 1); }
+@keyframes draftIntroPulseTd {
+  0%, 100% { box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 0.55), inset 0 -1px 0 0 rgba(212, 160, 23, 0.55); }
+  50%      { box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 1),    inset 0 -1px 0 0 rgba(212, 160, 23, 1); }
+}
+@keyframes draftIntroPulseTdFirst {
+  0%, 100% { box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 0.55), inset 0 -1px 0 0 rgba(212, 160, 23, 0.55), inset 1px 0 0 0 rgba(212, 160, 23, 0.55); }
+  50%      { box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 1),    inset 0 -1px 0 0 rgba(212, 160, 23, 1),    inset 1px 0 0 0 rgba(212, 160, 23, 1); }
+}
+@keyframes draftIntroPulseTdLast {
+  0%, 100% { box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 0.55), inset 0 -1px 0 0 rgba(212, 160, 23, 0.55), inset -1px 0 0 0 rgba(212, 160, 23, 0.55); }
+  50%      { box-shadow: inset 0 1px 0 0 rgba(212, 160, 23, 1),    inset 0 -1px 0 0 rgba(212, 160, 23, 1),    inset -1px 0 0 0 rgba(212, 160, 23, 1); }
 }
 .draft-row-intro-pulse td {
-  animation: draftIntroPulse 1.6s ease-in-out infinite;
+  animation: draftIntroPulseTd 1.6s ease-in-out infinite;
+}
+.draft-row-intro-pulse td:first-child {
+  animation-name: draftIntroPulseTdFirst;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.draft-row-intro-pulse td:last-child {
+  animation-name: draftIntroPulseTdLast;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 @keyframes draftIntroPulseBtn {
   0%, 100% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0.55); }
@@ -1515,6 +1533,34 @@ tr[data-swapped="1"] td:last-child { border-top-right-radius: 6px; border-bottom
 }
 .draft-whatif-popover-footer .draft-whatif-skip {
   padding: 0;
+}
+.popover.draft-whatif-popover {
+  --bs-popover-border-color: rgba(212, 160, 23, 0.45);
+  box-shadow: 0 4px 16px rgba(212, 160, 23, 0.15), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+.popover.draft-whatif-popover .draft-whatif-skip {
+  color: rgba(var(--bs-body-color-rgb), 0.55);
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--bs-body-color-rgb), 0.25);
+  text-underline-offset: 2px;
+  font-size: 0.85rem;
+}
+.popover.draft-whatif-popover .draft-whatif-skip:hover,
+.popover.draft-whatif-popover .draft-whatif-skip:focus {
+  color: rgba(var(--bs-body-color-rgb), 0.9);
+  text-decoration-color: currentColor;
+}
+.draft-whatif-step-counter {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(212, 160, 23, 0.85);
+  margin-bottom: 0.15rem;
+}
+.draft-whatif-step-title {
+  display: block;
 }
 .draft-flash-pos { animation: draftFlashPos 1200ms ease-out 1; }
 .draft-flash-neg { animation: draftFlashNeg 1200ms ease-out 1; }
