@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-24 05:59:50",
+  "fetched_at": "2026-05-24 08:00:03",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-05-23T21-59-40Z",
+  "last_processed_snapshot": "2026-05-23T23-59-52Z",
   "latest_date": "2026-05-22",
   "latest_profit_date": "2026-05-22",
   "movies": {
@@ -14758,9 +14758,9 @@
           "votes": null
         }
       },
-      "release_date": "2026-08-07",
+      "release_date": "2026-09-02",
       "released_digital": null,
-      "season": "SUMMER",
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
