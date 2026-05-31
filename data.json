@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-31 05:40:21",
+  "fetched_at": "2026-05-31 14:41:09",
   "game_config": {
     "bomb_mode": "split",
     "breakeven_multiplier": 2,
@@ -7,7 +7,7 @@
     "num_players": 5,
     "year": 2026
   },
-  "last_processed_snapshot": "2026-05-30T21-40-11Z",
+  "last_processed_snapshot": "2026-05-31T06-40-58Z",
   "latest_date": "2026-05-29",
   "latest_profit_date": "2026-05-29",
   "movies": {
@@ -18764,6 +18764,27 @@
       "release_date": "2026-06-05",
       "released_digital": null,
       "season": "SUMMER",
+      "weekly_gross": {},
+      "year": 2026
+    },
+    "tt32268691": {
+      "breakeven": null,
+      "budget": 0,
+      "daily_change": {},
+      "daily_gross": {},
+      "days_running": null,
+      "draft_pick": null,
+      "estimated_budget": false,
+      "gross_td": null,
+      "movie_title": "Onslaught",
+      "owner": "none",
+      "pick_type": null,
+      "profit": {},
+      "profit_td": null,
+      "ratings": null,
+      "release_date": "2026-09-04",
+      "released_digital": null,
+      "season": "FALL",
       "weekly_gross": {},
       "year": 2026
     },
